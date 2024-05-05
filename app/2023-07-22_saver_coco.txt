@@ -1,0 +1,201 @@
+CO41*07/22/2023 00:00:15*PAR:**0747236765*Bia Irie Bi Tizie*louis Kessel*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi yves
+CO41*07/22/2023 00:01:32*PAR:**0747236765*Kouakou*Junior Yannick*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi yves
+CO41*07/22/2023 00:03:01*PAR:**0747236765*Coulibaly*Nawa Charles Pascal*Oui*néant*null*00/00/00*LV-041-14*cocody*neant*neant*Behi  yves
+CO41*07/22/2023 00:04:29*PAR:**0747236765*N'cho*Carlos Fabrice*Oui*neant*null*00/00/00*LV-041-14*cocody*neant*néant*Behi yves
+CO41*07/22/2023 00:05:45*PAR:**0747236765*Dadikran*Chris Armel*Oui*neant*null*00/00/00*LV-041-14*cocody*neant*néant*Behi yves
+CO41*07/22/2023 00:08:13*PAR:**0747236765*Dioko Bozehi*Aristide Dorgelès*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*neant*Behi Yves
+CO41*07/22/2023 00:09:26*PAR:**0747236765*Garba*Abdoul Karim*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*neant*Behi Yves
+CO41*07/22/2023 00:10:52*PAR:**0747236765*Oura koffi*Eddie Wilfried*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 06:32:16*PAR:**0747236765*Touré*Ibrahim junior*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi yves
+CO41*07/22/2023 06:33:40*PAR:**0747236765*Koné*Mawa*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 06:34:41*PAR:**0747236765*Sanogo*Lica*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*neant*Behi yves
+CO41*07/22/2023 06:35:50*PAR:**0747236765*Coulibaly*Anne Laetitia*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 06:37:08*PAR:**0747236765*Soro*Yacouba*Oui*néant*null*00/00/00*LV-041-14*cocody*neant*néant*Behi yves
+CO41*07/22/2023 06:38:41*PAR:**0747236765*Acka Tano*Marie -Christine*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 06:40:13*PAR:**0747236765*Douayoua*Katherine*Oui*néant*null*00/00/00*LV-041-14*cocody*neant*néant*Behi yves
+CO41*07/22/2023 06:41:41*PAR:**0747236765*Zion*Zenedine Dorgelès*Oui*neant*null*00/00/00*null*cocody*néant*néant*Behi yves
+CO41*07/22/2023 06:43:27*PAR:**0747236765*Koyabi*Segnost*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi yves
+CO41*07/22/2023 06:44:47*PAR:**0747236765*Kouman*Roland*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 06:46:19*PAR:**0747236765*Niamien*Yiffé*Oui*néant*null*00/00/00*LV-041-14*néant*néant*neant*Behi yves
+CO41*07/22/2023 06:49:28*PAR:**0747236765*Touré*Lagazane*Oui*néant*null*00/00/00*LV-041-14*cocody*neant*néant*Behi Yves
+CO41*07/22/2023 06:50:37*PAR:**0747236765*Brito*Roland*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 06:51:50*PAR:**0747236765*Ablé*Pharene*Oui*neant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 06:53:13*PAR:**0747236765*Coulibaly*Massirima*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*neant*Behi yves
+CO41*07/22/2023 06:54:52*PAR:**0747236765*Barryl*Bassey*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 06:56:22*PAR:**0747236765*Aka*Emmanuel Aimé*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*neant*Behi Yves
+CO41*07/22/2023 06:57:56*PAR:**0747236765*Epkalé Assoumou*Franck*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 06:59:07*PAR:**0747236765*Djah*Isabelle*Oui*neant*null*00/00/00*LV-041-14*cocody*néant*neant*Behi Yves
+CO41*07/22/2023 07:00:55*PAR:**0747236765*Guessend*Valérie*Oui*néant*null*00/00/00*LV-041-14*cocody*neant*néant*Behi Yves
+CO41*07/22/2023 07:02:11*PAR:**0747236765*Ndri*Aude*Oui*néant*null*00/00/00*LV-041-14*cocody*neant*neant*Behi Yves
+CO41*07/22/2023 07:03:21*PAR:**0747236765*Akré*Japhet*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi yves
+CO41*07/22/2023 07:04:59*PAR:**0747236765*Nguessend*Marie Paule*Oui*néant*null*00/00/00*LV-041-14*cocody*neant*neant*Behi Yves
+CO41*07/22/2023 07:06:19*PAR:**0747236765*Adongba*Vanessa*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi yves
+CO41*07/22/2023 07:07:25*PAR:**0747236765*Kouadio*Victoria*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 07:08:41*PAR:**0747236765*Kouadio*Mathé*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 07:10:08*PAR:**0747236765*Mel memel*Théodore*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 07:12:35*PAR:**0747236765*Mme.   AYoman*Léontine*Oui*néant*null*00/00/00*LV-041-14*cocody*Secrétaire*néant*Behi Yves
+CO41*07/22/2023 07:17:13*PAR:**0747236765*Korbeogo*Jules*Oui*néant*null*00/00/00*LV-041-14*cocody*Technicien*néant*Behi Yves
+CO41*07/22/2023 07:18:32*PAR:**0747236765*Ousmane*Kanté*Oui*néant*null*00/00/00*LV-041-14*cocody*Journaliste*néant*Behi Yves
+CO41*07/22/2023 07:30:54*PAR:**0747236765*Diabaté*Fanta*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 07:32:04*PAR:**0747236765*Traoré*Minata*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi yves
+CO41*07/22/2023 07:32:04*PAR:**0747236765*Traoré*Minata*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi yves
+CO41*07/22/2023 07:33:10*PAR:**0747236765*Koné*Mariam*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*neant*Behi Yves
+CO41*07/22/2023 07:35:12*PAR:**0747236765*Mme Meité*Djeneba*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*néant
+CO41*07/22/2023 07:38:06*PAR:**0747236765*Diabaté*Namona*Oui*néant*null*00/00/00*LV-041-14*cocody*neant*néant*Behi yves
+CO41*07/22/2023 07:41:11*PAR:**0747236765*Sognon Veney*Patrick*Oui*néant*null*00/00/00*LV-041-01*cocody*Affaire juridique*néant*Behi Yves
+CO41*07/22/2023 07:49:13*PAR:**0747236765*Aka*Appolinaire*Oui*neant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 08:20:20*PAR:**0747236765*Karaboué*Ibrahima*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 08:22:09*PAR:**0747236765*Yao*Fatoumata*Oui*néant*null*00/00/00*LV-041-14*cocody*neant*néant*Behi Yves
+CO41*07/22/2023 08:23:45*PAR:**0747236765*Gondo*Yaké*Oui*neant*null*00/00/00*LV-041-14*cocody*neant*néant*Behi Yves
+CO41*07/22/2023 08:25:27*PAR:**0747236765*Mme Kouakou*Odette*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi yves
+CO41*07/22/2023 08:27:10*PAR:**0747236765*Konzan*Kouakou*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi Yves
+CO41*07/22/2023 08:28:36*PAR:**0747236765*Kouadio*Boni*Oui*néant*null*00/00/00*LV-041-14*cocody*néant*néant*Behi yves
+CO41*07/22/2023 09:03:17*PAR:**0747236765*Korché*Michel ange*Oui*néant*null*00/00/00*LV-041-14*cocody*Technicien*neant*Behi Yves
+CO41*07/22/2023 10:37:00*PAR:**0787143017*Gbetibouo*charles  hyacinthe*Oui*V0031764025*0707732898*18/07/58*LV-041-58*cocody Danga*planteur
+CO41*07/21/2023 23:44:00*PAR:**0787143017*Tape*GROGBO NARCISSE*Oui*V0031974279*0747775176*01/01/82*LV-041-06*Faya*instituteur
+CO41*07/22/2023 11:02:59*PAR:**0757663233*abina*koffi*Oui*v0206096731*0554959660*14/01/2000*null*faya*comercial**bakayoko vanguefa
+CO41*07/22/2023 11:14:23*PAR:*RAS*DJEBI Bérénice
+CO41*07/22/2023 11:14:23*PAR:*RAS*DJEBI Bérénice
+CO41*07/22/2023 11:14:23*PAR:*RAS*DJEBI Bérénice
+CO41*07/22/2023 11:26:39*PAR:**0757663233*aboua*atsin*Oui*v0035187685*0709728751*20/08/1982*null*faya*comercial**bakayoko vanguefa
+CO41*07/22/2023 11:30:12*PAR:**0757663233*ballo*Aminata*Oui*v0074259885*0101498717*09/01/1976*null*bakayoko vanguefa*comercial**
+CO41*07/22/2023 11:32:50*PAR:**0757663233*bakayoko*amara*Oui*v0100311033*0778442814*01/01/1988*null*faya*étudiant**bakayoko vanguefa
+CO41*07/22/2023 11:40:52*PAR:**0101989552*Dja*Brigitte Monette sery*Oui*V0039435196*0505011023*15/11/1976*null*akouedo attie*pasteur
+CO41*07/22/2023 11:40:52*PAR:**Djebi berenice
+CO41*07/22/2023 11:45:18*PAR:**0757663233*adou*pangny*Oui*v0057457837*0707005235*29/03/1987*null*faya*étudiant**bakayoko vanguefa
+CO41*07/22/2023 11:48:43*PAR:**0757663233*adou*sewa*Oui*v0104651737*0574405131*06/07/1979*null*faya*comercante**bakayoko vanguefa
+CO41*07/22/2023 11:53:21*PAR:**0757663233*adou*Tanoh arthur*Oui*v0214512391*0506317943*27/06/1997*null*faya*mecanique**bakayoko vanguefa
+CO41*07/22/2023 11:56:39*PAR:**0757663233*adjobi*saupi*Oui*v0104646379*0707473408*22/11/1989*null*faya*comercial**bakayoko vanguefa
+CO41*07/22/2023 11:59:04*PAR:**0757663233*bakayoko*abiba*Oui*v0207930230*0153331540*24/06/2001*null*faya*étudiante**bakayoko vanguefa
+CO41*07/22/2023 12:06:15*PAR:**0757663233*assui*ahou*Oui*v*0555608320*08/06/1985*null*faya*menagere**bakayoko vanguefa
+CO41*07/22/2023 12:09:53*PAR:**0757663233*bassa*brou*Oui*v0104651771*0778272926*16/05/1982*null*faya*mecanique**bakayoko vanguefa
+CO41*07/22/2023 12:09:53*PAR:**0757663233*bassa*brou*Oui*v0104651771*0778272926*16/05/1982*null*faya*mecanique**bakayoko vanguefa
+CO41*07/22/2023 12:16:07*PAR:**0757663233*akissi*amaphee*Oui*v0213130062*0103673918*02/07/1999*null*faya*menagere**bakayoko vanguefa
+CO41*07/22/2023 12:28:50*PAR:**Djebi berenice
+CO41*07/22/2023 12:39:33*PAR:**0757663233*bamba*noumoussa*Oui*v0207974441*0554361738*06/01/1991*null*faya*comercant**bakayoko vanguefa
+CO41*07/22/2023 12:43:37*PAR:**0757663233*beugre*Constantin*Oui*v0216648010*0142001896*18/04/2002*null*faya*étudiant**bakayoko vanguefa
+CO41*07/22/2023 12:46:18*PAR:**0757663233*aman*sewa*Oui*v0104651867*0153685813*28/12/1988*null*bakayoko vanguefa*étudiante**
+CO41*07/22/2023 12:51:08*PAR:**0757663233*alla*karlnelson*Oui*v0104646438*0141492745*10/03/1971*null*faya*comercial**bakayoko vanguefa
+CO41*07/22/2023 12:51:50*PAR:**Djebi berenice
+CO41*07/22/2023 12:54:09*PAR:**0757663233*allani*tatiana*Oui*v0213860718*0747909096*22/12/1994*null*faya*menegere**bakayoko vanguefa
+CO41*07/22/2023 13:01:41*PAR:**bakayoko vanguefa
+CO41*07/22/2023 13:06:22*PAR:**0757663233*akoua*jacqueline*Oui*v0104646311*0564327880*01/01/1965*null*faya*san emploi**bakayoko vanguefa
+CO41*07/22/2023 13:14:13*PAR:**0757663233*azaud*agbohoun*Oui*v0022935306*0546230467*20/10/1974*null*faya*san emploi**bakayoko vanguefa
+CO41*07/22/2023 13:14:13*PAR:**0757663233*azaud*agbohoun*Oui*v0022935306*0546230467*20/10/1974*null*faya*san emploi**bakayoko vanguefa
+CO41*07/22/2023 12:51:50*PAR:**Djebi berenice
+CO41*07/22/2023 17:06:18*PAR:**0585454565*KACOU*GILBERT*Oui*néant*0708542493*02/02/1968*LV-041-20*cocody*enseignant
+CO41*07/22/2023 17:06:18*PAR:*néant*KONAN FRANCK OLIVIER
+CO41*07/22/2023 17:10:51*PAR:**0585454565*KOFFI*Pélagie sabine*Oui*néant*0101440947*08/06/1969*LV-041-72*cocody*néant
+CO41*07/22/2023 17:10:51*PAR:*néant*KONAN FRANCK OLIVIER
+CO41*07/22/2023 17:20:01*PAR:**0585454565*gnoabou*desire*Oui*néant*0789793362*16/11/1989*null*cocody*néant*néant*KONAN FRANCK OLIVIER
+CO41*07/22/2023 17:40:52*PAR:**0585454565*GBOHA*TAGRO MARCEL*Oui*voo85101119*0778159896*21/12/1989*LV-041-20*cocody*neant
+CO41*07/22/2023 17:40:52*PAR:*néant*KONAN FRANCK OLIVIER
+CO41*07/22/2023 17:44:29*PAR:**0585454565*GBOHA*SUZANNE FAHE*Oui*v0090455937*0707091818*11/08/1968*LV-041-20*cocody*néant
+CO41*07/22/2023 17:44:29*PAR:*néant*KONAN FRANCK OLIVIER
+CO41*07/22/2023 17:49:30*PAR:**0585454565*BAI*TAGRO MARCEL*Oui*v0090455937*0778159896*21/12/1989*LV-041-19*cocody*néant
+CO41*07/22/2023 17:49:30*PAR:*néant*KONAN FRANCK OLIVIER
+CO41*07/22/2023 17:51:42*PAR:**Djebi berenice
+CO41*07/22/2023 17:51:42*PAR:**Djebi berenice
+CO41*07/22/2023 17:51:42*PAR:**0101989552*N'Cho*Api Marthe*Oui*v0033 7350 27*0103278024*01/01/1972*null*akouedo Attie*Couturière
+CO41*07/22/2023 18:26:38*PAR:**0101440947*Diomande*vassiafa*Oui*v0208419417*0759252085*10/07/1974*LV-041-79*cocody*néant
+CO41*07/22/2023 18:26:38*PAR:*RAS*Koffi Pélagie Sabine
+CO41*07/22/2023 18:26:38*PAR:*RAS*Koffi Pélagie Sabine
+CO41*07/22/2023 19:05:21*PAR:**Djebi berenice
+CO41*07/22/2023 19:05:21*PAR:**0101989552*Zouzou*Sehite Prisca*Oui*V 0022 7497 78*0749375987*18/01/1979*null*akouedo Attie*coiffeuse
+CO41*07/22/2023 19:17:40*PAR:**Djebi berenice
+CO41*07/22/2023 19:17:40*PAR:**0101989552*Glou*Yaoulouley Rebecca*Oui*V 0093 6740 49*0777218345*28/04/1989*null*akouedo Attie*Couturière
+CO41*07/22/2023 19:17:40*PAR:**0101989552*Glou*Yaoulouley Rebecca*Oui*V 0093 6740 49*0777218345*28/04/1989*null*akouedo Attie*Couturière
+CO41*07/22/2023 19:17:40*PAR:**Djebi berenice
+CO41*07/22/2023 19:28:49*PAR:**0708498997*adja*adje lamber*Oui*V0092309917*0506107961*30/12/1979*LV-041-14*cocody*neant
+CO41*07/22/2023 19:28:49*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 19:43:58*PAR:**0708498997*adoni*adou brice*Oui*V0036940875*null*24/12/1982*LV-041-14*cocody*neant
+CO41*07/22/2023 19:43:58*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 19:43:58*PAR:**0708498997*adoni*adou brice*Oui*V0036940875*null*24/12/1982*LV-041-14*cocody*neant
+CO41*07/22/2023 19:43:58*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 19:49:46*PAR:**0708498997*adopo*cha felicite*Oui*V0027088614*null*25/06/1989*LV-041-14*cocody*neant
+CO41*07/22/2023 19:49:46*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 19:53:08*PAR:**0708498997*adepo*sonan Jean pacome*Oui*v0214054194*null*09/05/1998*LV-041-14*cocody*neant
+CO41*07/22/2023 19:53:08*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 19:57:33*PAR:**0708498997*allechi*m'bro Gilles pacom*Oui*V0222325149*null*25/12/1986*LV-041-14*cocody*neant
+CO41*07/22/2023 19:57:33*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 20:00:03*PAR:**0708498997*alle*kousso denise*Oui*V0100539673*null*14/05/1975*LV-041-14*cocody*neant
+CO41*07/22/2023 20:00:03*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 20:03:00*PAR:**0708498997*assi*seka saturnin*Oui*V0205300022*null*01/10/1994*LV-041-14*cocody*neant
+CO41*07/22/2023 20:03:00*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 20:08:11*PAR:**0708498997*assi*yapo*Oui*V0037612186*0596047103*16/12/1986*LV-041-14*cocody*neant
+CO41*07/22/2023 20:08:11*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 20:10:16*PAR:**0708498997*atse*n'cho Georges*Oui*V0212718296*null*22/04/1996*LV-041-14*cocody*neant
+CO41*07/22/2023 20:10:16*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 20:14:03*PAR:**0708498997*atsain*assaley*Oui*V0209346262*0749122681*16/10/1978*LV-041-14*cocody*neant
+CO41*07/22/2023 20:14:03*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 20:16:16*PAR:**0708498997*atse*Alain Jean Jacques*Oui*V0037206156*null*26/11/1977*LV-041-14*cocody*neant
+CO41*07/22/2023 20:16:16*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 20:17:48*PAR:**0708498997*atse*Donatien*Oui*V0030980147*null*27/12/1977*LV-041-14*cocody*neant
+CO41*07/22/2023 20:17:48*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 20:26:52*PAR:*RAS*Kouadio Kouame
+CO41*07/22/2023 20:26:52*PAR:**0101802888*DOUA*MIREILLE DARTHE*Oui*V0023 3742 25*0707957521*29/03/1974*LV-041-13*COCODY ANGRE*COMMERçANTE
+CO41*07/22/2023 16:15:46*PAR:**0787143017*TAGRO*GUILLAUME*Oui*V0210604340*0777698644*19/3/83*LV-041-69*ATTOBAN*ingénieur  Marketing MANAGEMENT
+CO41*07/22/2023 16:05:41*PAR:**0787143017*GBETIBOUO*CHRISTIAN DIDIER*Oui*v0037585235*0700214079*25/3/59*LV-041-58*cocody Danga*PASTEUUR  MISSIONNAIRE
+CO41*07/22/2023 21:49:56*PAR:**0585454565*ABOUDOU*AKISSI ALIMAN*Oui*v0031412924*0707553352*12/06/1977*LV-041-13*cocody*néant
+CO41*07/22/2023 21:49:56*PAR:*néant*KONAN FRANCK OLIVIER
+CO41*07/22/2023 21:57:04*PAR:**0585454565*ABOH*BROU HONORINE*Oui*V0023013315*0707984304*1/03/1980*LV-041-13*cocody*néant
+CO41*07/22/2023 21:57:04*PAR:*néant*KONAN FRANCK OLIVIER
+CO41*07/22/2023 22:01:59*PAR:**0708498997*atse*koffi Patrice Jacque*Oui*V0026668592*null*26/12/1985*LV-041-14*cocody*neant
+CO41*07/22/2023 22:01:59*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:04:54*PAR:**0708498997*atse*Médard Landry appolinaire*Oui*V0037381123*null*30/01/1984*LV-041-14*cocody*neant
+CO41*07/22/2023 22:04:54*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:10:44*PAR:**0585454565*AKRE*Patrick*Oui*v0090186820*0758750452*20/10/1978*LV-041-42*cocody*néant
+CO41*07/22/2023 22:12:14*PAR:**0708498997*atse*monney André Sébastien*Oui*V0213691457*null*20/12/1995*LV-041-14*cocody*neant
+CO41*07/22/2023 22:12:14*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:14:51*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:14:51*PAR:**0708498997*atse*n'cho constan*Oui*V0031999771*null*21/09/1986*LV-041-14*cocody*neant
+CO41*07/22/2023 22:17:24*PAR:**0708498997*atse*okon Jean claude*Oui*V0031117803*null*14/08/1975*LV-041-14*cocody*neant
+CO41*07/22/2023 22:17:24*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:21:15*PAR:**0708498997*atsin*atse charles*Oui*V0029253119*null*15/12/1977*null*cocody*neant
+CO41*07/22/2023 22:21:15*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:24:06*PAR:**0708498997*aye*apie yvonne*Oui*V0200091394*null*15/19/1966*LV-041-14*cocody*neant
+CO41*07/22/2023 22:24:06*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:27:31*PAR:**0708498997*bata*cha*Oui*V0035554585*0506336430*18/08/1962*LV-041-14*cocody*neant
+CO41*07/22/2023 22:27:31*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:29:25*PAR:**0708498997*bolo*bi moinly*Oui*V0213570996*null*27/12/1980*LV-041-14*cocody*neant
+CO41*07/22/2023 22:29:25*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:32:00*PAR:**0708498997*botchi*awo Edwige*Oui*V0222325276*null*01/01/1993*LV-041-14*cocody*neant
+CO41*07/22/2023 22:32:00*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:34:29*PAR:**0708498997*brou*adjo audrique*Oui*V0213821283*null*11/10/1999*LV-041-14*cocody*neant
+CO41*07/22/2023 22:34:29*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:37:01*PAR:**0708498997*seka*boua fonomer*Oui*Voo27022391*null*07/04/1981*LV-041-14*cocody*neant
+CO41*07/22/2023 22:37:01*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:38:56*PAR:**0708498997*brou*konan alain*Oui*V0206305129*null*01/01/1981*LV-041-14*cocody*neant
+CO41*07/22/2023 22:38:56*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:40:52*PAR:**0708498997*brou*yapi célestin*Oui*V0030251856*null*05/08/1981*LV-041-14*cocody*neant
+CO41*07/22/2023 22:40:52*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:49:23*PAR:**0708498997*kone*tenin*Oui*V0026481871*0768969366*05/05/1985*LV-041-14*cocody*neant
+CO41*07/22/2023 22:49:23*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 22:51:00*PAR:**0708498997*kone*wassa*Oui*V0097724621*0759332877*01/01/1975*LV-041-14*cocody*neant
+CO41*07/22/2023 22:51:00*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 23:00:01*PAR:**0708498997*koudio*jean baptiste*Oui*V0035636159*null*15/07/1979*LV-041-14*cocody*neant
+CO41*07/22/2023 23:00:01*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 23:02:05*PAR:**0708498997*kouadio*kouadio Jean baptiste*Oui*V0090441820*null*01/01/1982*LV-041-14*cocody*neant
+CO41*07/22/2023 23:02:05*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 23:05:44*PAR:**0708498997*kouadio*yapi Yves*Oui*V0027203297*null*07/08/1969*LV-041-14*cocody*neant
+CO41*07/22/2023 23:05:44*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 23:09:34*PAR:**0708498997*kone*zie daouda*Oui*V0027310771*0151691519*11/07/1983*LV-041-14*cocody*neant
+CO41*07/22/2023 23:09:34*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 23:13:36*PAR:**0708498997*kouame*ernestine Marie estelle*Oui*V0218778294*0701786067*28/12/1997*LV-041-14*cocody*neant
+CO41*07/22/2023 23:13:36*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 23:17:49*PAR:**0708498997*kouame*erneste*Oui*V0032211434*0102226429*05/11/1955*LV-041-14*cocody*neant
+CO41*07/22/2023 23:17:49*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 23:20:03*PAR:**0708498997*kouassi*chiachi marie*Oui*V0028156824*null*07/08/1983*LV-041-14*cocody*neant
+CO41*07/22/2023 23:20:03*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 23:22:59*PAR:**0708498997*kouassi*acho axel romuald*Oui*V0222312934*0586171775*15/08/2003*LV-041-14*cocody*neant
+CO41*07/22/2023 23:22:59*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 23:26:11*PAR:**0708498997*koulibaly*korotoume*Oui*V00335579551*null*05/10/1980*LV-041-14*cocody*neant
+CO41*07/22/2023 23:26:11*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 23:32:03*PAR:**0708498997*kpata*chiachi berthe*Oui*V0208443164*0506336430*30/09/1965*null*cocody*neant
+CO41*07/22/2023 23:32:03*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 23:34:02*PAR:**0708498997*lakou*gbadi Alice pamela*Oui*V0200353047*null*28/12/1985*LV-041-14*cocody*neant
+CO41*07/22/2023 23:34:02*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 23:36:59*PAR:**0708498997*kone*mariam*Oui*V0202512077*0564142229*10/12/1962*LV-041-14*cocody*neant
+CO41*07/22/2023 23:36:59*PAR:*carte d'électeur*kone kloh lassina
+CO41*07/22/2023 23:39:16*PAR:**0708498997*n'cho*adja Théophile*Oui*V0035651996*0506156252*25/12/1972*LV-041-14*cocody*neant
+CO41*07/22/2023 23:39:16*PAR:*carte d'électeur*kone kloh lassina

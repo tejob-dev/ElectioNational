@@ -1,0 +1,5 @@
+CO41*07/06/2023 10:40:44*PAR:**0102796940*Bosson*Fabrice*Oui*v 0090321186*0708739881*01/01/1982*null*Riviera*transitaire**Bosson koffi Alain
+CO41*07/06/2023 10:44:10*PAR:**0102796940*Tokpa*Da n'pe athanase*Oui*V0026341907*0709581505*18/01/1977*null*Rosiers 5*agent ONS
+CO41*07/06/2023 10:44:10*PAR:**Bosson koffi Alain
+CO41*07/06/2023 10:46:36*PAR:**0102796940*Seyo*Julie Lynda*Oui*V0036690842*0708155138*01/10/1982*null*Rosiers 5*comptable
+CO41*07/06/2023 10:46:36*PAR:**Bosson koffi Alain

@@ -1,0 +1,7 @@
+.lizr-vc-size-container .lizr-advanced-size-wrapper {
+	display: flex;
+	gap: 10px;
+}
+.lizr-vc-size-container .lizr-advanced-size-wrapper select {
+    min-width: 120px;
+}

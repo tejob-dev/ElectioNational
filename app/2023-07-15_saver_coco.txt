@@ -1,0 +1,146 @@
+CO41*07/15/2023 00:14:29*PAR:**0757822085*Ehouman*amenan madeleine*Oui*neant*0575942323*23/11/1994*null*faya*etudiante*ras*Bagayoko assata
+CO41*07/15/2023 00:19:24*PAR:**0757822085*Sidibe*awa*Oui*neant*0142643150*11/08/1979*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:27:56*PAR:**0757822085*Kone*allimata gnoungho*Oui*neant*0545985044*24/04/1976*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:30:34*PAR:**0757822085*Ettien*akoh anastasie*Oui*neant*0505395550*12/02/1964*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:34:16*PAR:**0757822085*Boa*nina diane*Oui*neant*0142017505*03/03/1974*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:37:38*PAR:**0757822085*Kouassi*ahou viviane*Oui*neant*0759457409*05/05/1980*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:40:13*PAR:**0757822085*Guigui*Marie flaure*Oui*neant*0779816947*25/07/1989*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:43:39*PAR:**0757822085*Gouhiri epouse Dagrou*onene esthétique patricia*Oui*neant*0140295419*10/03/1985*null*faya*sans emploi
+CO41*07/15/2023 00:43:39*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 00:46:02*PAR:**0757822085*Kouadio*affoue monique*Oui*neant*0703830413*13/02/1981*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:49:23*PAR:**0757822085*Guigba*gbahi florence*Oui*neant*0777096139*01/01/1976*null*akouedo*menagere*ras*Bagayoko assata
+CO41*07/15/2023 00:52:04*PAR:**0757822085*Kouakou epouse dodo*ayant lucie*Oui*neant*0574567700*29/12/1970*null*akouedo*commercante
+CO41*07/15/2023 00:52:04*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 00:54:27*PAR:**0757822085*Kambou*hini helene*Oui*neant*0102040918*31/12/1983*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:56:47*PAR:**0757822085*Ehui*yah gisele*Oui*neant*0708195139*02/05/1987*null*akouedo*coiffeuse*ras*Bagayoko assata
+CO41*07/15/2023 00:59:36*PAR:**0757822085*Mobio*ake avouables Adeline roseline*Oui*neant*0141144478*24/04/1979*null*akouedo*couturiere
+CO41*07/15/2023 00:59:36*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 01:02:25*PAR:**0757822085*Hassanatou*traore*Oui*neant*0555206436*08/03/1979*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:04:48*PAR:**0757822085*Ouattara*massara*Oui*neant*0101151052*05/02/1991*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:06:52*PAR:**0757822085*Kouadio*ahou reine*Oui*neant*0777398264*05/09/1974*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:08:58*PAR:**0757822085*Coulibaly*foungongni*Oui*neant*0749863455*07/03/1987*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:11:36*PAR:**0757822085*Loho*mariette estelle*Oui*neant*0103897672*11/06/1987*null*akouedo*coiffeuse*ras*Bagayoko assata
+CO41*07/15/2023 01:14:44*PAR:**0757822085*Ehui*ndoua martine*Oui*neant*0141155417*15/03/1985*null*akouedo*coiffeuse*ras*Bagayoko assata
+CO41*07/15/2023 01:17:02*PAR:**0757822085*Diomande*Kévin sara*Oui*neant*0103822315*28/03/1987*null*akouedo*coiffeuse*ras*Bagayoko assata
+CO41*07/15/2023 01:19:31*PAR:**0757822085*My*zegueamou josiane*Oui*neant*0151518062*17/02/1978*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:21:34*PAR:**0757822085*Tehe*doué angelika*Oui*neant*0140043613*12/12/1980*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:24:49*PAR:**0757822085*Meba*plezran florence*Oui*neant*0574457765*07/07/1991*null*akouedo*etudiante*ras*Bagayoko assata
+CO41*07/15/2023 01:27:01*PAR:**0757822085*Koffi*amoin bernadette*Oui*neant*0103713464*04/04/1976*null*akouedo*commercante
+CO41*07/15/2023 01:27:01*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 01:30:02*PAR:**0757822085*Mara*mariame*Oui*neant*0545511602*21/08/1979*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:31:59*PAR:**0757822085*Kone*makicha*Oui*neant*0709026720*01/01/1980*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:34:39*PAR:**0757822085*Zoh*melanie*Oui*neant*0143519351*25/09/1972*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:37:01*PAR:**0757822085*Konkobo*veronique*Oui*neant*0141881397*22/01/1978*null*akouedo*menagere*ras*Bagayoko assata
+CO41*07/15/2023 01:39:56*PAR:**0757822085*Dayoro*bakpo clarisse*Oui*neant*0101178332*10/11/1986*null*akouedo*coiffeuse*ras*Bagayoko assata
+CO41*07/15/2023 01:42:09*PAR:**0757822085*Bamba*fatoumata*Oui*neant*0103655635*29/09/1988*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:44:54*PAR:**0757822085*Ouattara*soutara*Oui*neant*0555011869*21/01/1990*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:46:57*PAR:**0757822085*Ouattara*salamata*Oui*neant*0140237461*02/07/1974*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:50:03*PAR:**0757822085*Kouassi*amenant Yvette epouse pehoun*Oui*neant*0101332004*26/01/1977*null*akouedo*commercante
+CO41*07/15/2023 01:50:03*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 01:52:12*PAR:**0757822085*Sylla*mariam*Oui*neant*0747625024*17/01/1983*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:59:20*PAR:**0757822085*Dongo*adja krah florence*Oui*neant*0707624074*01/01/1984*null*akouedo*couturiere
+CO41*07/15/2023 01:59:20*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 02:02:30*PAR:**0757822085*Kipre*delphine stephanie*Oui*neant*0747281428*28/11/1963*null*akouedo*sans emploi
+CO41*07/15/2023 02:02:30*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 02:04:24*PAR:**0757822085*Diaby*mariame*Oui*neant*0708062897*08/08/1970*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 02:07:47*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 02:10:38*PAR:**0757822085*Ouattara*minata*Oui*neant*0141156973*01/01/1988*null*akouedo*menagere*ras*Bagayoko assata
+CO41*07/15/2023 02:14:21*PAR:**0757822085*Assamoi epouse konandje*adja bio*Oui*neant*0152788623*27/11/1974*null*akouedo*coiffeuse
+CO41*07/15/2023 02:14:21*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 02:17:02*PAR:**0757822085*Bedje*charlene*Oui*neant*0140856031*11/05/1986*null*akouedo*infirmiere*ras*Bagayoko assata
+CO41*07/15/2023 02:19:15*PAR:**0757822085*Kouame*ayant nathalie*Oui*neant*0141102531*30/06/1978*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 02:21:24*PAR:**0757822085*Aboua*seka apo nadege*Oui*neant*0103615707*22/08/1984*null*akouedo*coiffeuse*ras*Bagayoko assata
+CO41*07/15/2023 02:24:27*PAR:**0757822085*Tanoe*menzan gnyma charlotte felicite*Oui*neant*0140395835*25/08/1979*null*akouedo*couturiere
+CO41*07/15/2023 02:24:27*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 02:26:26*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 02:26:26*PAR:**0757822085*Ble*mononucléose henriette*Oui*neant*0102056250*25/09/1979*null*akouedo*commercante
+CO41*07/15/2023 02:28:16*PAR:**0757822085*Tanoe*yah adelaide*Oui*neant*0140938062*11/04/1979*null*akouedo*caissiere*ras*Bagayoko assata
+CO41*07/15/2023 02:29:46*PAR:**0757822085*Kane*saly*Oui*neant*0747815153*01/01/1978*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 02:32:51*PAR:**0757822085*Kouakou*affoue sidonie*Oui*neant*0101547862*21/07/1973*null*akouedo*commercante
+CO41*07/15/2023 02:32:51*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 10:12:21*PAR:**0757663233*guehi*nonia*Oui*v0030570694*0554153418*22/05/1976*null*faya*commercial**bakayoko vanguefa
+CO41*07/15/2023 10:18:35*PAR:**0757663233*guehi*Sonia*Oui*v0030570694*0554153418*22/05/1976*null*faya*commercial**bakayoko vanguefa
+CO41*07/15/2023 10:21:58*PAR:**0757663233*ipou*kouakou*Oui*v0063759639*0788878445*14/12/1989*null*faya*munisier**bakayoko vanguefa
+CO41*07/15/2023 10:26:35*PAR:**0757663233*konan*kouadio*Oui*v0029763216*0703277527*20/02/1962*null*faya*commercial**bakayoko vanguefa
+CO41*07/15/2023 10:33:05*PAR:**0757663233*haddad*kouassi ivan*Oui*v0035037965*0101214158*25/05/1990*null*faya*étudiant**bakayoko vanguefa
+CO41*07/15/2023 10:40:15*PAR:**0757663233*iboudo*eugene*Oui*v0077459549*0708479872*01/01/1958*null*faya*commercial**bakayoko vanguefa
+CO41*07/15/2023 10:42:35*PAR:**0757663233*kalou*Lorraine*Oui*v0219638823*0544556667*13/01/1987*null*faya*commercial**bakayoko vanguefa
+CO41*07/15/2023 10:46:45*PAR:**0757663233*kalou*zah ephrain*Oui*v0040063007*0504980561*06/06/1981*null*faya*chauffeur**bakayoko vanguefa
+CO41*07/15/2023 10:53:04*PAR:**0757663233*houphouet*koffi*Oui*v0033608756*0101214158*09/09/1978*null*faya*commercial**bakayoko vanguefa
+CO41*07/15/2023 10:53:04*PAR:**0757663233*houphouet*koffi*Oui*v0033608756*0101214158*09/09/1978*null*faya*commercial**bakayoko vanguefa
+CO41*07/15/2023 10:57:22*PAR:**0757663233*soumahoro*loua jean marc*Oui*v0090363971*0707110954*29/10/1984*null*faya*commercial
+CO41*07/15/2023 10:57:22*PAR:**bakayoko vanguefa
+CO41*07/15/2023 11:01:22*PAR:**0757663233*soro*yacouba*Oui*v0036581506*0757060626*01/03/1987*null*faya*chauffeur**bakayoko vanguefa
+CO41*07/15/2023 11:03:25*PAR:**0757663233*toure*Abdoulaye*Oui*v0026707785*null*08/08/1970*null*fayt*commercial**bakayoko vanguefa
+CO41*07/15/2023 11:05:45*PAR:**0757663233*Souleymane*Touré*Oui*v0037067481*null*20/05/1972*null*faya*commercial**bakayoko vanguefa
+CO41*07/15/2023 11:05:45*PAR:**0757663233*Souleymane*Touré*Oui*v0037067481*null*20/05/1972*null*faya*commercial**bakayoko vanguefa
+CO41*07/15/2023 17:01:24*PAR:**0707414247*ZOUZOUA*Alfred*Oui*néant*0544688191*12/12/1992*LV-041-12*AGUIEN*Macon*RAS*Alex (0778436169)
+CO41*07/15/2023 17:04:07*PAR:**0757822085*diabate*ina mamboh*Oui*neant*0596742814*23/11/1992*null*angre*etudiante*ras*Sylla mamadou
+CO41*07/15/2023 00:14:29*PAR:**0757822085*Ehouman*amenan madeleine*Oui*neant*0575942323*23/11/1994*null*faya*etudiante*ras*Bagayoko assata
+CO41*07/15/2023 00:19:24*PAR:**0757822085*Sidibe*awa*Oui*neant*0142643150*11/08/1979*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:27:56*PAR:**0757822085*Kone*allimata gnoungho*Oui*neant*0545985044*24/04/1976*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:30:34*PAR:**0757822085*Ettien*akoh anastasie*Oui*neant*0505395550*12/02/1964*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:34:16*PAR:**0757822085*Boa*nina diane*Oui*neant*0142017505*03/03/1974*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:37:38*PAR:**0757822085*Kouassi*ahou viviane*Oui*neant*0759457409*05/05/1980*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:40:13*PAR:**0757822085*Guigui*Marie flaure*Oui*neant*0779816947*25/07/1989*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:43:39*PAR:**0757822085*Gouhiri epouse Dagrou*onene esthétique patricia*Oui*neant*0140295419*10/03/1985*null*faya*sans emploi
+CO41*07/15/2023 00:43:39*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 00:46:02*PAR:**0757822085*Kouadio*affoue monique*Oui*neant*0703830413*13/02/1981*null*faya*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:49:23*PAR:**0757822085*Guigba*gbahi florence*Oui*neant*0777096139*01/01/1976*null*akouedo*menagere*ras*Bagayoko assata
+CO41*07/14/2023 22:54:02*PAR:**0757822085*konate*losseni*Oui*neant*0140606656*16/12/1974*LV-041-65*2PLATEAUX*commercant*ras*sylla mamadou
+CO41*07/15/2023 00:52:04*PAR:**0757822085*Kouakou epouse dodo*ayant lucie*Oui*neant*0574567700*29/12/1970*null*akouedo*commercante
+CO41*07/15/2023 00:52:04*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 00:54:27*PAR:**0757822085*Kambou*hini helene*Oui*neant*0102040918*31/12/1983*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 00:56:47*PAR:**0757822085*Ehui*yah gisele*Oui*neant*0708195139*02/05/1987*null*akouedo*coiffeuse*ras*Bagayoko assata
+CO41*07/15/2023 00:59:36*PAR:**0757822085*Mobio*ake avouables Adeline roseline*Oui*neant*0141144478*24/04/1979*null*akouedo*couturiere
+CO41*07/15/2023 00:59:36*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 00:14:29*PAR:**0757822085*Ehouman*amenan madeleine*Oui*neant*0575942323*23/11/1994*null*faya*etudiante*ras*Bagayoko assata
+CO41*07/15/2023 01:02:25*PAR:**0757822085*Hassanatou*traore*Oui*neant*0555206436*08/03/1979*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:04:48*PAR:**0757822085*Ouattara*massara*Oui*neant*0101151052*05/02/1991*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:06:52*PAR:**0757822085*Kouadio*ahou reine*Oui*neant*0777398264*05/09/1974*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:08:58*PAR:**0757822085*Coulibaly*foungongni*Oui*neant*0749863455*07/03/1987*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:11:36*PAR:**0757822085*Loho*mariette estelle*Oui*neant*0103897672*11/06/1987*null*akouedo*coiffeuse*ras*Bagayoko assata
+CO41*07/15/2023 01:11:36*PAR:**0757822085*Loho*mariette estelle*Oui*neant*0103897672*11/06/1987*null*akouedo*coiffeuse*ras*Bagayoko assata
+CO41*07/15/2023 01:14:44*PAR:**0757822085*Ehui*ndoua martine*Oui*neant*0141155417*15/03/1985*null*akouedo*coiffeuse*ras*Bagayoko assata
+CO41*07/15/2023 01:17:02*PAR:**0757822085*Diomande*Kévin sara*Oui*neant*0103822315*28/03/1987*null*akouedo*coiffeuse*ras*Bagayoko assata
+CO41*07/15/2023 01:19:31*PAR:**0757822085*My*zegueamou josiane*Oui*neant*0151518062*17/02/1978*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:21:34*PAR:**0757822085*Tehe*doué angelika*Oui*neant*0140043613*12/12/1980*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:24:49*PAR:**0757822085*Meba*plezran florence*Oui*neant*0574457765*07/07/1991*null*akouedo*etudiante*ras*Bagayoko assata
+CO41*07/15/2023 01:27:01*PAR:**0757822085*Koffi*amoin bernadette*Oui*neant*0103713464*04/04/1976*null*akouedo*commercante
+CO41*07/15/2023 01:27:01*PAR:**0757822085*Koffi*amoin bernadette*Oui*neant*0103713464*04/04/1976*null*akouedo*commercante
+CO41*07/15/2023 01:27:01*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 01:30:02*PAR:**0757822085*Mara*mariame*Oui*neant*0545511602*21/08/1979*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:31:59*PAR:**0757822085*Kone*makicha*Oui*neant*0709026720*01/01/1980*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:34:39*PAR:**0757822085*Zoh*melanie*Oui*neant*0143519351*25/09/1972*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:37:01*PAR:**0757822085*Konkobo*veronique*Oui*neant*0141881397*22/01/1978*null*akouedo*menagere*ras*Bagayoko assata
+CO41*07/15/2023 01:39:56*PAR:**0757822085*Dayoro*bakpo clarisse*Oui*neant*0101178332*10/11/1986*null*akouedo*coiffeuse*ras*Bagayoko assata
+CO41*07/15/2023 01:42:09*PAR:**0757822085*Bamba*fatoumata*Oui*neant*0103655635*29/09/1988*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:44:54*PAR:**0757822085*Ouattara*soutara*Oui*neant*0555011869*21/01/1990*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:46:57*PAR:**0757822085*Ouattara*salamata*Oui*neant*0140237461*02/07/1974*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:50:03*PAR:**0757822085*Kouassi*amenant Yvette epouse pehoun*Oui*neant*0101332004*26/01/1977*null*akouedo*commercante
+CO41*07/15/2023 01:50:03*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 01:52:12*PAR:**0757822085*Sylla*mariam*Oui*neant*0747625024*17/01/1983*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 01:59:20*PAR:**0757822085*Dongo*adja krah florence*Oui*neant*0707624074*01/01/1984*null*akouedo*couturiere
+CO41*07/15/2023 01:59:20*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 02:02:30*PAR:**0757822085*Kipre*delphine stephanie*Oui*neant*0747281428*28/11/1963*null*akouedo*sans emploi
+CO41*07/15/2023 02:02:30*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 02:04:24*PAR:**0757822085*Diaby*mariame*Oui*neant*0708062897*08/08/1970*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 02:07:47*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 02:10:38*PAR:**0757822085*Ouattara*minata*Oui*neant*0141156973*01/01/1988*null*akouedo*menagere*ras*Bagayoko assata
+CO41*07/15/2023 02:14:21*PAR:**0757822085*Assamoi epouse konandje*adja bio*Oui*neant*0152788623*27/11/1974*null*akouedo*coiffeuse
+CO41*07/15/2023 02:14:21*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 02:17:02*PAR:**0757822085*Bedje*charlene*Oui*neant*0140856031*11/05/1986*null*akouedo*infirmiere*ras*Bagayoko assata
+CO41*07/15/2023 02:19:15*PAR:**0757822085*Kouame*ayant nathalie*Oui*neant*0141102531*30/06/1978*null*akouedo*commercante*ras*Bagayoko assata
+CO41*07/15/2023 02:21:24*PAR:**0757822085*Aboua*seka apo nadege*Oui*neant*0103615707*22/08/1984*null*akouedo*coiffeuse*ras*Bagayoko assata
+CO41*07/15/2023 02:24:27*PAR:**0757822085*Tanoe*menzan gnyma charlotte felicite*Oui*neant*0140395835*25/08/1979*null*akouedo*couturiere
+CO41*07/15/2023 02:24:27*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 02:24:27*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 02:26:26*PAR:**0757822085*Ble*mononucléose henriette*Oui*neant*0102056250*25/09/1979*null*akouedo*commercante
+CO41*07/15/2023 02:26:26*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 02:28:16*PAR:**0757822085*Tanoe*yah adelaide*Oui*neant*0140938062*11/04/1979*null*akouedo*caissiere*ras*Bagayoko assata
+CO41*07/15/2023 02:32:51*PAR:**0757822085*Kouakou*affoue sidonie*Oui*neant*0101547862*21/07/1973*null*akouedo*commercante
+CO41*07/15/2023 02:32:51*PAR:*ras*Bagayoko assata
+CO41*07/15/2023 17:04:07*PAR:**0757822085*diabate*ina mamboh*Oui*neant*0596742814*23/11/1992*null*angre*etudiante*ras*Sylla mamadou
+CO41*07/15/2023 21:51:30*PAR:**0101802888*kouadio*kouame*Oui*neant*0101802888*01/01/1969*LV-041-46*cocoy*Prof d'université
+CO41*07/15/2023 21:51:30*PAR:*neant*kouadio Kouamé
+CO41*07/15/2023 22:12:41*PAR:**0141952377*taha*massa gnatin Caroline*Oui*0778913350*null*01/01/1985*LV-041-39*anono*sans**gobou

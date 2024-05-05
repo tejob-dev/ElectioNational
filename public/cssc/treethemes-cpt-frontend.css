@@ -1,0 +1,55 @@
+/* ------------ */
+/* 2020 - socials widget */
+/* ------------ */
+.widget.nyssa_socials_widget .social-icons-fa { display: block; width: 100%; }
+.widget.nyssa_socials_widget .social-icons-fa ul{ display: inline-block; }
+.widget.nyssa_socials_widget li{ width: auto; border: none; }
+.widget.nyssa_socials_widget li a i:before{ -webkit-transition: color .3s ease-out;-moz-transition: color .3s ease-out;transition: color .3s ease-out; }
+.widget.nyssa_socials_widget li a:hover{ padding-left: inherit !important; }
+.widget.nyssa_socials_widget li a:hover:after{ display: none; }
+
+.widget.nyssa_socials_widget .social-icons-fa.align-center{ text-align: center; }
+.widget.nyssa_socials_widget .social-icons-fa.align-center li i:before{padding: 0 .35em;}
+
+.widget.nyssa_socials_widget .social-icons-fa.align-left{ text-align: left; }
+.widget.nyssa_socials_widget .social-icons-fa.align-left li i:before{ padding-right: .5em; }
+
+.widget.nyssa_socials_widget .social-icons-fa.align-right{ text-align: right; }
+.widget.nyssa_socials_widget .social-icons-fa.align-right li i:before{ padding-left: .5em; }
+
+
+/* ------------ */
+/* 2020 - recent posts */
+/* ------------ */
+.nyssa-recent-posts.without-scroller{width: 100%;} /* add 1em to the widht so the posts can fit with the extra 1em margin-right which serves as gapping between the items */ 
+.nyssa-recent-posts.without-scroller .recent-posts-post{
+	display: block;
+	float: left;
+	margin: 0 1.9em 3.5em; /* nyssa_custom_post_types.php linha 1655 */
+	background: #fff;
+	padding: 30px;
+	border-radius: 5px;
+	-webkit-box-shadow: 5px 5px 15px rgba(43,41,41,.08) !important;
+	box-shadow: 5px 5px 15px rgba(43,41,41,.08) !important;
+	} /* the 1em gapping */ 
+/* adaptive heihgt when displaying more than just one post */
+.nyssa-recent-posts:not(.without-scroller) .recent-posts-post.slick-slide{ height: auto; margin: 5px 1.9em !important; }
+.nyssa-recent-posts:not(.without-scroller) .slick-list, .widget.des_recent_posts_widget .slick-list{ -webkit-transition: height .5s ease-out;-moz-transition: height .5s ease-out;transition: height .5s ease-out; }
+.recent-posts-post{/* background: none !important; */}
+
+/* css declarado no style.css com as classes do slick slider - ou seja, nao estava aplicado caso nao esteja num slider */
+.nyssa-recent-posts .recent-posts-post.quote .title,
+.nyssa-recent-posts .recent-posts-post.quote .metas{ display: none; }
+
+/* fix para os flexsliders dentro do slick slider. 
+	esta declarado no style css transicoes nos .widget li - os li's do flex nao pode estar incluido ou as transicoes ficam uma gaita.
+	also, o display none corrige o issue de na primeira volta o slide nao mudar. basicamente como todos os slides estao visiveis o ultimo estava a sobrepor-se a todos os outros dando a ideia de que o slide nao scrollava
+*/ 
+.widget.des_recent_posts_widget .flexslider ul:not(.flex-direction-nav) li{ -webkit-transition: none;-moz-transition: none;transition: none; display: none; }
+.widget.des_recent_posts_widget .flexslider .flex-direction-nav{ top: 40% !important; }
+.widget.des_recent_posts_widget .flexslider .flex-direction-nav .flex-next:after, 
+.widget.des_recent_posts_widget .flexslider .flex-direction-nav .flex-prev:after{ display: inline !important; }
+
+/* small correction when the recent posts are located in the slidingpanel sidebar */
+.nyssa-push-sidebar-content .widget.des_recent_posts_widget .vendor{display: inline-flex;}
+

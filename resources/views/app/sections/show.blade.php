@@ -1,0 +1,69 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            @lang('crud.sections.show_title')
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <x-partials.card>
+                <x-slot name="title">
+                    <a href="{{ route('sections.index') }}" class="mr-4"
+                        ><i class="mr-1 icon ion-md-arrow-back"></i
+                    ></a>
+                </x-slot>
+
+                <div class="mt-4 px-4">
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.sections.inputs.libel')
+                        </h5>
+                        <span>{{ $section->libel ?? '-' }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.sections.inputs.nbrinscrit')
+                        </h5>
+                        <span>{{ $section->nbrinscrit ?? '-' }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.sections.inputs.objectif')
+                        </h5>
+                        <span>{{ $section->objectif ?? '-' }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.sections.inputs.seuil')
+                        </h5>
+                        <span>{{ $section->seuil ?? '-' }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.sections.inputs.commune_id')
+                        </h5>
+                        <span
+                            >{{ optional($section->commune)->libel ?? '-'
+                            }}</span
+                        >
+                    </div>
+                </div>
+
+                <div class="mt-10">
+                    <a href="{{ route('sections.index') }}" class="button">
+                        <i class="mr-1 icon ion-md-return-left"></i>
+                        @lang('crud.common.back')
+                    </a>
+
+                    @can('create', App\Models\Section::class)
+                    <a href="{{ route('sections.create') }}" class="button">
+                        <i class="mr-1 icon ion-md-add"></i>
+                        @lang('crud.common.create')
+                    </a>
+                    @endcan
+                </div>
+            </x-partials.card>
+        </div>
+    </div>
+</x-app-layout>

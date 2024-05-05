@@ -1,0 +1,111 @@
+CO41*07/14/2023 00:31:37*PAR:**2250757462265*diaby*Aminata*Oui*neant*0505304219*05/10/1966*LV-041-65*2 plateaux*neant
+CO41*07/14/2023 00:31:37*PAR:*neant*Camara Ahmad Lamad
+CO41*07/14/2023 00:33:37*PAR:**2250757462265*cherif*madina*Oui*neant*0707744303*06/07/1978*LV-041-65*neant*neant*neant*camara Ahmad Lamad
+CO41*07/14/2023 00:35:42*PAR:**2250757462265*bamba*Fatoumata*Oui*neant*0505505645*19/05/1975*LV-041-65*2 plateaux*neant
+CO41*07/14/2023 00:35:42*PAR:*neant*Camara Ahmad Lamad
+CO41*07/14/2023 00:37:41*PAR:**2250757462265*Sanogo*assiatou*Oui*neant*0707063318*08/12/1975*LV-041-65*neant*neant*neant*Camara Ahmad Lamad
+CO41*07/14/2023 00:40:00*PAR:**2250757462265*kamara*bintou*Oui*neant*0102503397*18/08/1978*LV-041-65*neant*neant*neant*Camara Ahmad Lamad
+CO41*07/14/2023 02:54:09*PAR:**2250757462265*amon*Jean Claude*Oui*neant*0151217377*24/11/1977*LV-041-65*2 plateaux*coiffeur
+CO41*07/14/2023 02:54:09*PAR:*neant*Camara Ahmad Lamad
+CO41*07/13/2023 22:22:09*PAR:**0757663233*diarrassouba*karamoko*Oui*v0102108853*0767624827*02/11/1983*null*génie 2000*agent de sécurité
+CO41*07/13/2023 23:48:13*PAR:**0757663233*kone*Mamadou*Oui*v0222317160*0748137303*06/09/2001*null*Laurier*chauffeur**bakayoko vanguefa
+CO41*07/13/2023 22:22:09*PAR:**bakayoko vanguefa
+CO41*07/13/2023 23:24:05*PAR:**0757663233*pouphouet*kouakou Nicolas*Oui*v0104641363*0544484774*26/12/1986*null*faya*agent de sécurité
+CO41*07/13/2023 23:24:05*PAR:**bakayoko vanguefa
+CO41*07/13/2023 22:36:57*PAR:**0757663233*fofana*moussa*Oui*v0201914159*0102491633*26/06/1994*null*faya*couturier**bakayoko vanguefa
+CO41*07/14/2023 00:08:49*PAR:**bakayoko vanguefa
+CO41*07/13/2023 23:48:13*PAR:**0757663233*kone*Mamadou*Oui*v0222317160*0748137303*06/09/2001*null*Laurier*chauffeur**bakayoko vanguefa
+CO41*07/13/2023 23:41:02*PAR:**bakayoko vanguefa
+CO41*07/13/2023 23:41:02*PAR:**bakayoko vanguefa
+CO41*07/14/2023 00:08:49*PAR:**bakayoko vanguefa
+CO41*07/14/2023 13:57:09*PAR:**0757663233*ahoussi*n'dolli*Oui*v0205842030*0778500480*04/08/1996*null*génie 2000*étudiant**bakayoko vanguefa
+CO41*07/14/2023 14:01:25*PAR:**0757663233*kouame*kouakou franck*Oui*v0040090551*0701264264*19/04/1984*null*génie 2000*chauffeur
+CO41*07/14/2023 14:01:25*PAR:**bakayoko vanguefa
+CO41*07/14/2023 14:06:57*PAR:**bakayoko vanguefa
+CO41*07/14/2023 14:18:58*PAR:**bakayoko vanguefa
+CO41*07/14/2023 14:22:55*PAR:**0757663233*kouame*meizan*Oui*v0210588738*0707616707*10/03/1998*null*génie 2000*étudiant**bakayoko vanguefa
+CO41*07/14/2023 14:26:55*PAR:**bakayoko vanguefa
+CO41*07/14/2023 14:29:37*PAR:**0757663233*aka*yah Agathe*Oui*v0039926500*0779696797*11/07/1985*null*génie 2000*étudiante**bakayoko vanguefa
+CO41*07/14/2023 14:33:22*PAR:**0757663233*kouassi*n'guessan*Oui*v0038683161*0700979847*22/02/1980*null*génie 2000*étudiant
+CO41*07/14/2023 14:33:22*PAR:**bakayoko vanguefa
+CO41*07/14/2023 14:33:22*PAR:**0757663233*kouassi*n'guessan*Oui*v0038683161*0700979847*22/02/1980*null*génie 2000*étudiant
+CO41*07/14/2023 14:33:22*PAR:**bakayoko vanguefa
+CO41*07/14/2023 14:45:38*PAR:**0757663233*Bechie*Astrid*Oui*V0211249377*0700094748*17/02/1980*LV-041-06*génie 2000*étudiante
+CO41*07/14/2023 14:45:38*PAR:*assistante*agent recenseur
+CO41*07/14/2023 14:48:35*PAR:**0757663233*kouassi*Toto Aya*Oui*V0036737039*0709000136*22/10/1976*LV-041-06*génie 2000*commercial**
+CO41*07/14/2023 14:51:29*PAR:**0757663233*Koudio*Akoua*Oui*V0058029334*null*01/01/1980*LV-041-06*génie 2000*commercial**
+CO41*07/14/2023 15:04:31*PAR:**0757663233*Béké*Sedji*Oui*V0032613067*0709133108*01/07/1981*LV-041-06*génie 2000*Calligraphe
+CO41*07/14/2023 15:04:31*PAR:**bakayoko vanguefa
+CO41*07/14/2023 15:13:44*PAR:**0757663233*Diane*Sékou*Oui*V0023714003*0708105884*01/01/1958*LV-041-06*génie 2000*Moniteur**bakayoko vanguefa
+CO41*07/14/2023 15:17:19*PAR:**0757663233*Gbadja*Yann Cédric*Oui*v0208584584*0708632660*17/11/1999*null*génie 2000*étudiant
+CO41*07/14/2023 15:17:19*PAR:**bakayoko vanguefa
+CO41*07/14/2023 15:45:09*PAR:**0757663233*Gbadja*Yann Cédric*Oui*V0208584584*0708536019*17/11/1999*LV-041-06*génie 2000*étudiant
+CO41*07/14/2023 15:45:09*PAR:**bakayoko vanguefa
+CO41*07/14/2023 15:47:33*PAR:**0757663233*Diawara*Fatou*Oui*V0025102185*0709965267*19/07/1957*LV-041-06*génie 2000*agriculteurs
+CO41*07/14/2023 15:47:33*PAR:**bakayoko vanguefa
+CO41*07/14/2023 15:50:17*PAR:**0757663233*Diarra*Salimata*Oui*V0098629060*0759873860*23/07/1981*LV-041-06*Génie 2000*commercial
+CO41*07/14/2023 15:50:17*PAR:**bakayoko vanguefa
+CO41*07/14/2023 15:53:13*PAR:**bakayoko vanguefa
+CO41*07/14/2023 15:55:25*PAR:**0757663233*N'guessan*Kouadio*Oui*V0209483101*null*22/12/1994*LV-041-06*génie 2000*étudiant**bakayoko vanguefa
+CO41*07/14/2023 15:58:11*PAR:**0757663233*n'guessan*Ama*Oui*V0026134996*0707769548*09/01/1988*LV-041-06*génie 2000*commerciale
+CO41*07/14/2023 15:58:11*PAR:**bakayoko vanguefa
+CO41*07/14/2023 16:06:12*PAR:**0757663233*Bedi*onne*Oui*V0022956864*0797085478*14/09/1974*LV-041-06*génie 2000*commercial**bakayoko vanguefa
+CO41*07/14/2023 16:09:14*PAR:**bakayoko vanguefa
+CO41*07/14/2023 16:12:29*PAR:**bakayoko vanguefa
+CO41*07/14/2023 16:14:52*PAR:**0757663233*Timite*karamoko*Oui*V0031736565*0709896857*01/03/1988*LV-041-06*génie 2000*commercial
+CO41*07/14/2023 16:14:52*PAR:**bakayoko vanguefa
+CO41*07/14/2023 16:17:47*PAR:**0757663233*kouame*Ahou*Oui*V0033449379*0758048775*03/07/1985*LV-041-06*génie 2000*commercial
+CO41*07/14/2023 16:17:47*PAR:**bakayoko vanguefa
+CO41*07/14/2023 16:22:09*PAR:**bakayoko vanguefa
+CO41*07/14/2023 16:24:31*PAR:**0757663233*Taho*Camille*Oui*v0035178835*0748360489*06/09/1991*LV-041-06*génie 2000*étudiant
+CO41*07/14/2023 16:24:31*PAR:**bakayoko vanguefa
+CO41*07/14/2023 16:26:55*PAR:**0757663233*Tagro*Yoro*Oui*v0027444838*0709685845*01/01/1974*LV-041-06*génie 2000*commercial
+CO41*07/14/2023 16:26:55*PAR:**bakayoko vanguefa
+CO41*07/14/2023 16:29:18*PAR:**0757663233*Sylla*Adam*Oui*v0200890496*0708272700*01/08/1996*LV-041-06*génie 2000*étudiante**bakayoko vanguefa
+CO41*07/14/2023 16:31:50*PAR:**bakayoko vanguefa
+CO41*07/14/2023 16:35:17*PAR:**0757663233*Teha*ouehibo*Oui*v0033609368*0790587235*21/06/1966*LV-041-06*génie 2000*commercial
+CO41*07/14/2023 16:35:17*PAR:**bakayoko vanguefa
+CO41*07/14/2023 16:39:44*PAR:**0757663233*Tea*Alexis*Oui*v0098720154*0708523252*13/07/1990*LV-041-06*faya*étudiant**bakayoko vanguefa
+CO41*07/14/2023 16:41:45*PAR:**0757663233*Tima*Georges*Oui*v0204147378*0707452807*18/03/1992*LV-041-06*faya*étudiant**bakayoko vanguefa
+CO41*07/14/2023 16:47:10*PAR:**0757663233*soro*wondio*Oui*v0102378436*0707875442*03/02/1983*LV-041-06*faya*chauffeur**bakayoko vanguefa
+CO41*07/14/2023 16:49:13*PAR:**0757663233*Thioye*Hamed*Oui*v0031119290*0708596536*10/04/1977*LV-041-06*Faya*commercial**bakayoko vanguefa
+CO41*07/14/2023 17:54:46*PAR:**0757663233*Souka*djoman*Oui*v0038061295*0758496854*26/04/1977*LV-041-06*Faya*commercial**bakayoko vanguefa
+CO41*07/14/2023 18:00:39*PAR:**0757663233*Tanoh*Adja*Oui*v0029940631*0759685234*01/01/1946*LV-041-06*faya*commercial**bakayoko vanguefa
+CO41*07/14/2023 18:04:44*PAR:**0757663233*Kouassi*affoué Jeanne*Oui*v0038636396*0708852478*11/05/1952*LV-041-06*génie 2000*vendeuse
+CO41*07/14/2023 18:04:44*PAR:**bakayoko vanguefa
+CO41*07/14/2023 18:07:22*PAR:**bakayoko vanguefa
+CO41*07/14/2023 18:09:24*PAR:**0757663233*ahidara*Cherif*Oui*v0032005615*0708456424*04/10/1988*LV-041-06*génie 2000*commercial
+CO41*07/14/2023 18:09:24*PAR:**bakayoko vanguefa
+CO41*07/14/2023 18:11:22*PAR:**0757663233*ahidara*check*Oui*v0040061014*0708956823*06/02/1987*LV-041-06*faya*commercial**bakayoko vanguefa
+CO41*07/14/2023 18:16:31*PAR:**0757663233*kouame*kouakou*Oui*v0038620166*0709856845*07/10/1977*LV-041-06*faya*commercial**bakayoko vanguefa
+CO41*07/14/2023 18:19:18*PAR:**0757663233*Koffi*amenan*Oui*v0203609589*0778509068*17/09/1995*LV-041-06*faya*étudiant**bakayoko vanguefa
+CO41*07/14/2023 18:21:01*PAR:**0757663233*Koffi*Amoin*Oui*v0036576904*0708574528*01/01/1980*LV-041-06*Faya*commercial**bakayoko vanguefa
+CO41*07/14/2023 20:27:58*PAR:**0757663233*ehouman*koko alice*Oui*v0204852359*0757210691*04/11/1992*null*faya*étudiante**bakayoko vanguefa
+CO41*07/14/2023 20:30:40*PAR:**0757663233*dasse*Ruffin marc*Oui*v0210555912*0101531223*18/12/1978*null*faya*étudiant**bakayoko vanguefa
+CO41*07/14/2023 20:34:19*PAR:**0757663233*ehui*Tanoh Charles*Oui*v0216297140*0585282151*17/12/1992*null*faya*étudiant**bakayoko vanguefa
+CO41*07/14/2023 20:39:37*PAR:**0757663233*n'guessnn*kouadio cesar*Oui*v0209483101*0101062109*22/12/1994*null*faya*étudiant
+CO41*07/14/2023 20:39:37*PAR:**bakayoko vanguefa
+CO41*07/14/2023 20:43:48*PAR:**0757663233*quenum*adjo laure*Oui*v0029848498*0708279612*16/08/1982*null*faya*étudiante**bakayoko vanguefa
+CO41*07/14/2023 20:52:11*PAR:**0757663233*oyoua*ake Daniel*Oui*v0039361699*0153999542*13/06/1968*null*faya*commercial**bakayoko vanguefa
+CO41*07/14/2023 20:57:13*PAR:**0757663233*n'goran*kouadio modeste*Oui*v0104828500*0747493729*17/12/1990*null*faya*étudiant
+CO41*07/14/2023 20:57:13*PAR:**bakayoko vanguefa
+CO41*07/14/2023 21:00:02*PAR:**bakayoko vanguefa
+CO41*07/14/2023 21:01:41*PAR:**0757663233*niamba*Roseline*Oui*v0036272411*0141604915*24/07/1985*null*faya*étudiante**bakayoko vanguefa
+CO41*07/14/2023 21:02:37*PAR:*ras*dr Assane
+CO41*07/14/2023 21:06:09*PAR:**bakayoko vanguefa
+CO41*07/14/2023 21:02:37*PAR:*ras*dr Assane
+CO41*07/14/2023 21:21:35*PAR:**0757663233*koffi*amenan desireee*Oui*v0203609589*0748625073*17/09/1995*null*faya*ménagère**bakayoko vanguefa
+CO41*07/14/2023 21:26:00*PAR:**0757663233*koffi*amoin*Oui*v0036576904*0747493729*01/01/1980*null*faya*menagere**bakayoko vanguefa
+CO41*07/14/2023 21:29:16*PAR:**0757663233*guette*loukou*Oui*v0216018093*0708204058*24/03/2001*null*faya*mecanique**bakayoko vanguefa
+CO41*07/14/2023 21:29:16*PAR:**0757663233*guette*loukou*Oui*v0216018093*0708204058*24/03/2001*null*faya*mecanique**bakayoko vanguefa
+CO41*07/14/2023 21:35:31*PAR:**0757663233*konan*yao Arnaud*Oui*v0027874569*0708279612*24/03/1989*null*faya*mecanique**bakayoko vanguefa
+CO41*07/14/2023 21:37:02*PAR:**0707414247*Azeryijh*Fhh Cbjjghjj*Oui*néant*0544688191*12/09/2000*LV-041-07*vhhjjhhjkj*ghbgrghjhhjjh*ras*Alain
+CO41*07/14/2023 21:38:32*PAR:**0757663233*konan*laures yao*Oui*v0205591723*0709215139*21/12/1990*null*faya*étudiant**bakayoko vanguefa
+CO41*07/14/2023 21:41:21*PAR:**0757663233*goze*galouo*Oui*v0101854045*0141604915*25/02/1985*null*faya*commercial**bakayoko vanguefa
+CO41*07/14/2023 21:45:00*PAR:**0757663233*haddod*kouassi David*Oui*v0031544160*0749046553*31/01/2002*null*faya*couturier**bakayoko vanguefa
+CO41*07/14/2023 21:48:11*PAR:**0757663233*koffi*akissi*Oui*v0228760913*0101531223*14/01/1980*null*faya*menagere**bakayoko vanguefa
+CO41*07/14/2023 22:50:30*PAR:**0140606656*oupoh*Guy maxime*Oui*neant*0707998975*02/06/1971*null*2 plateaux*manager sportif
+CO41*07/14/2023 22:50:30*PAR:*ras*kanate losseni
+CO41*07/14/2023 22:50:30*PAR:*ras*kanate losseni
+CO41*07/14/2023 22:54:02*PAR:**0757822085*konate*losseni*Oui*neant*0140606656*16/12/1974*LV-041-65*2PLATEAUX*commercant*ras*sylla mamadou
+CO41*07/14/2023 22:50:30*PAR:**0140606656*oupoh*Guy maxime*Oui*neant*0707998975*02/06/1971*null*2 plateaux*manager sportif

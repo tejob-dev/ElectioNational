@@ -1,0 +1,12 @@
+Array
+(
+    [datas] => [{"address":"TON BONUS","body":"Ce jour, 100% BONUS Data sur vos packs Free Plus d'au moins 300FRCS. Ex: 300F =25 min + 30 SMS +50 Mo +50 Mo au lieu de 25 min + 30 SMS +50 Mo. Tape *105*1#","datetime":"09-07-2023 09:24:56","id":"1","time":"1688894696000"}]
+)
+
+Ce jour, 100% BONUS Data sur vos packs Free Plus d'au moins 300FRCS. Ex: 300F =25 min + 30 SMS +50 Mo +50 Mo au lieu de 25 min + 30 SMS +50 Mo. Tape *105*1#
+Array
+(
+    [datas] => [{"address":"MTN TV","body":"Profite de 4H de Télé sur MTN TV et 400 Mo val 24H en souscrivant à ton Pack TV C'Chic de 200F. Tape vite *505*2# puis 1 ou RDV sur http://bit.ly/3m540Db","datetime":"09-07-2023 14:36:11","id":"1","time":"1688913371000"}]
+)
+
+Profite de 4H de Télé sur MTN TV et 400 Mo val 24H en souscrivant à ton Pack TV C'Chic de 200F. Tape vite *505*2# puis 1 ou RDV sur http://bit.ly/3m540Db

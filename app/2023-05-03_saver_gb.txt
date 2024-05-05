@@ -1,0 +1,6 @@
+05/03/2023 17:02:04*PAR:*aide financière =agent Coulibaly frederic
+05/03/2023 17:02:04*PAR:**0545575945*Okou*zike*Non*Oui*neant*0759144695*03/02/2000*LV-039-11*abobo*vendeur
+05/03/2023 17:08:07*PAR:**0545575945*Okou*Zike*Non*Oui*neant*0759144695*03/02/200*LV-039-11*abobo*vendeur
+05/03/2023 17:08:07*PAR:*aide financière (agent Coulibaly Frederic)
+05/03/2023 17:12:54*PAR:**0545575945*Miezan*Kouakou Alain*Non*Oui*neant*0707414247*18/08/1971*LV-039-12*cocody*Consultant
+05/03/2023 17:12:54*PAR:*aide financière ( agent Zomahi Hervé)
