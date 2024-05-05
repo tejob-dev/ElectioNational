@@ -4,6 +4,8 @@
         <link rel="stylesheet" href="/cssc/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" href="/cssc/responsive.bootstrap4.min.css">
         <link rel="stylesheet" href="/cssc/buttons.bootstrap4.min.css">
+
+        <link rel="stylesheet" href="{{asset('imagefade/css_KBmodal.css')}}">
         
         <style>
             a{
@@ -126,6 +128,9 @@
                                 <th class="px-4 py-3">
                                     Statut
                                 </th>
+                                <th class="px-4 py-3">
+                                    Photo
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-600 text-center">
@@ -157,6 +162,9 @@
         <script src="/jsc/buttons.html5.min.js"></script>
         <script src="/jsc/buttons.print.min.js"></script>
         <script src="/jsc/buttons.colVis.min.js"></script>
+
+        <script src="{{asset('imagefade/js_KBmodal.js')}}"></script>
+
         <script>
             $(function () {
                 
@@ -185,7 +193,7 @@
                                     $(api.column(colIdx).header()).index()
                                 );
                                 var title = $(cell).text();
-                                if(colIdx != "8" && colIdx != "16" ) $(cell).html('<input id="input'+colIdx+'" type="text" placeholder="…" style="min-width: 40px;width: 100%;border: 1px solid #c1bdbd;border-radius: 7px; min-width: 80px;" />');
+                                if(colIdx != "8" && colIdx != "16" && colIdx != "19" ) $(cell).html('<input id="input'+colIdx+'" type="text" placeholder="…" style="min-width: 40px;width: 100%;border: 1px solid #c1bdbd;border-radius: 7px; min-width: 80px;" />');
                                 else $(cell).html('');
              
                                 // On every keypress in this input
@@ -248,6 +256,7 @@
                         {data: 'observation', name: 'observation'},
                         {data: 'createdat', name: 'createdat'},
                         {data: 'status', name: 'status'},
+                        {data: 'pphoto', name: 'pphoto'},
                     ],
                     language: {
                         url: 'https://cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json',

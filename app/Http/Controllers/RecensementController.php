@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
+use Carbon\Carbon;
 use App\Models\Commune;
-use App\Models\Section;
-use App\Models\SousSection;
-use App\Models\Quartier;
-use App\Models\LieuVote;
 use App\Models\Parrain;
+use App\Models\Section;
+use App\Models\LieuVote;
+use App\Models\Quartier;
+use App\Models\SousSection;
 use Illuminate\Http\Request;
 use App\Models\AgentDeSection;
-use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 
-use DataTables;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class RecensementController extends Controller
 {
@@ -109,7 +110,16 @@ class RecensementController extends Controller
                 ->addColumn('createdat', function ($parrain) {
                     return $parrain->created_at ? Carbon::createFromFormat('Y-m-d H:i:s', $parrain->created_at)->format('d/m/Y')." à ".Carbon::createFromFormat('Y-m-d H:i:s', $parrain->created_at)->format('H:i'): '-';
                 })
-                ->rawColumns(['agent', 'telephoneag', 'section', 'createdat'])
+                ->addColumn('pphoto', function($parrain) {
+                    $listofpv = "";
+                    if($parrain->photo){
+                        $listofpv .= '<div class="KBmodal" data-content-url="<div style=\'position:relative;\'> <h3 style=\'background-color:white;color:black;font-weight:bold;position:absolute;left:0;top:0;\'>'.(optional($parrain)->nom??"-".' '.optional($parrain)->nom??"-").'</h3> <img src=\''.(Storage::url($parrain->photo)).'\' style=\'max-width: 1550px; max-height: 670px;\'></div>" data-content-type="html"><i class="ion ion-md-camera"></i></div>&nbsp;';
+                    }
+                    // foreach($bureauvote->procesverbals as $pverb){
+                    // }
+                    return $listofpv;
+                })
+                ->rawColumns(['agent', 'telephoneag', 'section', 'createdat', 'pphoto'])
                 ->make(true);
         }
     }
