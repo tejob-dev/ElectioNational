@@ -160,15 +160,15 @@ return [
     ],
     
     'parrains' => [
-        'name' => 'Parrains',
-        'index_title' => 'Liste des parrains',
-        'new_title' => 'Nouveau parrain',
-        'create_title' => 'Ajouter un parrain',
-        'edit_title' => 'Modifier un parrain',
-        'show_title' => 'Afficher un parrain',
+        'name' => 'Parrainés',
+        'index_title' => 'Liste des parrainés',
+        'new_title' => 'Nouveau parrainé',
+        'create_title' => 'Ajouter un parrainé',
+        'edit_title' => 'Modifier un parrainé',
+        'show_title' => 'Afficher un parrainé',
         'inputs' => [
-            'nom_pren_par' => 'Nom et prénom du parrain',
-            'telephone_par' => 'Téléphone du parrain',
+            'nom_pren_par' => 'Nom et prénom du parrainé',
+            'telephone_par' => 'Téléphone du parrainé',
             'nom' => 'Nom',
             'prenom' => 'Prénom',
             'lieu_projet' => 'Idée du projet',

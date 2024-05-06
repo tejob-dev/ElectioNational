@@ -1,8 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight" style="display: block;width: fit-content;">
-                @php $commune = App\Models\Commune::userlimit()->first(); @endphp
-                {{ strtoupper(optional($commune)->libel??''." | ") }} {{ "Inscrits : ".optional($commune)->nbrinscrit??"NaN"}}
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight" style="display: block;width: fit-content;">                
+                {{ 'ELECTION PRESIDENTIELLE'}} | {{ "Inscrits : ".make_separate_thousand(App\Models\Commune::userlimit()->get()->sum('nbrinscrit'))}}
             </h2>
     </x-slot>
     <div class="py-12">
@@ -11,14 +10,24 @@
               <script>window.location = "/recens/sections";</script>
             @endif
             <div class="rounded-lg shadow-xs p-6" style="background:linear-gradient(to top, rgb(255 255 255), rgb(152 87 87 / 0%)), linear-gradient(to top, rgb(255 255 255 / 73%), rgb(255 255 255 / 0%)), linear-gradient(to top, rgb(255 255 255 / 14%), rgb(255 255 255 / 0%));">
-                <div class="grid grid-cols-4 gap-4 mb-4" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
+                <div class="grid grid-cols-4 gap-4 mb-4" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
-                        <h3 class="text-lg font-bold mb-2">Sections</h3>
+                        <h3 class="text-lg font-bold mb-2">Régions</h3>
+                        <hr class="w-full bg-gray-300"/>
+                        <h3 class="text-lg font-semibold mb-2" id="commune">@php $count = App\Models\Commune::userlimit()->count(); echo $count>9?$count:"0".$count; @endphp</h3>
+                    </div>
+                    <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
+                        <h3 class="text-lg font-bold mb-2">Départements</h3>
                         <hr class="w-full bg-gray-300"/>
                         <h3 class="text-lg font-semibold mb-2" id="section">@php $count = App\Models\Section::userlimit()->count(); echo $count>9?$count:"0".$count; @endphp</h3>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
-                        <h3 class="text-lg font-bold mb-2">Quartiers</h3>
+                        <h3 class="text-lg font-bold mb-2">Communes</h3>
+                        <hr class="w-full bg-gray-300"/>
+                        <h3 class="text-lg font-semibold mb-2" id="rcommune">@php $count = App\Models\RCommune::userlimit()->count(); echo $count>9?$count:"0".$count; @endphp</h3>
+                    </div>
+                    <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
+                        <h3 class="text-lg font-bold mb-2">Sections</h3>
                         <hr class="w-full bg-gray-300"/>
                         <h3 class="text-lg font-semibold mb-2" id="quartier">@php $count = App\Models\Quartier::userlimit()->count(); echo $count>9?$count:"0".$count; @endphp</h3>
                     </div>
@@ -232,7 +241,9 @@
             }
             
             incEltNbr("section", 100);
-            incEltNbr("quartier", 200);
+            incEltNbr("commune", 150);
+            incEltNbr("rcommune", 200);
+            incEltNbr("quartier", 250);
             incEltNbr("lieuv", 300);
             incEltNbr("bureauv", 400);
             incEltNbr("candidat", 500);

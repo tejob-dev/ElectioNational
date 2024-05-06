@@ -68,10 +68,10 @@
                                     @lang('crud.cor_parrains.inputs.nom_lv')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-Departement
+                                    Parrain
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.cor_parrains.inputs.agent_res_phone')
+                                    Tel.&nbsp;Parrain
                                 </th>
                                 <th></th>
                             </tr>

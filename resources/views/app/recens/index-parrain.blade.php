@@ -75,10 +75,10 @@
                                     ID
                                 </th>
                                 <th class="px-4 py-3 text-center">
-                                    Agent
+                                    Parrain
                                 </th>
                                 <th class="px-4 py-3">
-                                    Tel.&nbsp;Agent
+                                    Tel.&nbsp;Parrain
                                 </th>
                                 <th class="px-4 py-3">
                                     Recenseur

@@ -325,7 +325,8 @@
             "autoload": {
                 "psr-4": {
                     "Doctrine\\Inflector\\": "lib/Doctrine/Inflector"
-                }
+                },
+                "files": ["app/Helpers/helpers.php"]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [

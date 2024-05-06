@@ -58,20 +58,20 @@
                                     ID
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Agent
+                                    Parrain
                                 </th>
                                 <th class="px-4 py-3">
-                                    Tel.&nbsp;Agent
+                                    Tel.&nbsp;Parrain
                                 </th>
                                 <th class="px-4 py-3">
                                     Recenseur
                                 </th>
                                 <th class="px-4 py-3">
-Departement
+                                    Section
                                 </th>
-                                <th class="px-4 py-3">
+                                <!-- <th class="px-4 py-3">
                                     Sous Section
-                                </th>
+                                </th> -->
                                 <th class="px-4 py-3 ">
                                     Nom
                                 </th>
@@ -132,9 +132,9 @@ Departement
                                 <td class="px-4 py-3 text-left">
                                     {{ ($parrain->agentterrain->section)->libel ?? '-' }}
                                 </td>
-                                <td class="px-4 py-3 text-left">
+                                <!-- <td class="px-4 py-3 text-left">
                                     {{ ($parrain->agentterrain->sousSection)->libel ?? '-' }}
-                                </td>
+                                </td> -->
                                 <td class="px-4 py-3 text-left">
                                     {{ $parrain->nom ?? '-' }}
                                 </td>

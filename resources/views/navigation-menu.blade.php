@@ -85,7 +85,7 @@
                         @endcan
                         @can('view-any', App\Models\Parrain::class)
                             <x-dropdown-link href="{{ route('parrains.index') }}">
-                                Parrains
+                                Parrainés
                             </x-dropdown-link>
                         @endcan
                         <hr class="w-full bg-gray-300 h-1/2" />
@@ -104,11 +104,11 @@
                                 Agent Du Bureau Votes
                             </x-dropdown-link>
                         @endcan
-                        @can('view-any', App\Models\Rabatteur::class)
+                        <!-- @can('view-any', App\Models\Rabatteur::class)
                             <x-dropdown-link href="{{ route('rabatteurs.index') }}">
                                 Rabatteurs
                             </x-dropdown-link>
-                        @endcan
+                        @endcan -->
                         @can('view-any', App\Models\AgentTerrain::class)
                             <x-dropdown-link href="{{ route('agent-terrains.index') }}">
                                 Les Parrains
@@ -117,7 +117,7 @@
                         <hr class="w-full bg-gray-300 h-1/2" />
                         @can('view-any', App\Models\ProcesVerbal::class)
                             <x-dropdown-link href="{{ route('proces-verbals.index') }}">
-                                Procès Verbals
+                                Procès Verbaux
                             </x-dropdown-link>
                         @endcan
                     </x-nav-dropdown>
@@ -463,11 +463,11 @@ Departements
                     Operateur Suivis
                 </x-jet-responsive-nav-link>
             @endcan
-            @can('view-any', App\Models\Rabatteur::class)
+            <!-- @can('view-any', App\Models\Rabatteur::class)
                 <x-jet-responsive-nav-link href="{{ route('rabatteurs.index') }}">
                     Rabatteurs
                 </x-jet-responsive-nav-link>
-            @endcan
+            @endcan -->
             @can('view-any', App\Models\User::class)
                 <x-jet-responsive-nav-link href="{{ route('users.index') }}">
                     Users

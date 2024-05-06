@@ -37,7 +37,7 @@
     
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Suivi du scrutin - Lieu de Vote de {{ optional(App\Models\Commune::first())->libel ?? "-"}}
+            Suivi du scrutin - Lieu de Vote
         </h2>
     </x-slot>
 
@@ -72,7 +72,7 @@
                                     Votants
                                 </th>
                                 <th class="px-4 py-3 text-center">
-                                    Recensés
+                                    Electorat
                                 </th>
                                 <th class="px-4 py-3 text-center">
                                     A voté

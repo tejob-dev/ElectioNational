@@ -37,7 +37,7 @@
     
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Suivi du scrutin - Bureau de Vote de {{ optional(App\Models\Commune::first())->libel ?? "-"}}
+            Suivi du scrutin - Bureau de Vote
         </h2>
     </x-slot>
 
