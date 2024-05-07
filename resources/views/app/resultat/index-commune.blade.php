@@ -32,7 +32,7 @@
     
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Résultat du scrutin - Region de {{ optional(App\Models\Commune::first())->libel ?? "-"}}
+            Résultat du scrutin - Region
         </h2>
     </x-slot>
     @php

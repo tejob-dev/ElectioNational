@@ -59,11 +59,17 @@ Route::get("/recens/lvotes/{single}/data", [RecensementController::class, "getLV
 Route::get("/agentterrains/{single}/data", [AgentTerrainController::class, "getAgentList"])->name("agentterrains.list");
 
 Route::get("/suivis/communes/{single}/data", [SuiviController::class, "getListCommune"])->name("suivi.communes.list");
+Route::get("/suivi/sections/{single}/data", [SuiviController::class, "getListSection"])->name("suivi.sections.list");
+Route::get("/suivi/rcommunes/{single}/data", [SuiviController::class, "getListRCommune"])->name("suivi.rcommunes.list");
+Route::get("/suivi/quartiers/{single}/data", [SuiviController::class, "getListQuartier"])->name("suivi.quartiers.list");
 Route::get("/suivis/lieuvotes/{single}/data", [SuiviController::class, "getListLieuvote"])->name("suivi.lieuvotes.list");
 Route::get("/suivis/bureauvotes/{single}/data", [SuiviController::class, "getListBureauvote"])->name("suivi.bureauvotes.list");
 Route::get("/suivis/agentterrains/{single}/data", [SuiviController::class, "getListAgentterrain"])->name("suivi.agentterrains.list");
 
 Route::get("/resultats/communes/{single}/data", [ResultatController::class, "getListCommune"])->name("resultats.communes.list");
+Route::get("/resultats/sections/{single}/data", [ResultatController::class, "getListSection"])->name("resultats.sections.list");
+Route::get("/resultats/rcommunes/{single}/data", [ResultatController::class, "getListRCommune"])->name("resultats.rcommunes.list");
+Route::get("/resultats/quartiers/{single}/data", [ResultatController::class, "getListQuartier"])->name("resultats.quartiers.list");
 Route::get("/resultats/lieuvotes/{single}/data", [ResultatController::class, "getListLieuvote"])->name("resultats.lieuvotes.list");
 Route::get("/resultats/bureauvotes/{single}/data", [ResultatController::class, "getListBureauvote"])->name("resultats.bureauvotes.list");
 
@@ -123,11 +129,17 @@ Route::prefix('/')
         Route::get("/recens/search/all", [RecensementController::class, "searchs"])->name("recens.search.all");
 
         Route::get("/suivis/communes", [SuiviController::class, "listCommune"])->name("suivi.communes.index");
+        Route::get("/suivis/sections", [SuiviController::class, "listSection"])->name("suivi.sections.index");
+        Route::get("/suivis/rcommunes", [SuiviController::class, "listRcommune"])->name("suivi.rcommunes.index");
+        Route::get("/suivis/quartiers", [SuiviController::class, "listQuartier"])->name("suivi.quartiers.index");
         Route::get("/suivis/lieuvotes", [SuiviController::class, "listLieuvote"])->name("suivi.lieuvotes.index");
         Route::get("/suivis/bureauvotes", [SuiviController::class, "listBureauvote"])->name("suivi.bureauvotes.index");
         Route::get("/suivis/agentterrains", [SuiviController::class, "listAgentterrain"])->name("suivi.agentterrains.index");
 
         Route::get("/resultats/communes", [ResultatController::class, "listCommune"])->name("resultats.communes.index");
+        Route::get("/resultats/sections", [ResultatController::class, "listSection"])->name("resultats.sections.index");
+        Route::get("/resultats/rcommunes", [ResultatController::class, "listRcommune"])->name("resultats.rcommunes.index");
+        Route::get("/resultats/quartiers", [ResultatController::class, "listQuartier"])->name("resultats.quartiers.index");
         Route::get("/resultats/lieuvotes", [ResultatController::class, "listLieuvote"])->name("resultats.lieuvotes.index");
         Route::get("/resultats/bureauvotes", [ResultatController::class, "listBureauvote"])->name("resultats.bureauvotes.index");
 

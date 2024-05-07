@@ -32,7 +32,7 @@ class RCommune extends Model
 
     public function sections()//Section
     {
-        return $this->belongsTo(Quartier::class);
+        return $this->hasMany(Quartier::class, 'r_commune_id', 'id');
     }
 
     // public function lieuVotes()

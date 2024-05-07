@@ -15,7 +15,7 @@
                     width: 50%;
             }
 
-            tbody tr:nth-child(1) {
+            tbody tr:nth-child(2n) {
             background-color: #cdcdcd;
             color:black
             }

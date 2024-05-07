@@ -170,6 +170,26 @@
                                 Regions
                             </x-dropdown-link>
                         @endcan
+                        @can('recens-section', App\Models\Section::class)
+                            <x-dropdown-link href="{{ route('suivi.sections.index') }}">
+                                Departements
+                            </x-dropdown-link>
+                        @endcan
+                        <!-- @can('recens-sous-section', App\Models\SousSection::class)
+                            <x-dropdown-link href="{{ route('recens.soussections.index') }}">
+                                Sous Sections
+                            </x-dropdown-link>
+                        @endcan -->
+                        @can('recens-quartier', App\Models\Quartier::class)
+                            <x-dropdown-link href="{{ route('suivi.rcommunes.index') }}">
+                                Communes
+                            </x-dropdown-link>
+                        @endcan
+                        @can('recens-quartier', App\Models\Quartier::class)
+                            <x-dropdown-link href="{{ route('suivi.quartiers.index') }}">
+                                Sections
+                            </x-dropdown-link>
+                        @endcan
                         @can('suivi-lieuvote', App\Models\LieuVote::class)
                             <x-dropdown-link href="{{ route('suivi.lieuvotes.index') }}">
                                 Lieu de votes
@@ -198,6 +218,26 @@
                         @can('resultat-commune', App\Models\Commune::class)
                             <x-dropdown-link href="{{ route('resultats.communes.index') }}">
                                 Regions
+                            </x-dropdown-link>
+                        @endcan
+                        @can('recens-section', App\Models\Section::class)
+                            <x-dropdown-link href="{{ route('resultats.sections.index') }}">
+                                Departements
+                            </x-dropdown-link>
+                        @endcan
+                        <!-- @can('recens-sous-section', App\Models\SousSection::class)
+                            <x-dropdown-link href="{{ route('recens.soussections.index') }}">
+                                Sous Sections
+                            </x-dropdown-link>
+                        @endcan -->
+                        @can('recens-quartier', App\Models\Quartier::class)
+                            <x-dropdown-link href="{{ route('resultats.rcommunes.index') }}">
+                                Communes
+                            </x-dropdown-link>
+                        @endcan
+                        @can('recens-quartier', App\Models\Quartier::class)
+                            <x-dropdown-link href="{{ route('resultats.quartiers.index') }}">
+                                Sections
                             </x-dropdown-link>
                         @endcan
                         @can('resultat-lieuvote', App\Models\LieuVote::class)

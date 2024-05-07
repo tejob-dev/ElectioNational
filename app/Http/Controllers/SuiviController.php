@@ -11,6 +11,7 @@ use App\Models\CorParrain;
 use App\Models\AgentTerrain;
 use App\Models\Quartier;
 use App\Models\Rabatteur;
+use App\Models\RCommune;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -30,9 +31,16 @@ class SuiviController extends Controller
                 })
                 ->addColumn('lieuvote', function ($commune) use($sections) {
                     $counter = 0;
-                    foreach($sections as $section){
-                        $counter += $section->lieuVotes()->userlimit()->count();
-                        // foreach($section->quartiers as $quartier){
+                    foreach($commune->sections as $section){
+                        foreach($section->quartiers as $quartier){
+                            foreach($quartier->sections as $section){
+                                $counter += $section->lieuVotes()->userlimit()->count();
+                            }
+
+                        }
+                        // foreach($sections as $section){
+                        //     // foreach($section->quartiers as $quartier){
+                        //     // }
                         // }
                     }
                     
@@ -40,9 +48,13 @@ class SuiviController extends Controller
                 })
                 ->addColumn('bureauvote', function ($commune) use($sections) {
                     $counter = 0;
-                    foreach($sections as $section){
-                        foreach($section->lieuVotes as $lieus){
-                            $counter += $lieus->bureauVotes()->userlimit()->count();
+                    foreach($commune->sections as $section){
+                        foreach($section->quartiers as $quartier){
+                            foreach($quartier->sections as $section){
+                                foreach($section->lieuVotes as $lieus){
+                                    $counter += $lieus->bureauVotes()->userlimit()->count();
+                                }
+                            }
                         }
                         // foreach($section->quartiers as $quartier){
                         //     }
@@ -52,10 +64,14 @@ class SuiviController extends Controller
                 })
                 ->addColumn('votant', function ($commune) use($sections) {
                     $counter = 0;
-                    foreach($sections as $section){
-                        foreach($section->lieuVotes as $lieus){
-                            foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                $counter += $bureau->votant_suivi;
+                    foreach($commune->sections as $section){
+                        foreach($section->quartiers as $quartier){
+                            foreach($quartier->sections as $section){
+                                foreach($section->lieuVotes as $lieus){
+                                    foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                                        $counter += $bureau->votant_suivi;
+                                    }
+                                }
                             }
                         }
                         // foreach($section->quartiers as $quartier){
@@ -74,12 +90,16 @@ class SuiviController extends Controller
                 })
                 ->addColumn('avote', function ($commune) use($sections) {
                     $counter = 0;
-                    foreach($sections as $section){
-                        foreach($section->lieuVotes()->userlimit()->get() as $lieus){
-                            //$counter += $lieus->a_vote;
-                            $parrains = CorParrain::where('nom_lv', 'like', '%'.$lieus->libel.'%')->get();
-                            foreach($parrains as $parrain){
-                                $counter += $parrain->a_vote;
+                    foreach($commune->sections as $section){
+                        foreach($section->quartiers as $quartier){
+                            foreach($quartier->sections as $section){
+                                foreach($section->lieuVotes()->userlimit()->get() as $lieus){
+                                    //$counter += $lieus->a_vote;
+                                    $parrains = CorParrain::where('nom_lv', 'like', '%'.$lieus->libel.'%')->get();
+                                    foreach($parrains as $parrain){
+                                        $counter += $parrain->a_vote;
+                                    }
+                                }
                             }
                         }
                         // foreach($section->quartiers as $quartier){
@@ -90,10 +110,14 @@ class SuiviController extends Controller
                 })
                 ->addColumn('participation', function($commune) use ($sections) {
                     $counter = 0;
-                    foreach($sections as $section){
-                        foreach($section->lieuVotes as $lieus){
-                            foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                $counter += $bureau->votant_suivi;
+                    foreach($commune->sections as $section){
+                        foreach($section->quartiers as $quartier){
+                            foreach($quartier->sections as $section){
+                                foreach($section->lieuVotes as $lieus){
+                                    foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                                        $counter += $bureau->votant_suivi;
+                                    }
+                                }
                             }
                         }
                         // foreach($section->quartiers as $quartier){
@@ -103,6 +127,363 @@ class SuiviController extends Controller
                     return round(($counter/$commune->nbrinscrit)*100, 2).'%' ?? '0';
                 })
                 ->rawColumns(['circonscription', 'lieuvote', 'bureauvote', 'votant', 'recense', 'avote', 'participation'])
+                ->make(true);
+        }
+    }
+
+    public function getListSection(Request $request, $single){
+        if ($request->ajax()) {
+            
+            $agents = Rabatteur::with('parrains')->latest()->get();
+            $parrains = CorParrain::userlimit()->latest()->get();
+            $sections = Quartier::userlimit()->with('agentterrains')->latest()->get();
+            $communes = Section::userlimit()->get();
+            return DataTables::of($communes)
+                ->addColumn('circonscription', function ($commune) use($sections) {
+                    return optional($commune->commune)->libel ?? '-';
+                })
+                ->addColumn('section', function ($commune) use($sections) {
+                    return optional($commune)->libel ?? '-';
+                })
+                ->addColumn('lieuvote', function ($commune) use($sections) {
+                    $counter = 0;
+                    foreach($commune->quartiers as $quartier){
+                        foreach($quartier->sections as $section){
+                            $counter += $section->lieuVotes()->userlimit()->count();
+                        }
+
+                    }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($sections as $section){
+                    //     //     // foreach($section->quartiers as $quartier){
+                    //     //     // }
+                    //     // }
+                    // }
+                    
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('bureauvote', function ($commune) use($sections) {
+                    $counter = 0;
+                    foreach($commune->quartiers as $quartier){
+                        foreach($quartier->sections as $section){
+                            foreach($section->lieuVotes as $lieus){
+                                $counter += $lieus->bureauVotes()->userlimit()->count();
+                            }
+                        }
+                    }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
+                        
+                    // }
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('votant', function ($commune) use($sections) {
+                    $counter = 0;
+                    foreach($commune->quartiers as $quartier){
+                        foreach($quartier->sections as $section){
+                            foreach($section->lieuVotes as $lieus){
+                                foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                                    $counter += $bureau->votant_suivi;
+                                }
+                            }
+                        }
+                    }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
+                        
+                    // }
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('recense', function ($commune) use($parrains) {
+                    $counter = 0;
+                    //foreach($commune->sections as $section){
+                    //foreach($agents as $agent){
+                        $counter += $parrains->count();
+                    //}
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('avote', function ($commune) use($sections) {
+                    $counter = 0;
+                    foreach($commune->quartiers as $quartier){
+                        foreach($quartier->sections as $section){
+                            foreach($section->lieuVotes()->userlimit()->get() as $lieus){
+                                //$counter += $lieus->a_vote;
+                                $parrains = CorParrain::where('nom_lv', 'like', '%'.$lieus->libel.'%')->get();
+                                foreach($parrains as $parrain){
+                                    $counter += $parrain->a_vote;
+                                }
+                            }
+                        }
+                    }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
+                        
+                    // }
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('participation', function($commune) use ($sections) {
+                    $counter = 0;
+                    foreach($commune->quartiers as $quartier){
+                        foreach($quartier->sections as $section){
+                            foreach($section->lieuVotes as $lieus){
+                                foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                                    $counter += $bureau->votant_suivi;
+                                }
+                            }
+                        }
+                    }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
+                        
+                    // }
+                    return round(($counter/$commune->nbrinscrit)*100, 2).'%' ?? '0';
+                })
+                ->rawColumns(['circonscription', 'section', 'lieuvote', 'bureauvote', 'votant', 'recense', 'avote', 'participation'])
+                ->make(true);
+        }
+    }
+    
+    public function getListRCommune(Request $request, $single){
+        if ($request->ajax()) {
+            
+            $agents = Rabatteur::with('parrains')->latest()->get();
+            $parrains = CorParrain::userlimit()->latest()->get();
+            $sections = Quartier::userlimit()->with('agentterrains')->latest()->get();
+            $communes = RCommune::userlimit()->get();
+            return DataTables::of($communes)
+                ->addColumn('circonscription', function ($commune) use($sections) {
+                    return optional($commune->section->commune)->libel ?? '-';
+                })
+                ->addColumn('section', function ($commune) use($sections) {
+                    return optional($commune->section)->libel ?? '-';
+                })
+                ->addColumn('commune', function ($commune) use($sections) {
+                    return optional($commune)->libel ?? '-';
+                })
+                ->addColumn('lieuvote', function ($commune) use($sections) {
+                    $counter = 0;
+                    foreach($commune->sections as $section){
+                        $counter += $section->lieuVotes()->userlimit()->count();
+                    }
+                    // foreach($commune->quartiers as $quartier){
+
+                    // }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($sections as $section){
+                    //     //     // foreach($section->quartiers as $quartier){
+                    //     //     // }
+                    //     // }
+                    // }
+                    
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('bureauvote', function ($commune) use($sections) {
+                    $counter = 0;
+                    foreach($commune->sections as $section){
+                        foreach($section->lieuVotes as $lieus){
+                            $counter += $lieus->bureauVotes()->userlimit()->count();
+                        }
+                    }
+                    // foreach($commune->quartiers as $quartier){
+                    // }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
+                        
+                    // }
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('votant', function ($commune) use($sections) {
+                    $counter = 0;
+                    foreach($commune->sections as $section){
+                        foreach($section->lieuVotes as $lieus){
+                            foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                                $counter += $bureau->votant_suivi;
+                            }
+                        }
+                    }
+                    // foreach($commune->quartiers as $quartier){
+                    // }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
+                        
+                    // }
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('recense', function ($commune) use($parrains) {
+                    $counter = 0;
+                    //foreach($commune->sections as $section){
+                    //foreach($agents as $agent){
+                        $counter += $parrains->count();
+                    //}
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('avote', function ($commune) use($sections) {
+                    $counter = 0;
+                    foreach($commune->sections as $section){
+                        foreach($section->lieuVotes()->userlimit()->get() as $lieus){
+                            //$counter += $lieus->a_vote;
+                            $parrains = CorParrain::where('nom_lv', 'like', '%'.$lieus->libel.'%')->get();
+                            foreach($parrains as $parrain){
+                                $counter += $parrain->a_vote;
+                            }
+                        }
+                    }
+                    // foreach($commune->quartiers as $quartier){
+                    // }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
+                        
+                    // }
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('participation', function($commune) use ($sections) {
+                    $counter = 0;
+                    foreach($commune->sections as $section){
+                        foreach($section->lieuVotes as $lieus){
+                            foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                                $counter += $bureau->votant_suivi;
+                            }
+                        }
+                    }
+                    // foreach($commune->quartiers as $quartier){
+                    // }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
+                        
+                    // }
+                    return round(($counter/$commune->nbrinscrit)*100, 2).'%' ?? '0';
+                })
+                ->rawColumns(['circonscription', 'section', 'commune', 'lieuvote', 'bureauvote', 'votant', 'recense', 'avote', 'participation'])
+                ->make(true);
+        }
+    }
+    
+    public function getListQuartier(Request $request, $single){
+        if ($request->ajax()) {
+            
+            $agents = Rabatteur::with('parrains')->latest()->get();
+            $parrains = CorParrain::userlimit()->latest()->get();
+            $sections = Quartier::userlimit()->with('agentterrains')->latest()->get();
+            $communes = Quartier::userlimit()->get();
+            return DataTables::of($communes)
+                ->addColumn('circonscription', function ($commune) use($sections) {
+                    return optional($commune->section->section->commune)->libel ?? '-';
+                })
+                ->addColumn('section', function ($commune) use($sections) {
+                    return optional($commune->section->section)->libel ?? '-';
+                })
+                ->addColumn('commune', function ($commune) use($sections) {
+                    return optional($commune->section)->libel ?? '-';
+                })
+                ->addColumn('quartier', function ($commune) use($sections) {
+                    return optional($commune)->libel ?? '-';
+                })
+                ->addColumn('lieuvote', function ($commune) use($sections) {
+                    $counter = 0;
+                    $counter += $commune->lieuVotes()->userlimit()->count();
+                    // foreach($commune->sections as $section){
+                    // }
+                    // foreach($commune->quartiers as $quartier){
+
+                    // }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($sections as $section){
+                    //     //     // foreach($section->quartiers as $quartier){
+                    //     //     // }
+                    //     // }
+                    // }
+                    
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('bureauvote', function ($commune) use($sections) {
+                    $counter = 0;
+                    foreach($commune->lieuVotes as $lieus){
+                        $counter += $lieus->bureauVotes()->userlimit()->count();
+                    }
+                    // foreach($commune->sections as $section){
+                    // }
+                    // foreach($commune->quartiers as $quartier){
+                    // }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
+                        
+                    // }
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('votant', function ($commune) use($sections) {
+                    $counter = 0;
+                    foreach($commune->lieuVotes as $lieus){
+                        foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                            $counter += $bureau->votant_suivi;
+                        }
+                    }
+                    // foreach($commune->sections as $section){
+                    // }
+                    // foreach($commune->quartiers as $quartier){
+                    // }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
+                        
+                    // }
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('recense', function ($commune) use($parrains) {
+                    $counter = 0;
+                    //foreach($commune->sections as $section){
+                    //foreach($agents as $agent){
+                        $counter += $parrains->count();
+                    //}
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('avote', function ($commune) use($sections) {
+                    $counter = 0;
+                    foreach($commune->lieuVotes()->userlimit()->get() as $lieus){
+                        //$counter += $lieus->a_vote;
+                        $parrains = CorParrain::where('nom_lv', 'like', '%'.$lieus->libel.'%')->get();
+                        foreach($parrains as $parrain){
+                            $counter += $parrain->a_vote;
+                        }
+                    }
+                    // foreach($commune->sections as $section){
+                    // }
+                    // foreach($commune->quartiers as $quartier){
+                    // }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
+                        
+                    // }
+                    return $counter.'' ?? '0';
+                })
+                ->addColumn('participation', function($commune) use ($sections) {
+                    $counter = 0;
+                    foreach($commune->lieuVotes as $lieus){
+                        foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                            $counter += $bureau->votant_suivi;
+                        }
+                    }
+                    // foreach($commune->sections as $section){
+                    // }
+                    // foreach($commune->quartiers as $quartier){
+                    // }
+                    // foreach($commune->sections as $section){
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
+                        
+                    // }
+                    return round(($counter/$commune->nbrinscrit)*100, 2).'%' ?? '0';
+                })
+                ->rawColumns(['circonscription', 'section', 'commune', 'quartier', 'lieuvote', 'bureauvote', 'votant', 'recense', 'avote', 'participation'])
                 ->make(true);
         }
     }
@@ -224,6 +605,15 @@ class SuiviController extends Controller
     
     public function listCommune(){
         return view("app.suivis.index-commune");
+    }
+    public function listSection(){
+        return view("app.suivis.index-section");
+    }
+    public function listRcommune(){
+        return view("app.suivis.index-rcommune");
+    }
+    public function listQuartier(){
+        return view("app.suivis.index-quartier");
     }
     
     public function listLieuvote(){
