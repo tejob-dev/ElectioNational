@@ -111,7 +111,7 @@
             $(function () {
                 
                 var table = $('#table1').DataTable({
-                    dom: 'rti',
+                    dom: 'lfrtip',
                     info: true,
                     // orderCellsTop: true,
                     // fixedHeader: true,
@@ -190,7 +190,7 @@
                     },
                     buttons: [],
                     //searching: true,
-                    order: [[0, 'desc']],
+                    order: [[0, 'asc']],
                     // responsive: true,
                 }).buttons().container().enable();
                 
