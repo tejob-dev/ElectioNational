@@ -59,7 +59,7 @@ class Commune extends Model
                 ["prenom","like", $prenom],
                 ])->with("section")->first();
 
-            if($agent_SectionId) return $query->where('id', '=', $agent_SectionId->section->commune->id);
+            if($agent_SectionId) return $query->where('id', '=', $agent_SectionId->section->section->commune->id);
             else  return $query->where('id', -1);
 
         }

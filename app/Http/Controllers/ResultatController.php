@@ -181,7 +181,7 @@ class ResultatController extends Controller
             
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
             $sections = Quartier::userlimit()->latest()->get();
-            $communes = Section::with("quartiers.sections.lieuVotes")->userlimit()->get();
+            $communes = Section::with("quartiers.sections.lieuVotes")->userlimit()->take(8)->get();
             
             return DataTables::of($communes)
                 ->addColumn('circonscription', function ($commune) use($sections) {
@@ -352,7 +352,7 @@ class ResultatController extends Controller
             
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
             $sections = Quartier::userlimit()->latest()->get();
-            $communes = RCommune::userlimit()->get();
+            $communes = RCommune::userlimit()->take(8)->get();
             
             return DataTables::of($communes)
                 ->addColumn('circonscription', function ($commune) use($sections) {
@@ -526,7 +526,7 @@ class ResultatController extends Controller
             
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
             $sections = Quartier::userlimit()->latest()->get();
-            $communes = Quartier::userlimit()->get();
+            $communes = Quartier::userlimit()->latest()->take(8)->get();
             
             return DataTables::of($communes)
                 ->addColumn('circonscription', function ($commune) use($sections) {
@@ -704,7 +704,7 @@ class ResultatController extends Controller
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
             $candidats = Candidat::all();
             $sections = Quartier::userlimit()->latest()->get();
-            $lieuvotes = LieuVote::userlimit()->get();
+            $lieuvotes = LieuVote::userlimit()->take(8)->get();
             return DataTables::of($lieuvotes)
                 ->addColumn('lieuvote', function ($lieuvote) use($sections) {
                     $this->bultnulls = 0;

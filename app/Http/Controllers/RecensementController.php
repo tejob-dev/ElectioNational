@@ -22,8 +22,14 @@ class RecensementController extends Controller
     public function getLVList(Request $request, $single){
         if ($request->ajax()) {
             
-            $lieus = LieuVote::userlimit()->with('quartier.section.section.commune')->latest()->get();
-            // dd($lieus);
+            $lieus = LieuVote::userlimit()
+                ->with('quartier.section.section.commune')
+                ->latest()
+                ->take(8)
+                ->get();
+
+            $parrains = Parrain::all();
+
             return DataTables::of($lieus)
                 ->addColumn('regionm', function ($lieu) {
                     return optional($lieu->quartier->section->section->commune)->libel ?? '-';
@@ -37,33 +43,55 @@ class RecensementController extends Controller
                 ->addColumn('sectionm', function ($lieu) {
                     return optional($lieu->quartier)->libel ?? '-';
                 })
-                ->addColumn('parrainm', function ($lieu) {
-                    $parrainCount = Parrain::where('code_lv', 'like', '%'.$lieu->libel.'%')->count();
-                    // foreach ($lieu->quartier->section->agentTerrains as $terrain) {
-                    //     foreach ($terrain->parrains as $parrain){
-                    //         if(strtolower($parrain->code_lv) == strtolower($lieu->libel)) $parrainCount += 1;
-                    //     }
-                    // }
-                    return $parrainCount.'';
+                ->addColumn('parrainm', function ($lieu) use ($parrains) {
+                    $filteredParrains = $parrains->filter(function ($parrain) use ($lieu) {
+                        return stripos($parrain->code_lv, $lieu->libel) !== false;
+                    });
+                    $parrainCount = $filteredParrains->count();
+                    return $parrainCount;
                 })
                 ->rawColumns(['regionm','departm','communem', 'sectionm', 'parrainm'])
                 ->make(true);
+
         }
     }
     
     public function getQuartierList(Request $request, $single){
         if ($request->ajax()) {
             
-            $quartiers = Quartier::userlimit()->with('section.section.commune', 'lieuVotes')->latest()->get();
-    
-            // dd($quartiers);
+            $quartiers = Quartier::userlimit()->with('section.section.commune', 'lieuVotes')->latest()->take(8)->get();
+            $parrains = Parrain::get();
+            $lieuVotesList = LieuVote::get();
+            $parrainCounts = [];
 
+            // dd($quartiers, $parrains);
+            
+            foreach ($quartiers as $quartier) {
+                $parrainCount = 0;
+                $lvIds = $quartier->lieuVotes->pluck('id')->toArray();
+                
+                $lieuVotes = $lieuVotesList->filter(function ($lieuVote) use($lvIds) {
+                    return in_array($lieuVote->id, $lvIds);
+                });
+            
+                foreach ($lieuVotes as $lieuVote) {
+                    $filteredParrains = $parrains->filter(function ($parrain) use ($lieuVote) {
+                        return $parrain->code_lv == $lieuVote->libel;
+                    });
+                    $parrainCount += $filteredParrains->count();
+                }
+            
+                $parrainCounts[$quartier->id] = $parrainCount;
+            }
+
+            // dd($parrainCounts);
+            
             return DataTables::of($quartiers)
                 ->addColumn('regionm', function ($quartier) {
-                    return optional($quartier->section->section->commune)->libel ?? '-';
+                    return ($quartier->section?->section?->commune)->libel ?? '-';
                 })
                 ->addColumn('departm', function ($quartier) {
-                    return optional($quartier->section->section)->libel ?? '-';
+                    return optional($quartier->section?->section)->libel ?? '-';
                 })
                 ->addColumn('communem', function ($quartier) {
                     return optional($quartier->section)->libel ?? '-';
@@ -71,17 +99,11 @@ class RecensementController extends Controller
                 ->addColumn('sectionm', function ($quartier) {
                     return optional($quartier)->libel ?? '-';
                 })
-                ->addColumn('parrainm', function ($quartier) {
-                    $parrainCount = 0;
-                    foreach ($quartier->lieuVotes->where("imported", "=", false) as $lieuVote){
-                        $parrainCount += Parrain::where('code_lv', 'like', '%'.$lieuVote->libel.'%')->count();;
-                    }
-                    // foreach ($quartier->section->agentTerrains as $terrain) {
-                    //     $parrainCount += $terrain->parrains->count();
-                    // }
-                    return $parrainCount.'';
+                ->addColumn('parrainm', function ($quartier) use ($parrainCounts) {
+                    return $parrainCounts[$quartier->id] ?? 0;
                 })
-                ->rawColumns(['regionm','departm','communem', 'sectionm', 'parrainm'])
+                ->rawColumns(['regionm', 'departm', 'communem', 'sectionm', 'parrainm'])
+                
                 ->make(true);
         }
     }

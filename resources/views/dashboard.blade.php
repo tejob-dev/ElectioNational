@@ -14,7 +14,7 @@
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Régions</h3>
                         <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="commune">@php $count = App\Models\Commune::userlimit()->count(); echo $count>9?$count:"0".$count; @endphp</h3>
+                        <h3 class="text-lg font-semibold mb-2" id="commune">@php $count = App\Models\Commune::count(); echo $count>9?$count:"0".$count; @endphp</h3>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Départements</h3>

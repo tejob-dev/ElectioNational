@@ -21,26 +21,20 @@ class SuiviController extends Controller
     public function getListCommune(Request $request, $single){
         if ($request->ajax()) {
             
-            $agents = Rabatteur::with('parrains')->latest()->get();
+            $agents = null;//Rabatteur::with('parrains')->latest()->get();
             $parrains = CorParrain::userlimit()->latest()->get();
             $sections = Quartier::userlimit()->with('agentterrains')->latest()->get();
             $communes = Commune::userlimit()->get();
+            // dd($communes);
             return DataTables::of($communes)
                 ->addColumn('circonscription', function ($commune) use($sections) {
                     return optional($commune)->libel ?? '-';
                 })
                 ->addColumn('lieuvote', function ($commune) use($sections) {
                     $counter = 0;
-                    foreach($commune->sections as $section){
-                        foreach($section->quartiers as $quartier){
-                            foreach($quartier->sections as $section){
-                                $counter += $section->lieuVotes()->userlimit()->count();
-                            }
-
-                        }
-                        // foreach($sections as $section){
-                        //     // foreach($section->quartiers as $quartier){
-                        //     // }
+                    foreach($sections as $section){
+                        $counter += $section->lieuVotes()->userlimit()->count();
+                        // foreach($section->quartiers as $quartier){
                         // }
                     }
                     
@@ -48,13 +42,9 @@ class SuiviController extends Controller
                 })
                 ->addColumn('bureauvote', function ($commune) use($sections) {
                     $counter = 0;
-                    foreach($commune->sections as $section){
-                        foreach($section->quartiers as $quartier){
-                            foreach($quartier->sections as $section){
-                                foreach($section->lieuVotes as $lieus){
-                                    $counter += $lieus->bureauVotes()->userlimit()->count();
-                                }
-                            }
+                    foreach($sections as $section){
+                        foreach($section->lieuVotes as $lieus){
+                            $counter += $lieus->bureauVotes()->userlimit()->count();
                         }
                         // foreach($section->quartiers as $quartier){
                         //     }
@@ -64,14 +54,10 @@ class SuiviController extends Controller
                 })
                 ->addColumn('votant', function ($commune) use($sections) {
                     $counter = 0;
-                    foreach($commune->sections as $section){
-                        foreach($section->quartiers as $quartier){
-                            foreach($quartier->sections as $section){
-                                foreach($section->lieuVotes as $lieus){
-                                    foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                        $counter += $bureau->votant_suivi;
-                                    }
-                                }
+                    foreach($sections as $section){
+                        foreach($section->lieuVotes as $lieus){
+                            foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                                $counter += $bureau->votant_suivi;
                             }
                         }
                         // foreach($section->quartiers as $quartier){
@@ -90,16 +76,12 @@ class SuiviController extends Controller
                 })
                 ->addColumn('avote', function ($commune) use($sections) {
                     $counter = 0;
-                    foreach($commune->sections as $section){
-                        foreach($section->quartiers as $quartier){
-                            foreach($quartier->sections as $section){
-                                foreach($section->lieuVotes()->userlimit()->get() as $lieus){
-                                    //$counter += $lieus->a_vote;
-                                    $parrains = CorParrain::where('nom_lv', 'like', '%'.$lieus->libel.'%')->get();
-                                    foreach($parrains as $parrain){
-                                        $counter += $parrain->a_vote;
-                                    }
-                                }
+                    foreach($sections as $section){
+                        foreach($section->lieuVotes()->userlimit()->get() as $lieus){
+                            //$counter += $lieus->a_vote;
+                            $parrains = CorParrain::where('nom_lv', 'like', '%'.$lieus->libel.'%')->get();
+                            foreach($parrains as $parrain){
+                                $counter += $parrain->a_vote;
                             }
                         }
                         // foreach($section->quartiers as $quartier){
@@ -110,14 +92,10 @@ class SuiviController extends Controller
                 })
                 ->addColumn('participation', function($commune) use ($sections) {
                     $counter = 0;
-                    foreach($commune->sections as $section){
-                        foreach($section->quartiers as $quartier){
-                            foreach($quartier->sections as $section){
-                                foreach($section->lieuVotes as $lieus){
-                                    foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                        $counter += $bureau->votant_suivi;
-                                    }
-                                }
+                    foreach($sections as $section){
+                        foreach($section->lieuVotes as $lieus){
+                            foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                                $counter += $bureau->votant_suivi;
                             }
                         }
                         // foreach($section->quartiers as $quartier){
@@ -137,7 +115,7 @@ class SuiviController extends Controller
             $agents = Rabatteur::with('parrains')->latest()->get();
             $parrains = CorParrain::userlimit()->latest()->get();
             $sections = Quartier::userlimit()->with('agentterrains')->latest()->get();
-            $communes = Section::userlimit()->get();
+            $communes = Section::userlimit()->take(8)->get();
             return DataTables::of($communes)
                 ->addColumn('circonscription', function ($commune) use($sections) {
                     return optional($commune->commune)->libel ?? '-';
@@ -253,7 +231,7 @@ class SuiviController extends Controller
             $agents = Rabatteur::with('parrains')->latest()->get();
             $parrains = CorParrain::userlimit()->latest()->get();
             $sections = Quartier::userlimit()->with('agentterrains')->latest()->get();
-            $communes = RCommune::userlimit()->get();
+            $communes = RCommune::userlimit()->take(8)->get();
             return DataTables::of($communes)
                 ->addColumn('circonscription', function ($commune) use($sections) {
                     return optional($commune->section->commune)->libel ?? '-';
@@ -372,7 +350,7 @@ class SuiviController extends Controller
             $agents = Rabatteur::with('parrains')->latest()->get();
             $parrains = CorParrain::userlimit()->latest()->get();
             $sections = Quartier::userlimit()->with('agentterrains')->latest()->get();
-            $communes = Quartier::userlimit()->get();
+            $communes = Quartier::userlimit()->take(8)->get();
             return DataTables::of($communes)
                 ->addColumn('circonscription', function ($commune) use($sections) {
                     return optional($commune->section->section->commune)->libel ?? '-';
@@ -492,7 +470,7 @@ class SuiviController extends Controller
         if ($request->ajax()) {
             
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
-            $bureauvotes = BureauVote::userlimit()->get();
+            $bureauvotes = BureauVote::userlimit()->take(8)->get();
             return DataTables::of($bureauvotes)
                 ->addColumn('lieuv', function ($bureauvote) {
                     return optional($bureauvote->lieuVote)->libel ?? '-';
@@ -518,7 +496,7 @@ class SuiviController extends Controller
             $agents = Rabatteur::with('parrains')->latest()->get();
             $parrains = CorParrain::userlimit()->latest()->get();
             $sections = Quartier::userlimit()->with('agentterrains')->latest()->get();
-            $lieuVotes = LieuVote::userlimit()->get();
+            $lieuVotes = LieuVote::userlimit()->take(8)->get();
             return DataTables::of($lieuVotes)
                 ->addColumn('lieuvote', function ($lieuvote) use($sections) {
                     return $lieuvote->libel.'' ?? '-';
