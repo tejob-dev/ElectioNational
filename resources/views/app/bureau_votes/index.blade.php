@@ -3,7 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             
             @if(auth()->user()->can('can-open-section-only'))
-                @lang('crud.bureau_votes.index_title') - Section: {{optional($bureauVotes[0])->lieuVote->quartier->section->libel??"Pas de donnée"}}
+                @lang('crud.bureau_votes.index_title')
             @else
                 @lang('crud.bureau_votes.index_title')
             @endif
@@ -85,11 +85,11 @@
                             @forelse($bureauVotes as $bureauVote)
                             <tr class="hover:bg-gray-50">
                             <td class="px-4 py-3 text-left">
-                                    {{ optional(optional(optional($bureauVote->lieuVote->quartier)->section)->departement)->commune->libel ??
+                                    {{ optional(optional(optional($bureauVote->lieuVote->quartier)->section)->section)->commune->libel ??
                                     '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
-                                    {{ optional(optional($bureauVote->lieuVote->quartier)->section)->departement->libel ??
+                                    {{ optional(optional($bureauVote->lieuVote->quartier)->section)->section->libel ??
                                     '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">

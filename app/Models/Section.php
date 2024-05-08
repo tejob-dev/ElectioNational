@@ -27,7 +27,7 @@ class Section extends Model
 
     public function commune()//region
     {
-        return $this->belongsTo(Commune::class);
+        return $this->belongsTo(Commune::class, 'commune_id', 'id');
     }
 
     public function quartiers()//communes
