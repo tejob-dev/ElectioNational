@@ -51,7 +51,7 @@
                             <tr>
                             </tr>
                                 <th class="px-4 py-3 text-center" style="min-width:18vw">
-                                    Circonscription
+                                    Région
                                 </th>
                                 <th class="px-4 py-3 text-center" style="min-width:18vw">
                                     Departement

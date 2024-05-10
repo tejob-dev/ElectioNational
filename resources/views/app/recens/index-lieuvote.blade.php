@@ -58,7 +58,7 @@
                                     ID
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Region
+                                Région
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     Departement

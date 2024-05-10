@@ -41,7 +41,7 @@
                         <thead class="text-gray-700">
                             <tr>
                                 <th class="px-4 py-3 text-left">
-                                    Region
+                                    Région
                                 </th>
                                 <th class="px-4 py-3 text-right">
                                     Parrainé
