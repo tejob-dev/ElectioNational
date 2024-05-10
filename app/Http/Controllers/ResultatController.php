@@ -984,18 +984,18 @@ class ResultatController extends Controller
         if ($request->ajax()) {
             
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
-            // $candidats = Candidat::all();
+            $candidats = Candidat::all();
             // $sections = Quartier::userlimit()->latest()->get();
             $lieuvotes = LieuVote::userlimit()->get();
             return DataTables::of($lieuvotes)
-                ->addColumn('lieuvote', function ($lieuvote) use($sections) {
+                ->addColumn('lieuvote', function ($lieuvote) {
                     $this->bultnulls = 0;
                     $this->bultblancs = 0;
                     $this->votants = 0;
                     $this->candidnote = [0,0,0,0,0,0,0,0,0,0,0,0];
                     return $lieuvote->libel.'' ?? '-';
                 })
-                ->addColumn('bureauvote', function ($lieuvote) use($sections) {
+                ->addColumn('bureauvote', function ($lieuvote) {
                     $counter = 0;
                     // foreach($sections as $section){
                     //     // foreach($section->quartiers as $quartier){
@@ -1019,7 +1019,7 @@ class ResultatController extends Controller
                     })->count();
                     return $counter.'' ?? '0';
                 })
-                ->addColumn('votant', function ($lieuvote) use($sections) {
+                ->addColumn('votant', function ($lieuvote) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
                     //     foreach($quartier->sections as $section){
@@ -1045,7 +1045,7 @@ class ResultatController extends Controller
                     $this->votants = $counter;
                     return $counter.'' ?? '0';
                 })
-                ->addColumn('bulnul', function ($lieuvote) use($sections) {
+                ->addColumn('bulnul', function ($lieuvote) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
                     //     foreach($quartier->sections as $section){
@@ -1067,7 +1067,7 @@ class ResultatController extends Controller
                     $this->bultnulls = $counter;
                     return $counter.'' ?? '0';
                 })
-                ->addColumn('bulblanc', function ($lieuvote) use($sections) {
+                ->addColumn('bulblanc', function ($lieuvote) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
                     //     foreach($quartier->sections as $section){
@@ -1089,10 +1089,10 @@ class ResultatController extends Controller
                     $this->bultblancs = $counter;
                     return $counter.'' ?? '0';
                 })
-                ->addColumn('suffrage', function ($lieuvote) use($sections) {
+                ->addColumn('suffrage', function ($lieuvote) {
                     return ($this->votants - ($this->bultblancs + $this->bultnulls));
                 })
-                ->addColumn('participation', function($lieuvote) use ($sections) {
+                ->addColumn('participation', function($lieuvote) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
                     //     foreach($quartier->sections as $section){
@@ -1115,7 +1115,7 @@ class ResultatController extends Controller
                     ->value('votant_count');
                     return round( $lieuvote->nbrinscrit!=0?($counter/$lieuvote->nbrinscrit)*100:0.0, 2).'%' ?? '0';
                 })
-                ->addColumn('candidata', function($lieuvote) use ($sections, $candidats) {
+                ->addColumn('candidata', function($lieuvote) use ($candidats) {
                     //$counter = 0;
                     $communeId = $lieuvote->id;
                     $bvlist = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
@@ -1149,16 +1149,16 @@ class ResultatController extends Controller
                     
                     return $this->candidnote[0] ?? '0';
                 })
-                ->addColumn('candidatb', function($lieuvote) use ($sections) {
+                ->addColumn('candidatb', function($lieuvote) {
                     return $this->candidnote[1] ?? '0';
                 })
-                ->addColumn('candidatc', function($lieuvote) use ($sections) {
+                ->addColumn('candidatc', function($lieuvote) {
                     return $this->candidnote[2] ?? '0';
                 })
-                ->addColumn('candidatd', function($lieuvote) use ($sections) {
+                ->addColumn('candidatd', function($lieuvote) {
                     return $this->candidnote[3] ?? '0';
                 })
-                ->addColumn('candidate', function($lieuvote) use ($sections) {
+                ->addColumn('candidate', function($lieuvote) {
                     return $this->candidnote[4] ?? '0';
                 })
                 // ->addColumn('candidatf', function($lieuvote) use ($sections) {
