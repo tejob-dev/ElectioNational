@@ -66,7 +66,7 @@
                             <tr>
                             </tr>
                                 <th class="px-4 py-3 text-center" style="min-width:18vw">
-                                    Lieu Vote
+                                    Lieux de Vote
                                 </th>
                                 <th class="px-4 py-3 text-center">
                                     BV

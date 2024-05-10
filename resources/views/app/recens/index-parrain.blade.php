@@ -113,9 +113,9 @@
                                 <th class="px-4 py-3 ">
                                     Extrait
                                 </th>
-                                <th class="px-4 py-3">
+                                <!-- <th class="px-4 py-3">
                                     Tel. Parrain/Marraine
-                                </th>
+                                </th> -->
                                 <th class="px-4 py-3">
                                     Profession
                                 </th>
@@ -249,7 +249,7 @@
                         {data: 'code_lv', name: 'code_lv'},
                         {data: 'cni_dispo', name: 'cni_dispo'},
                         {data: 'extrait', name: 'extrait'},
-                        {data: 'telparrain', name: 'telparrain'},
+                        // {data: 'telparrain', name: 'telparrain'},
                         // {data: 'cart_elect', name: 'cart_elect'},
                         // {data: 'residence', name: 'residence'},
                         {data: 'profession', name: 'profession'},

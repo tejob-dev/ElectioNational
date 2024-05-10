@@ -187,10 +187,11 @@ class ResultatController extends Controller
                         $currbv = "b".$bureau->id.",";
                         if($notes && preg_match('/'.$currbv.'/i', $bvids) == false){
                             $lists = json_decode($notes);
-                            $this->candidnote[0] += intval($lists->rhdp);
-                            $this->candidnote[1] += intval($lists->pdci);
-                            $this->candidnote[2] += intval($lists->ppa);
-                            $this->candidnote[3] += intval($lists->indep);
+                            $this->candidnote[0] += intval($lists->pdci);
+                            $this->candidnote[1] += intval($lists->ppaci);
+                            $this->candidnote[2] += intval($lists->rhdp);
+                            $this->candidnote[3] += intval($lists->fpi);
+                            $this->candidnote[4] += intval($lists->udpi);
                             $bvids .= "b".$bureau->id.",";
                         }
                     }
@@ -248,13 +249,21 @@ class ResultatController extends Controller
                 })
                 ->addColumn('lieuvote', function ($commune) use($sections) {
                     $counter = 0;
-                    foreach($commune->quartiers as $quartier){
-                        foreach($quartier->sections as $section){
-                            // dd($quartier->sections); exit();
-                            $counter += $section->lieuVotes()->userlimit()->count();
-                        }
-                    }
-                    
+                    // foreach($commune->quartiers as $quartier){
+                    //     foreach($quartier->sections as $section){
+                    //         // dd($quartier->sections); exit();
+                    //         $counter += $section->lieuVotes()->userlimit()->count();
+                    //     }
+                    // }
+
+                    $communeId = $commune->id;
+                    $counter = LieuVote::whereIn('quartier_id', function ($query) use ($communeId) {
+                        $query->select('quartiers.id')
+                            ->from('quartiers')
+                            ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                            ->join('sections', 'rcommunes.section_id', '=', 'sections.id')
+                            ->where('sections.id', $communeId);
+                    })->count();
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('bureauvote', function ($commune) use($sections) {
@@ -264,63 +273,102 @@ class ResultatController extends Controller
                     //         //     }
                             
                     //     }
-                    foreach($commune->quartiers as $quartier){
-                        foreach($quartier->sections as $section){
-                            foreach($section->lieuVotes as $lieus){
-                                $counter += $lieus->bureauVotes()->userlimit()->count();
-                            }
-                            // dd($quartier->sections); exit();
-                            // $counter += $section->lieuVotes()->userlimit()->count();
-                        }
-                    }
+                    // foreach($commune->quartiers as $quartier){
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             $counter += $lieus->bureauVotes()->userlimit()->count();
+                    //         }
+                    //         // dd($quartier->sections); exit();
+                    //         // $counter += $section->lieuVotes()->userlimit()->count();
+                    //     }
+                    // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                            ->from('lieu_votes')
+                            ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                            ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                            ->join('sections', 'rcommunes.section_id', '=', 'sections.id')
+                            ->where('sections.id', $communeId);
+                    })->count();
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('votant', function ($commune) use($sections) {
                     $counter = 0;
-                    foreach($commune->quartiers as $quartier){
-                        foreach($quartier->sections as $section){
-                            foreach($section->lieuVotes as $lieus){
-                                foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                    $counter += ($bureau->votant_suivi + $bureau->votant_resul);
-                                }
-                            }
-                            // foreach($section->quartiers as $quartier){
-                            //     }
-                        }
+                    // foreach($commune->quartiers as $quartier){
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += ($bureau->votant_suivi + $bureau->votant_resul);
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
                         
-                    }
+                    // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                            ->from('lieu_votes')
+                            ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                            ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                            ->join('sections', 'rcommunes.section_id', '=', 'sections.id')
+                            ->where('sections.id', $communeId);
+                    })
+                    ->selectRaw('SUM(votant_suivi + votant_resul) AS votant_count')
+                    ->value('votant_count');
+
                     $this->votants = $counter;
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('bulnul', function ($commune) use($sections) {
                     $counter = 0;
-                    foreach($commune->quartiers as $quartier){
-                        foreach($quartier->sections as $section){
-                            foreach($section->lieuVotes as $lieus){
-                                foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                    $counter += $bureau->bult_nul;
-                                }
-                            }
-                            // foreach($section->quartiers as $quartier){
-                            //     }
-                        }
-                    }
+                    // foreach($commune->quartiers as $quartier){
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += $bureau->bult_nul;
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
+                    // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                        ->join('sections', 'rcommunes.section_id', '=', 'sections.id')
+                        ->where('sections.id', $communeId);
+                    })->sum('bult_nul');
                     $this->bultnulls = $counter;
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('bulblanc', function ($commune) use($sections) {
                     $counter = 0;
-                    foreach($commune->quartiers as $quartier){
-                        foreach($quartier->sections as $section){
-                            foreach($section->lieuVotes as $lieus){
-                                foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                    $counter += $bureau->bult_blan;
-                                }
-                            }
-                            // foreach($section->quartiers as $quartier){
-                            //     }
-                        }
-                    }
+                    // foreach($commune->quartiers as $quartier){
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += $bureau->bult_blan;
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
+                    // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                        ->join('sections', 'rcommunes.section_id', '=', 'sections.id')
+                        ->where('sections.id', $communeId);
+                    })->sum('bult_blan');
                     $this->bultblancs = $counter;
                     return $counter.'' ?? '0';
                 })
@@ -329,42 +377,77 @@ class ResultatController extends Controller
                 })
                 ->addColumn('participation', function($commune) use ($sections) {
                     $counter = 0;
-                    foreach($commune->quartiers as $quartier){
-                        foreach($quartier->sections as $section){
-                            foreach($section->lieuVotes as $lieus){
-                                foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                    $counter += ($bureau->votant_suivi + $bureau->votant_resul);
-                                }
-                            }
-                            // foreach($section->quartiers as $quartier){
-                            //     }
-                        }
-                    }
+                    // foreach($commune->quartiers as $quartier){
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += ($bureau->votant_suivi + $bureau->votant_resul);
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
+                    // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                        ->join('sections', 'rcommunes.section_id', '=', 'sections.id')
+                        ->where('sections.id', $communeId);
+                    })
+                    ->selectRaw('SUM(votant_suivi + votant_resul) AS votant_count')
+                    ->value('votant_count');
                     return round( $commune->nbrinscrit!=0?($counter/$commune->nbrinscrit)*100:0.0, 2).'%' ?? '0';
                 })
                 ->addColumn('candidata', function($commune) use ($sections) {
                     //$counter = 0;
                     $bvids = "";
-                    foreach($commune->quartiers as $quartier){
-                        foreach($quartier->sections as $section){
-                            foreach($section->lieuVotes as $lieus){
-                                foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                    $notes = $bureau->candidat_note;
-                                    $currbv = "b".$bureau->id.",";
-                                    if($notes && preg_match('/'.$currbv.'/i', $bvids) == false){
-                                        $lists = json_decode($notes);
-                                        $this->candidnote[0] += intval($lists->rhdp);
-                                        $this->candidnote[1] += intval($lists->pdci);
-                                        $this->candidnote[2] += intval($lists->ppa);
-                                        $this->candidnote[3] += intval($lists->indep);
-                                        $bvids .= "b".$bureau->id.",";
-                                    }
-                                }
-                            }
-                        }
-                        // foreach($section->quartiers as $quartier){
-                        //     }
+                    $communeId = $commune->id;
+                    $bvlist = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                        ->join('sections', 'rcommunes.section_id', '=', 'sections.id')
+                        ->where('sections.id', $communeId);
+                    })->get();
+
+                    // foreach($commune->quartiers as $quartier){
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $notes = $bureau->candidat_note;
+                    //                 $currbv = "b".$bureau->id.",";
+                    //                 if($notes && preg_match('/'.$currbv.'/i', $bvids) == false){
+                    //                     $lists = json_decode($notes);
+                    //                     $this->candidnote[0] += intval($lists->rhdp);
+                    //                     $this->candidnote[1] += intval($lists->pdci);
+                    //                     $this->candidnote[2] += intval($lists->ppa);
+                    //                     $this->candidnote[3] += intval($lists->indep);
+                    //                     $bvids .= "b".$bureau->id.",";
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
                         
+                    // }
+
+                    foreach($bvlist as $bureau){
+                        $notes = $bureau->candidat_note;
+                        $currbv = "b".$bureau->id.",";
+                        if($notes && preg_match('/'.$currbv.'/i', $bvids) == false){
+                            $lists = json_decode($notes);
+                            $this->candidnote[0] += intval($lists->pdci);
+                            $this->candidnote[1] += intval($lists->ppaci);
+                            $this->candidnote[2] += intval($lists->rhdp);
+                            $this->candidnote[3] += intval($lists->fpi);
+                            $this->candidnote[4] += intval($lists->udpi);
+                            $bvids .= "b".$bureau->id.",";
+                        }
                     }
                     return $this->candidnote[0] ?? '0';
                 })
@@ -423,12 +506,19 @@ class ResultatController extends Controller
                 ->addColumn('lieuvote', function ($commune) use($sections) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
-                        foreach($commune->sections as $section){
-                            // dd($quartier->sections); exit();
-                            $counter += $section->lieuVotes()->userlimit()->count();
-                        }
+                    //     foreach($quartier->sections as $section){
+                    //         // dd($quartier->sections); exit();
+                    //         $counter += $section->lieuVotes()->userlimit()->count();
+                    //     }
                     // }
-                    
+
+                    $communeId = $commune->id;
+                    $counter = LieuVote::whereIn('quartier_id', function ($query) use ($communeId) {
+                        $query->select('quartiers.id')
+                            ->from('quartiers')
+                            ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                            ->where('rcommunes.id', $communeId);
+                    })->count();
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('bureauvote', function ($commune) use($sections) {
@@ -439,62 +529,97 @@ class ResultatController extends Controller
                             
                     //     }
                     // foreach($commune->quartiers as $quartier){
-                        foreach($commune->sections as $section){
-                            foreach($section->lieuVotes as $lieus){
-                                $counter += $lieus->bureauVotes()->userlimit()->count();
-                            }
-                            // dd($quartier->sections); exit();
-                            // $counter += $section->lieuVotes()->userlimit()->count();
-                        }
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             $counter += $lieus->bureauVotes()->userlimit()->count();
+                    //         }
+                    //         // dd($quartier->sections); exit();
+                    //         // $counter += $section->lieuVotes()->userlimit()->count();
+                    //     }
                     // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                            ->from('lieu_votes')
+                            ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                            ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                            ->where('rcommunes.id', $communeId);
+                    })->count();
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('votant', function ($commune) use($sections) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
-                        foreach($commune->sections as $section){
-                            foreach($section->lieuVotes as $lieus){
-                                foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                    $counter += ($bureau->votant_suivi + $bureau->votant_resul);
-                                }
-                            }
-                            // foreach($section->quartiers as $quartier){
-                            //     }
-                        }
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += ($bureau->votant_suivi + $bureau->votant_resul);
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
                         
                     // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                            ->from('lieu_votes')
+                            ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                            ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                            ->where('rcommunes.id', $communeId);
+                    })
+                    ->selectRaw('SUM(votant_suivi + votant_resul) AS votant_count')
+                    ->value('votant_count');
+
                     $this->votants = $counter;
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('bulnul', function ($commune) use($sections) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
-                        foreach($commune->sections as $section){
-                            foreach($section->lieuVotes as $lieus){
-                                foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                    $counter += $bureau->bult_nul;
-                                }
-                            }
-                            // foreach($section->quartiers as $quartier){
-                            //     }
-                        }
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += $bureau->bult_nul;
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
                     // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                        ->where('rcommunes.id', $communeId);
+                    })->sum('bult_nul');
                     $this->bultnulls = $counter;
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('bulblanc', function ($commune) use($sections) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
-                        foreach($commune->sections as $section){
-                            foreach($section->lieuVotes as $lieus){
-                                foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                    $counter += $bureau->bult_blan;
-                                }
-                            }
-                            // foreach($section->quartiers as $quartier){
-                            //     }
-                        }
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += $bureau->bult_blan;
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
                     // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                        ->where('rcommunes.id', $communeId);
+                    })->sum('bult_blan');
                     $this->bultblancs = $counter;
                     return $counter.'' ?? '0';
                 })
@@ -504,42 +629,75 @@ class ResultatController extends Controller
                 ->addColumn('participation', function($commune) use ($sections) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
-                        foreach($commune->sections as $section){
-                            foreach($section->lieuVotes as $lieus){
-                                foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                    $counter += ($bureau->votant_suivi + $bureau->votant_resul);
-                                }
-                            }
-                            // foreach($section->quartiers as $quartier){
-                            //     }
-                        }
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += ($bureau->votant_suivi + $bureau->votant_resul);
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
                     // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                        ->where('rcommunes.id', $communeId);
+                    })
+                    ->selectRaw('SUM(votant_suivi + votant_resul) AS votant_count')
+                    ->value('votant_count');
                     return round( $commune->nbrinscrit!=0?($counter/$commune->nbrinscrit)*100:0.0, 2).'%' ?? '0';
                 })
                 ->addColumn('candidata', function($commune) use ($sections) {
                     //$counter = 0;
                     $bvids = "";
+                    $communeId = $commune->id;
+                    $bvlist = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                        ->where('rcommunes.id', $communeId);
+                    })->get();
+
                     // foreach($commune->quartiers as $quartier){
-                        foreach($commune->sections as $section){
-                            foreach($section->lieuVotes as $lieus){
-                                foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                    $notes = $bureau->candidat_note;
-                                    $currbv = "b".$bureau->id.",";
-                                    if($notes && preg_match('/'.$currbv.'/i', $bvids) == false){
-                                        $lists = json_decode($notes);
-                                        $this->candidnote[0] += intval($lists->rhdp);
-                                        $this->candidnote[1] += intval($lists->pdci);
-                                        $this->candidnote[2] += intval($lists->ppa);
-                                        $this->candidnote[3] += intval($lists->indep);
-                                        $bvids .= "b".$bureau->id.",";
-                                    }
-                                }
-                            }
-                        }
-                        // foreach($section->quartiers as $quartier){
-                        //     }
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $notes = $bureau->candidat_note;
+                    //                 $currbv = "b".$bureau->id.",";
+                    //                 if($notes && preg_match('/'.$currbv.'/i', $bvids) == false){
+                    //                     $lists = json_decode($notes);
+                    //                     $this->candidnote[0] += intval($lists->rhdp);
+                    //                     $this->candidnote[1] += intval($lists->pdci);
+                    //                     $this->candidnote[2] += intval($lists->ppa);
+                    //                     $this->candidnote[3] += intval($lists->indep);
+                    //                     $bvids .= "b".$bureau->id.",";
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
                         
                     // }
+
+                    foreach($bvlist as $bureau){
+                        $notes = $bureau->candidat_note;
+                        $currbv = "b".$bureau->id.",";
+                        if($notes && preg_match('/'.$currbv.'/i', $bvids) == false){
+                            $lists = json_decode($notes);
+                            $this->candidnote[0] += intval($lists->pdci);
+                            $this->candidnote[1] += intval($lists->ppaci);
+                            $this->candidnote[2] += intval($lists->rhdp);
+                            $this->candidnote[3] += intval($lists->fpi);
+                            $this->candidnote[4] += intval($lists->udpi);
+                            $bvids .= "b".$bureau->id.",";
+                        }
+                    }
                     return $this->candidnote[0] ?? '0';
                 })
                 ->addColumn('candidatb', function($commune)  {
@@ -582,7 +740,7 @@ class ResultatController extends Controller
             
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
             $sections = Quartier::userlimit()->latest()->get();
-            $communes = Quartier::userlimit()->latest()->take(8)->get();
+            $communes = Quartier::userlimit()->latest()->get();
             
             return DataTables::of($communes)
                 ->addColumn('circonscription', function ($commune) use($sections) {
@@ -600,12 +758,18 @@ class ResultatController extends Controller
                 ->addColumn('lieuvote', function ($commune) use($sections) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
-                        $counter += $commune->lieuVotes()->userlimit()->count();
-                        // foreach($commune->sections as $section){
-                        //     // dd($quartier->sections); exit();
-                        // }
+                    //     foreach($quartier->sections as $section){
+                    //         // dd($quartier->sections); exit();
+                    //         $counter += $section->lieuVotes()->userlimit()->count();
+                    //     }
                     // }
-                    
+
+                    $communeId = $commune->id;
+                    $counter = LieuVote::whereIn('quartier_id', function ($query) use ($communeId) {
+                        $query->select('quartiers.id')
+                            ->from('quartiers')
+                            ->where('quartiers.id', $communeId);
+                    })->count();
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('bureauvote', function ($commune) use($sections) {
@@ -616,62 +780,93 @@ class ResultatController extends Controller
                             
                     //     }
                     // foreach($commune->quartiers as $quartier){
-                        foreach($commune->lieuVotes as $lieus){
-                            $counter += $lieus->bureauVotes()->userlimit()->count();
-                        }
-                        // foreach($commune->sections as $section){
-                        //     // dd($quartier->sections); exit();
-                        //     // $counter += $section->lieuVotes()->userlimit()->count();
-                        // }
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             $counter += $lieus->bureauVotes()->userlimit()->count();
+                    //         }
+                    //         // dd($quartier->sections); exit();
+                    //         // $counter += $section->lieuVotes()->userlimit()->count();
+                    //     }
                     // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                            ->from('lieu_votes')
+                            ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                            ->where('quartiers.id', $communeId);
+                    })->count();
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('votant', function ($commune) use($sections) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
-                        foreach($commune->lieuVotes as $lieus){
-                            foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                $counter += ($bureau->votant_suivi + $bureau->votant_resul);
-                            }
-                        }
-                        // foreach($commune->sections as $section){
-                        //     // foreach($section->quartiers as $quartier){
-                        //     //     }
-                        // }
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += ($bureau->votant_suivi + $bureau->votant_resul);
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
                         
                     // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                            ->from('lieu_votes')
+                            ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                            ->where('quartiers.id', $communeId);
+                    })
+                    ->selectRaw('SUM(votant_suivi + votant_resul) AS votant_count')
+                    ->value('votant_count');
+
                     $this->votants = $counter;
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('bulnul', function ($commune) use($sections) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
-                        foreach($commune->lieuVotes as $lieus){
-                            foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                $counter += $bureau->bult_nul;
-                            }
-                        }
-                        // foreach($commune->sections as $section){
-                        //     // foreach($section->quartiers as $quartier){
-                        //     //     }
-                        // }
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += $bureau->bult_nul;
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
                     // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->where('quartiers.id', $communeId);
+                    })->sum('bult_nul');
                     $this->bultnulls = $counter;
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('bulblanc', function ($commune) use($sections) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
-                        foreach($commune->lieuVotes as $lieus){
-                            foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                $counter += $bureau->bult_blan;
-                            }
-                        }
-                        // foreach($commune->sections as $section){
-                        //     // foreach($section->quartiers as $quartier){
-                        //     //     }
-                        // }
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += $bureau->bult_blan;
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
                     // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->where('quartiers.id', $communeId);
+                    })->sum('bult_blan');
                     $this->bultblancs = $counter;
                     return $counter.'' ?? '0';
                 })
@@ -681,42 +876,73 @@ class ResultatController extends Controller
                 ->addColumn('participation', function($commune) use ($sections) {
                     $counter = 0;
                     // foreach($commune->quartiers as $quartier){
-                        foreach($commune->lieuVotes as $lieus){
-                            foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                $counter += ($bureau->votant_suivi + $bureau->votant_resul);
-                            }
-                        }
-                        // foreach($commune->sections as $section){
-                        //     // foreach($section->quartiers as $quartier){
-                        //     //     }
-                        // }
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += ($bureau->votant_suivi + $bureau->votant_resul);
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
                     // }
+                    $communeId = $commune->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->where('quartiers.id', $communeId);
+                    })
+                    ->selectRaw('SUM(votant_suivi + votant_resul) AS votant_count')
+                    ->value('votant_count');
                     return round( $commune->nbrinscrit!=0?($counter/$commune->nbrinscrit)*100:0.0, 2).'%' ?? '0';
                 })
                 ->addColumn('candidata', function($commune) use ($sections) {
                     //$counter = 0;
                     $bvids = "";
+                    $communeId = $commune->id;
+                    $bvlist = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->where('quartiers.id', $communeId);
+                    })->get();
+
                     // foreach($commune->quartiers as $quartier){
-                        foreach($commune->lieuVotes as $lieus){
-                            foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
-                                $notes = $bureau->candidat_note;
-                                $currbv = "b".$bureau->id.",";
-                                if($notes && preg_match('/'.$currbv.'/i', $bvids) == false){
-                                    $lists = json_decode($notes);
-                                    $this->candidnote[0] += intval($lists->rhdp);
-                                    $this->candidnote[1] += intval($lists->pdci);
-                                    $this->candidnote[2] += intval($lists->ppa);
-                                    $this->candidnote[3] += intval($lists->indep);
-                                    $bvids .= "b".$bureau->id.",";
-                                }
-                            }
-                        }
-                        // foreach($commune->sections as $section){
-                        // }
-                        // foreach($section->quartiers as $quartier){
-                        //     }
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $notes = $bureau->candidat_note;
+                    //                 $currbv = "b".$bureau->id.",";
+                    //                 if($notes && preg_match('/'.$currbv.'/i', $bvids) == false){
+                    //                     $lists = json_decode($notes);
+                    //                     $this->candidnote[0] += intval($lists->rhdp);
+                    //                     $this->candidnote[1] += intval($lists->pdci);
+                    //                     $this->candidnote[2] += intval($lists->ppa);
+                    //                     $this->candidnote[3] += intval($lists->indep);
+                    //                     $bvids .= "b".$bureau->id.",";
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
                         
                     // }
+
+                    foreach($bvlist as $bureau){
+                        $notes = $bureau->candidat_note;
+                        $currbv = "b".$bureau->id.",";
+                        if($notes && preg_match('/'.$currbv.'/i', $bvids) == false){
+                            $lists = json_decode($notes);
+                            $this->candidnote[0] += intval($lists->pdci);
+                            $this->candidnote[1] += intval($lists->ppaci);
+                            $this->candidnote[2] += intval($lists->rhdp);
+                            $this->candidnote[3] += intval($lists->fpi);
+                            $this->candidnote[4] += intval($lists->udpi);
+                            $bvids .= "b".$bureau->id.",";
+                        }
+                    }
                     return $this->candidnote[0] ?? '0';
                 })
                 ->addColumn('candidatb', function($commune)  {
@@ -758,9 +984,9 @@ class ResultatController extends Controller
         if ($request->ajax()) {
             
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
-            $candidats = Candidat::all();
-            $sections = Quartier::userlimit()->latest()->get();
-            $lieuvotes = LieuVote::userlimit()->take(8)->get();
+            // $candidats = Candidat::all();
+            // $sections = Quartier::userlimit()->latest()->get();
+            $lieuvotes = LieuVote::userlimit()->get();
             return DataTables::of($lieuvotes)
                 ->addColumn('lieuvote', function ($lieuvote) use($sections) {
                     $this->bultnulls = 0;
@@ -771,66 +997,95 @@ class ResultatController extends Controller
                 })
                 ->addColumn('bureauvote', function ($lieuvote) use($sections) {
                     $counter = 0;
-                    foreach($sections as $section){
-                        foreach($section->lieuVotes as $lieus){
-                            if($lieus->libel == $lieuvote->libel){
-                                $counter += $lieus->bureauVotes->count();
-                            }
-                        }
-                        // foreach($section->quartiers as $quartier){
-                        //     }
-                    }
-                    
+                    // foreach($sections as $section){
+                    //     // foreach($section->quartiers as $quartier){
+                    //         //     }
+                            
+                    //     }
+                    // foreach($commune->quartiers as $quartier){
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             $counter += $lieus->bureauVotes()->userlimit()->count();
+                    //         }
+                    //         // dd($quartier->sections); exit();
+                    //         // $counter += $section->lieuVotes()->userlimit()->count();
+                    //     }
+                    // }
+                    $communeId = $lieuvote->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                            ->from('lieu_votes')
+                            ->where('lieu_votes.id', $communeId);
+                    })->count();
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('votant', function ($lieuvote) use($sections) {
                     $counter = 0;
-                    foreach($sections as $section){
-                        foreach($section->lieuVotes as $lieus){
-                            if($lieus->libel == $lieuvote->libel){
-                                foreach($lieus->bureauVotes as $bureau){
-                                    $counter += ($bureau->votant_suivi + $bureau->votant_resul);
-                                }
-                            }
-                        }
-                        // foreach($section->quartiers as $quartier){
-                        //     }
-                        }
-                    
+                    // foreach($commune->quartiers as $quartier){
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += ($bureau->votant_suivi + $bureau->votant_resul);
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
+                        
+                    // }
+                    $communeId = $lieuvote->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                            ->from('lieu_votes')
+                            ->where('lieu_votes.id', $communeId);
+                    })
+                    ->selectRaw('SUM(votant_suivi + votant_resul) AS votant_count')
+                    ->value('votant_count');
+
                     $this->votants = $counter;
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('bulnul', function ($lieuvote) use($sections) {
                     $counter = 0;
-                    foreach($sections as $section){
-                        foreach($section->lieuVotes as $lieus){
-                            if($lieus->libel == $lieuvote->libel){
-                                foreach($lieus->bureauVotes as $bureau){
-                                    $counter += $bureau->bult_nul;
-                                }
-                            }
-                        }
-                        // foreach($section->quartiers as $quartier){
-                        //     }
-                        }
-                    
+                    // foreach($commune->quartiers as $quartier){
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += $bureau->bult_nul;
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
+                    // }
+                    $communeId = $lieuvote->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->where('lieu_votes.id', $communeId);
+                    })->sum('bult_nul');
                     $this->bultnulls = $counter;
                     return $counter.'' ?? '0';
                 })
                 ->addColumn('bulblanc', function ($lieuvote) use($sections) {
                     $counter = 0;
-                    foreach($sections as $section){
-                        foreach($section->lieuVotes as $lieus){
-                            if($lieus->libel == $lieuvote->libel){
-                                foreach($lieus->bureauVotes as $bureau){
-                                    $counter += $bureau->bult_blan;
-                                }
-                            }
-                        }
-                        // foreach($section->quartiers as $quartier){
-                        //     }
-                        }
-                    
+                    // foreach($commune->quartiers as $quartier){
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += $bureau->bult_blan;
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
+                    // }
+                    $communeId = $lieuvote->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->where('lieu_votes.id', $communeId);
+                    })->sum('bult_blan');
                     $this->bultblancs = $counter;
                     return $counter.'' ?? '0';
                 })
@@ -839,44 +1094,58 @@ class ResultatController extends Controller
                 })
                 ->addColumn('participation', function($lieuvote) use ($sections) {
                     $counter = 0;
-                    foreach($sections as $section){
-                        foreach($section->lieuVotes as $lieus){
-                            if($lieus->libel == $lieuvote->libel){
-                                foreach($lieus->bureauVotes as $bureau){
-                                    $counter += ($bureau->votant_suivi + $bureau->votant_resul);
-                                }
-                            }
-                        }
-                        // foreach($section->quartiers as $quartier){
-                        //     }
-                        }
-                    
+                    // foreach($commune->quartiers as $quartier){
+                    //     foreach($quartier->sections as $section){
+                    //         foreach($section->lieuVotes as $lieus){
+                    //             foreach($lieus->bureauVotes()->userlimit()->get() as $bureau){
+                    //                 $counter += ($bureau->votant_suivi + $bureau->votant_resul);
+                    //             }
+                    //         }
+                    //         // foreach($section->quartiers as $quartier){
+                    //         //     }
+                    //     }
+                    // }
+                    $communeId = $lieuvote->id;
+                    $counter = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->where('lieu_votes.id', $communeId);
+                    })
+                    ->selectRaw('SUM(votant_suivi + votant_resul) AS votant_count')
+                    ->value('votant_count');
                     return round( $lieuvote->nbrinscrit!=0?($counter/$lieuvote->nbrinscrit)*100:0.0, 2).'%' ?? '0';
                 })
                 ->addColumn('candidata', function($lieuvote) use ($sections, $candidats) {
                     //$counter = 0;
-                    foreach($sections as $section){
-                        foreach($section->lieuVotes as $lieus){
-                            if($lieus->libel == $lieuvote->libel){
-                                foreach($lieus->bureauVotes as $bureau){
-                                    $notes = $bureau->candidat_note;
-                                    if($notes){
-                                        $lists = json_decode($notes);
-                                        $cand_pos = 0;
-                                        foreach ($candidats as $candidat){
-                                            $namek = $candidat->code;
-                                            if(is_object($lists) && property_exists($lists, "$namek")){    
-                                                $this->candidnote[$cand_pos] += intval($lists->$namek);
-                                            }
-                                            $cand_pos++;
-                                        }
-                                    }
+                    $communeId = $lieuvote->id;
+                    $bvlist = BureauVote::whereIn('lieu_vote_id', function ($query) use ($communeId) {
+                        $query->select('lieu_votes.id')
+                        ->from('lieu_votes')
+                        ->where('lieu_votes.id', $communeId);
+                    })->get();
+
+                    // foreach($sections as $section){
+                    //     foreach($section->lieuVotes as $lieus){
+                    //         if($lieus->libel == $lieuvote->libel){
+                    foreach($bvlist as $bureau){
+                        $notes = $bureau->candidat_note;
+                        if($notes){
+                            $lists = json_decode($notes);
+                            $cand_pos = 0;
+                            foreach ($candidats as $candidat){
+                                $namek = $candidat->code;
+                                if(is_object($lists) && property_exists($lists, "$namek")){    
+                                    $this->candidnote[$cand_pos] += intval($lists->$namek);
                                 }
+                                $cand_pos++;
                             }
                         }
-                        // foreach($section->quartiers as $quartier){
-                        //     }
                     }
+                    //         }
+                    //     }
+                    //     // foreach($section->quartiers as $quartier){
+                    //     //     }
+                    // }
                     
                     return $this->candidnote[0] ?? '0';
                 })

@@ -157,7 +157,7 @@
                         @endcan
                         @can('recens-parrain', App\Models\Parrain::class)
                             <x-dropdown-link href="{{ route('recens.parrains.index') }}">
-                                Parrains
+                                Parrainés
                             </x-dropdown-link>
                         @endcan
                     </x-nav-dropdown>

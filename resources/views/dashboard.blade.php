@@ -1,7 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight" style="display: block;width: fit-content;">                
-                {{ 'ELECTION PRESIDENTIELLE'}} | {{ "Inscrits : ".make_separate_thousand(App\Models\Commune::userlimit()->get()->sum('nbrinscrit'))}}
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight" style="display: block;width: fit-content;">
+                @php $nbrinscritTo = make_separate_thousand(App\Models\LieuVote::userlimit()->selectRaw('SUM(nbrinscrit) AS nbrinscrit_count')->value('nbrinscrit_count')); @endphp                
+                {{ 'ELECTION PRESIDENTIELLE'}} | {{ "Inscrits : ".$nbrinscritTo}}
             </h2>
     </x-slot>
     <div class="py-12">
@@ -34,12 +35,18 @@
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Lieu de vote</h3>
                         <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="lieuv">@php $count = App\Models\LieuVote::userlimit()->count(); echo $count>9?$count:"0".$count; @endphp</h3>
+                        <h3 class="text-lg font-semibold mb-2" id="lieuv">@php $count = App\Models\LieuVote::userlimit()->count(); echo $count>9?make_separate_thousand($count):"0".make_separate_thousand($count); @endphp</h3>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Bureaux de vote</h3>
                         <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="bureauv">@php $countBv = App\Models\BureauVote::userlimit()->count(); echo $countBv>9?$countBv:"0".$countBv; @endphp</h3>
+                        <h3 class="text-lg font-semibold mb-2" id="bureauv">@php $countBv = App\Models\BureauVote::userlimit()->count(); echo $countBv>9?make_separate_thousand($countBv):"0".make_separate_thousand($countBv); @endphp</h3>
+                        
+                    </div>
+                    <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
+                        <h3 class="text-lg font-bold mb-2">Inscrits</h3>
+                        <hr class="w-full bg-gray-300"/>
+                        <h3 class="text-lg font-semibold mb-2" id="bureauv">@php echo $nbrinscritTo; @endphp</h3>
                         
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
@@ -153,7 +160,7 @@
                         </div>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
-                        <h4 class="text-xxl font-semibold mb-2" style="font-size:1em; color:red">PV REÇUS/{{$countBv}}</h4>
+                        <h4 class="text-xxl font-semibold mb-2" style="font-size:1em; color:red">PV REÇUS/{{make_separate_thousand($countBv)}}</h4>
                         @php
                             $bvs = App\Models\BureauVote::userlimit()->get();
                             $bvcount = 0;
@@ -244,11 +251,11 @@
             incEltNbr("commune", 150);
             incEltNbr("rcommune", 200);
             incEltNbr("quartier", 250);
-            incEltNbr("lieuv", 300);
-            incEltNbr("bureauv", 400);
+            // incEltNbr("lieuv", 2000);
+            // incEltNbr("bureauv", 2000);
             incEltNbr("candidat", 500);
             
-            incEltNbr("parraine", 600);
+            // incEltNbr("parraine", 600);
         </script>
     </div>
 </x-app-layout>
