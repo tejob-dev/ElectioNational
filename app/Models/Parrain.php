@@ -23,6 +23,8 @@ class Parrain extends Model
         'cart_milit',
         'list_elect',
         'cart_elect',
+        'cni_dispo',
+        'extrait',
         'telephone',
         'date_naiss',
         'code_lv',

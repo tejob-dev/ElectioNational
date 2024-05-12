@@ -50,7 +50,7 @@ class CommonItemController extends Controller
         // $collect2 = $request->collect();
         // $content2 = $request->getContent();
         $content = $request->text;
-        // dd($request);
+        // dd($content, $request);
         // $this->dataR = $this->treatgettext($request);
         // $content = $this->dataR[2];
         // $body = $request->all();
@@ -71,11 +71,11 @@ class CommonItemController extends Controller
             $cfinal = $content;
         }
 
-        if(preg_match("/PAR\:/i", $cfinal)){
+        if(preg_match("/PAR/i", $cfinal)){
             $arrCont = explode("*", $cfinal);
-            if( strlen($arrCont[0]) <= 4 && $arrCont[0] == "CO41" ){
-                if(!empty($arrCont[5])){
-                    if($this->is_validContact($arrCont[4]) && $this->is_validContact($arrCont[9])){
+            if( strlen($arrCont[0]) <= 4 && $arrCont[0] == "PDCD" ){
+                if(!empty($arrCont[6])){
+                    if($this->is_validContact($arrCont[3]) && $this->is_validContact($arrCont[7])){
                         //dd("Valide num ".$arrCont[2]." ".$arrCont[8]);
                         $data2 = $this->lauchProcForParrain($cfinal);
                         return response()->json($data2, $data2->code);
@@ -106,7 +106,7 @@ class CommonItemController extends Controller
                         // ], 202);
                     }
                 }else{
-                    if(sizeof($arrCont) <= 5){
+                    if(sizeof($arrCont) <= 6){
                         //dd("Valide num ".$arrCont[2]." ".$arrCont[8]);
                         $data2 = $this->lauchProcForParrain($cfinal);
                         return response()->json($data2, $data2->code);
@@ -205,7 +205,7 @@ class CommonItemController extends Controller
         $code = 404;
         $arrCont = explode("*", $cont);
 
-        if(sizeof($arrCont) <= 5){
+        if(sizeof($arrCont) <= 6){
 
             $timestampCr = strtotime($arrCont[1]);
             $created_it = date("Y-m-d H:i:s", $timestampCr);
@@ -218,8 +218,9 @@ class CommonItemController extends Controller
                 $data->error = "";
                 $code = 200;
 
-                $parrain->observation = $arrCont[3];
-                $parrain->recenser = $arrCont[4];
+                $parrain->extrait = $arrCont[3];
+                $parrain->observation = $arrCont[4];
+                $parrain->recenser = $arrCont[5];
                 $parrain->save();
             }else{
                 $data->success = true;
@@ -233,8 +234,8 @@ class CommonItemController extends Controller
             return $data;
         }
 
-        $agTerrainPhone = $this->cleanPhone($arrCont[4]);
-        $parrainPhone = $this->cleanPhone($arrCont[9]);
+        $agTerrainPhone = $this->cleanPhone($arrCont[3]);
+        $parrainPhone = $this->cleanPhone($arrCont[7]);
         $agTerrain = AgentTerrain::with("lieuVote")->where("telephone", $agTerrainPhone)->first();
 
         if(!$agTerrain) {
@@ -248,28 +249,33 @@ class CommonItemController extends Controller
             if(sizeof($arrCont) > 4){
                 
                 $timestampCr = strtotime($arrCont[1]);
-                $date_obj = Carbon::createFromFormat('d/m/Y', $arrCont[10]);
-                $lieuvote = LieuVote::where("code", "like", "%".$arrCont[11]."%")->first();
-                $dateNaiss = $date_obj->format('Y-m-d H:i:s');
+                $timestampDateNaissCr = strtotime($arrCont[6]);
+                $dateNaiss = date("Y-m-d H:i:s", $timestampDateNaissCr);
+                // $date_obj = Carbon::createFromFormat('d/m/Y', $datenaiss_it);
+                // $lieuvote = LieuVote::where("libel", "like", "%".$arrCont[9]."%")->first();
+                // $dateNaiss = $date_obj->format('Y-m-d H:i:s');
                 $created_it = date("Y-m-d H:i:s", $timestampCr);
                 //dd("Valide num ".$agTerrainPhone." ".$dateNaiss);
+                $extrait = "";
                 $observation = "";
                 $agent_recences = "";
-                if(array_key_exists(14, $arrCont)) $observation = $arrCont[14];
-                if(array_key_exists(15, $arrCont)) $agent_recences = $arrCont[15];
+                if(array_key_exists(12, $arrCont)) $extrait = $arrCont[12];
+                if(array_key_exists(13, $arrCont)) $observation = $arrCont[13];
+                if(array_key_exists(14, $arrCont)) $agent_recences = $arrCont[14];
                 $parrainCr = [
                     'nom_pren_par' => "$agTerrain->nom $agTerrain->prenom",
                     'telephone_par' => "$agTerrainPhone",
                     'recenser' => "$agent_recences",
-                    'nom' => "$arrCont[5]",
-                    'prenom' => "$arrCont[6]",
-                    'list_elect' => "$arrCont[7]",
-                    'cart_elect' => "$arrCont[8]",
+                    'nom' => "$arrCont[4]",
+                    'prenom' => "$arrCont[5]",
+                    'list_elect' => "$arrCont[10]",
+                    'cni_dispo' => "$arrCont[11]",
+                    'extrait' => "$extrait",
                     'telephone' => "$parrainPhone",
                     'date_naiss' => "$dateNaiss",
-                    'code_lv' => optional($lieuvote)->libel??"AUTRE CIRCONSCRIPTION",
-                    'residence' => "$arrCont[12]",
-                    'profession' => "$arrCont[13]",
+                    'code_lv' => optional($arrCont[9])?"$arrCont[9]":"AUTRE CIRCONSCRIPTION",
+                    'residence' => "N/A",
+                    'profession' => "N/A",
                     'observation' => "$observation",
                     'status' => "Non traité",
                     'created_at' => $created_it,
@@ -281,7 +287,7 @@ class CommonItemController extends Controller
                 );
 
                 if($parrain){
-                    $result = $this->sendMessage(array("225".$parrainPhone), 'ERIC TABA', "Cher(e) ".strtoupper($arrCont[5])." ".ucwords($arrCont[6]).",\nJe vous remercie de soutenir ma Candidature à la Mairie de Cocody.\nA très bientot !\n\nEric TABA");
+                    $result = $this->sendMessage(array("225".$parrainPhone), 'PDCI-RDA', "Cher(e) ".strtoupper($arrCont[4])." ".ucwords($arrCont[5]).",\nNous vous remercions de vous etre enregistre au PDCI.\nA tres bientot !\n\nNotre Partie PDCI-RDA");
                 
                 
                     if( !empty($result) ){
@@ -349,7 +355,7 @@ class CommonItemController extends Controller
         $new_date = date('Y-m-d H:i:s');
         $param = array(
             'username' => 'ELECTIO',
-            'password' => '#@Electio2023@#',
+            'password' => '#m1n1m1SS@#',
             'sender' => "$sender",
             'text' => $message,
             'type' => 'text',
