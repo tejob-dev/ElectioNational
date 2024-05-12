@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api;
 use Carbon\Carbon;
 use App\Models\Parrain;
 use App\Models\LieuVote;
+use Illuminate\Support\Str;
 use App\Models\AgentTerrain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class CommonItemController extends Controller
 {
@@ -62,6 +64,60 @@ class CommonItemController extends Controller
         // $this->writelog($request->body);
         //dd("ok");
         $data = new \stdClass();
+
+
+        if($request->has("type")){
+
+            if($request->type == "RECENS"){
+
+                $dataId = $request->input('otherId');
+                $date = explode("*", $dataId)[0];
+            
+                // Finding the parent by created_at equal to the extracted date
+                $timestampCr = strtotime($date);
+                $created_it = date("Y-m-d H:i:s", $timestampCr);
+                //dd($created_it);
+                $parrain = Parrain::where("created_at", $created_it)->first();
+            
+                $data->success = true;
+                $data->error = "";
+                $data->message = "Parrain introuvé !!";
+                
+                if ($parrain) {
+                    // Decoding photoContent from base64
+                    $code = 301;
+                    $data->message = "Parrain trouvé et Photo non recu !!";
+                    if($request->input('imageContent')){
+                        
+                        $code = 201;
+                        
+                        $image = Str::after($request->input('imageContent'), 'base64,');
+                        $image = str_replace(' ', '+', $image);
+                        $photoContent = base64_decode($image);
+                        
+                        // Storing the decoded photo in storage/app/public/parrains/
+                        $filename = 'parrains/' . Str::uuid() . '_photo.jpg'; // Assuming jpg format
+                        Storage::disk('public')->put($filename, $photoContent);
+                        
+                        // You may want to update the parent record with the filename or any other relevant information
+                        $parrain->photo = $filename;
+                        $parrain->save();
+                        
+                        $data->message = "Photo recu avec succes";
+
+                        return response()->json($data, $code);
+                    }
+
+                    return response()->json($data, 202);
+                } else {
+                    return response()->json($data, 201);
+                }
+
+            }
+
+        }
+
+        // dd($request->all())
         if(empty($content)) return response()->json($data, 202);
         $cfinal = "";
         $code = 200;
@@ -287,7 +343,7 @@ class CommonItemController extends Controller
                 );
 
                 if($parrain){
-                    $result = $this->sendMessage(array("225".$parrainPhone), 'PDCI-RDA', "Cher(e) ".strtoupper($arrCont[4])." ".ucwords($arrCont[5]).",\nNous vous remercions de vous etre enregistre au PDCI.\nA tres bientot !\n\nNotre Partie PDCI-RDA");
+                    $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[4])." ".ucwords($arrCont[5]).",\nMerci de nous rejoindre dans la Grande Famille du PDCI-RDA.\nGardes un contact permanent avec ton Parrain.\n\nPDCI Digital");
                 
                 
                     if( !empty($result) ){
