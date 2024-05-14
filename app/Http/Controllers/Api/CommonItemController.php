@@ -108,9 +108,9 @@ class CommonItemController extends Controller
                         return response()->json($data, $code);
                     }
 
-                    return response()->json($data, 202);
+                    return response()->json($data, $code);
                 } else {
-                    return response()->json($data, 201);
+                    return response()->json($data, 301);
                 }
 
             }
@@ -305,11 +305,11 @@ class CommonItemController extends Controller
             if(sizeof($arrCont) > 4){
                 
                 $timestampCr = strtotime($arrCont[1]);
-                $timestampDateNaissCr = strtotime($arrCont[6]);
-                $dateNaiss = date("Y-m-d H:i:s", $timestampDateNaissCr);
-                // $date_obj = Carbon::createFromFormat('d/m/Y', $datenaiss_it);
+                // $timestampDateNaissCr = strtotime($arrCont[6]);
+                // $dateNaiss = date("Y-m-d H:i:s", $timestampDateNaissCr);
+                $date_obj = Carbon::createFromFormat('d/m/Y', str_replace("-", "/", $arrCont[6]));
                 // $lieuvote = LieuVote::where("libel", "like", "%".$arrCont[9]."%")->first();
-                // $dateNaiss = $date_obj->format('Y-m-d H:i:s');
+                $dateNaiss = $date_obj->format('Y-m-d H:i:s');
                 $created_it = date("Y-m-d H:i:s", $timestampCr);
                 //dd("Valide num ".$agTerrainPhone." ".$dateNaiss);
                 $extrait = "";
@@ -331,7 +331,7 @@ class CommonItemController extends Controller
                     'date_naiss' => "$dateNaiss",
                     'code_lv' => optional($arrCont[9])?"$arrCont[9]":"AUTRE CIRCONSCRIPTION",
                     'residence' => "N/A",
-                    'profession' => "N/A",
+                    'profession' => "$arrCont[8]",
                     'observation' => "$observation",
                     'status' => "Non traité",
                     'created_at' => $created_it,

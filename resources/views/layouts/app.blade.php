@@ -71,8 +71,9 @@
             <!-- Pabody > div.min-h-screen.bg-gray-100 > navge Heading -->
             @if (isset($header))
                 <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8" style="display: flex;justify-content: space-between;">
                         {{ $header }}
+                        <div class="font-semibold text-xl text-gray-800 leading-tight" style="display: block;width: fit-content;" id="dateContainer"></div>
                     </div>
                 </header>
             @endif
@@ -133,5 +134,33 @@
         @if (isset($scriptc))
             {{ $scriptc }}
         @endif
+        <script>
+            function updateDateTime() {
+                // Get the current date and time
+                const currentDate = new Date();
+    
+                // Define the days of the week in French
+                const daysOfWeek = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+    
+                // Define the months in French
+                const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+    
+                // Format the date as desired
+                const formattedDate = `${daysOfWeek[currentDate.getDay()]} ${currentDate.getDate()} ${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+                
+                // Format the time as desired (add leading zeros to hour and minute)
+                const formattedTime = `${String(currentDate.getHours()).padStart(2, '0')}:${String(currentDate.getMinutes()).padStart(2, '0')}:${String(currentDate.getSeconds()).padStart(2, '0')}`;
+    
+                // Update the content on the page
+                document.getElementById('dateContainer').innerText = formattedDate+" "+formattedTime;
+                //document.getElementById('timeContainer').innerText = ;
+            }
+    
+            // Update the date and time initially
+            updateDateTime();
+    
+            // Update the date and time every second (1000 milliseconds)
+            setInterval(updateDateTime, 1000);
+        </script>
     </body>
 </html>
