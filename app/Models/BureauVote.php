@@ -14,7 +14,7 @@ class BureauVote extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['libel', 'objectif', 'seuil', 'lieu_vote_id', 'votant_suivi', 'votant_resul', 'bult_nul', 'bult_blan', 'candidat_note'];
+    protected $fillable = ['libel', 'inscrit', 'objectif', 'seuil', 'lieu_vote_id', 'votant_suivi', 'votant_resul', 'bult_nul', 'bult_blan', 'candidat_note'];
 
     protected $searchableFields = ['*'];
 

@@ -69,6 +69,9 @@
                                     Inscrits
                                 </th>
                                 <th class="px-4 py-3 text-center">
+                                    Objectifs
+                                </th>
+                                <th class="px-4 py-3 text-center">
                                     Votants
                                 </th>
                                 <th class="px-4 py-3 text-center" style="background-color:#ffff99">
@@ -179,7 +182,7 @@
                     drawCallback: function( settings ) {
                         var api = this.api();
                         // Output the data for the visible rows to the browser's console
-                        var listOfSum = [0,0,0,0];
+                        var listOfSum = [0,0,0,0,0];
                         api
                         .rows()
                         .every(function() {
@@ -190,15 +193,16 @@
                             //var column1Value = rowData[0];
                             // Example: Accessing value of the second column (index 1)
                             
-                            listOfSum[0] += parseInt(rowData.objectif);
-                            listOfSum[1] += parseInt(rowData.votant);
-                            listOfSum[2] += parseFloat(parseInt(rowData.votant)/parseInt(rowData.objectif));
-                            listOfSum[3] += parseInt(rowData.seuil);
+                            listOfSum[0] += parseInt(rowData.inscrit);
+                            listOfSum[1] += parseInt(rowData.objectif);
+                            listOfSum[2] += parseInt(rowData.votant);
+                            listOfSum[3] += parseFloat(parseInt(rowData.votant)/parseInt(rowData.objectif));
+                            listOfSum[4] += parseInt(rowData.seuil);
                             //console.log(rowData);
                             //var columnNameValue = this.column('column_name').data()[0];
                             //console.log('Value of column "column_name" for this row:', columnNameValue);
                         });
-                        $('<tr><td><td></td><td>'+listOfSum[0]+'</td><td>'+listOfSum[1]+'</td><td>'+((listOfSum[1]/listOfSum[0])*100).toFixed(2)+'%</td><td>'+listOfSum[3]+'</td></tr>')
+                        $('<tr><td><td></td><td>'+listOfSum[0]+'</td><td>'+listOfSum[1]+'</td><td>'+listOfSum[2]+'</td><td>'+((listOfSum[3]/listOfSum[1])*100).toFixed(2)+'%</td><td>'+listOfSum[4]+'</td></tr>')
                         .insertAfter($('table > tbody tr:last-child()'));
                         //console.log(listOfSum);
                         console.log("list of sum");
@@ -209,6 +213,7 @@
                     columns: [
                         {data: 'lieuv', name: 'lieuv'},
                         {data: 'libel', name: 'libel'},
+                        {data: 'inscrit', name: 'inscrit'},
                         {data: 'objectif', name: 'objectif'},
                         {data: 'votant', name: 'votant'},
                         {data: 'participation', name: 'participation'},

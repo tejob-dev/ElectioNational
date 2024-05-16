@@ -409,7 +409,7 @@ class SuiviController extends Controller
         if ($request->ajax()) {
             
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
-            $bureauvotes = BureauVote::userlimit()->take(8)->get();
+            $bureauvotes = BureauVote::userlimit()->get();
             return DataTables::of($bureauvotes)
                 ->addColumn('lieuv', function ($bureauvote) {
                     return optional($bureauvote->lieuVote)->libel ?? '-';

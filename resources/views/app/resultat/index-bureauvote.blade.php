@@ -77,6 +77,9 @@
                                     Inscrits
                                 </th>
                                 <th class="px-4 py-3 text-center">
+                                    Objectifs
+                                </th>
+                                <th class="px-4 py-3 text-center">
                                     Votants
                                 </th>
                                 <th class="px-4 py-3 text-center">
@@ -211,7 +214,7 @@
                     drawCallback: function( settings ) {
                         var api = this.api();
                         // Output the data for the visible rows to the browser's console
-                        var listOfSum = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+                        var listOfSum = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                         api
                         .rows()
                         .every(function() {
@@ -222,17 +225,18 @@
                             //var column1Value = rowData[0];
                             // Example: Accessing value of the second column (index 1)
                             
-                            listOfSum[0] += parseInt(rowData.objectif);
-                            listOfSum[1] += parseInt(rowData.votant);
-                            listOfSum[2] += parseInt(rowData.bulnul);
-                            listOfSum[3] += parseInt(rowData.bulblanc);
-                            listOfSum[4] += parseInt(rowData.suffrage);
-                            listOfSum[5] += parseInt(rowData.participation);
-                            listOfSum[6] += parseInt(rowData.candidata);
-                            listOfSum[7] += parseInt(rowData.candidatb);
-                            listOfSum[8] += parseInt(rowData.candidatc);
-                            listOfSum[9] += parseInt(rowData.candidatd);
-                            listOfSum[10] += parseInt(rowData.candidate);
+                            listOfSum[0] += parseInt(rowData.inscrit);
+                            listOfSum[1] += parseInt(rowData.objectif);
+                            listOfSum[2] += parseInt(rowData.votant);
+                            listOfSum[3] += parseInt(rowData.bulnul);
+                            listOfSum[4] += parseInt(rowData.bulblanc);
+                            listOfSum[5] += parseInt(rowData.suffrage);
+                            listOfSum[6] += parseInt(rowData.participation);
+                            listOfSum[7] += parseInt(rowData.candidata);
+                            listOfSum[8] += parseInt(rowData.candidatb);
+                            listOfSum[9] += parseInt(rowData.candidatc);
+                            listOfSum[10] += parseInt(rowData.candidatd);
+                            listOfSum[11] += parseInt(rowData.candidate);
                             // listOfSum[11] += parseInt(rowData.candidatf);
                             // listOfSum[12] += parseInt(rowData.candidatg);
                             // listOfSum[13] += parseInt(rowData.candidath);
@@ -240,7 +244,7 @@
                             //var columnNameValue = this.column('column_name').data()[0];
                             //console.log('Value of column "column_name" for this row:', columnNameValue);
                         });
-                        $('<tr><td><td></td><td>'+listOfSum[0]+'</td><td>'+listOfSum[1]+'</td><td>'+listOfSum[2]+'</td><td>'+listOfSum[3]+'</td><td>'+listOfSum[4]+'</td><td>'+Number( (((listOfSum[4]/listOfSum[0])*100).toFixed(3)) ).toFixed(2)+'%</td><td>'+listOfSum[6]+'</td><td>'+listOfSum[7]+'</td><td>'+listOfSum[8]+'</td><td>'+listOfSum[9]+'</td><td>'+listOfSum[10]+'</td><td></tr>') //+listOfSum[11]+'</td><td>'+listOfSum[12]+'</td><td>'+listOfSum[13]+'</td><td></td>
+                        $('<tr><td><td></td><td>'+listOfSum[0]+'</td><td>'+listOfSum[1]+'</td><td>'+listOfSum[2]+'</td><td>'+listOfSum[3]+'</td><td>'+listOfSum[4]+'</td><td>'+Number( (((listOfSum[5]/listOfSum[1])*100).toFixed(3)) ).toFixed(2)+'%</td><td>'+listOfSum[6]+'</td><td>'+listOfSum[7]+'</td><td>'+listOfSum[8]+'</td><td>'+listOfSum[9]+'</td><td>'+listOfSum[10]+'</td><td>'+listOfSum[11]+'</td><td></tr>') //+listOfSum[11]+'</td><td>'+listOfSum[12]+'</td><td>'+listOfSum[13]+'</td><td></td>
                         .insertAfter($('table > tbody tr:last-child()'));
                         //console.log(listOfSum);
                         console.log("list of sum");
@@ -251,6 +255,7 @@
                     columns: [
                         {data: 'lieuv', name: 'lieuv'},
                         {data: 'libel', name: 'libel'},
+                        {data: 'inscrit', name: 'inscrit'},
                         {data: 'objectif', name: 'objectif'},
                         {data: 'votant', name: 'votant'},
                         {data: 'bulnul', name: 'bulnul'},
