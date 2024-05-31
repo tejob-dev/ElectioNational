@@ -15,32 +15,32 @@
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Régions</h3>
                         <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="commune">@php $count = App\Models\Commune::count(); echo $count>9?$count:"0".$count; @endphp</h3>
+                        <h3 class="text-lg font-semibold mb-2" id="commune">@php $valueCom = DB::table('communes')->select(DB::raw('SUM(objectif) as total_objectif, SUM(nbrinscrit) as total_nbrinscrit, COUNT(*) as count'))->first(); $count = $valueCom->count; $countComnbinscrit = $valueCom->total_nbrinscrit;  $countComnbobjectif = $valueCom->total_objectif; echo $count>9?$count:"0".$count; @endphp</h3>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Départements</h3>
                         <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="section">@php $count = App\Models\Section::userlimit()->count(); echo $count>9?$count:"0".$count; @endphp</h3>
+                        <h3 class="text-lg font-semibold mb-2" id="section">@php $count = DB::table('sections')->select(DB::raw('COUNT(*) as count'))->first()->count; echo $count>9?$count:"0".$count; @endphp</h3>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Communes</h3>
                         <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="rcommune">@php $count = App\Models\RCommune::userlimit()->count(); echo $count>9?$count:"0".$count; @endphp</h3>
+                        <h3 class="text-lg font-semibold mb-2" id="rcommune">@php $count = DB::table('rcommunes')->select(DB::raw('COUNT(*) as count'))->first()->count; echo $count>9?$count:"0".$count; @endphp</h3>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Sections</h3>
                         <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="quartier">@php $count = App\Models\Quartier::userlimit()->count(); echo $count>9?$count:"0".$count; @endphp</h3>
+                        <h3 class="text-lg font-semibold mb-2" id="quartier">@php $count = DB::table('quartiers')->select(DB::raw('COUNT(*) as count'))->first()->count; echo $count>9?$count:"0".$count; @endphp</h3>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Lieu de vote</h3>
                         <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="lieuv">@php $count = App\Models\LieuVote::userlimit()->count(); echo $count>9?make_separate_thousand($count):"0".make_separate_thousand($count); @endphp</h3>
+                        <h3 class="text-lg font-semibold mb-2" id="lieuv">@php $count = DB::table('lieu_votes')->select(DB::raw('COUNT(*) as count'))->first()->count; echo $count>9?make_separate_thousand($count):"0".make_separate_thousand($count); @endphp</h3>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Bureaux de vote</h3>
                         <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="bureauv">@php $countBv = App\Models\BureauVote::userlimit()->count(); echo $countBv>9?make_separate_thousand($countBv):"0".make_separate_thousand($countBv); @endphp</h3>
+                        <h3 class="text-lg font-semibold mb-2" id="bureauv">@php $countBv = DB::table('bureau_votes')->select(DB::raw('COUNT(*) as count'))->first()->count; echo $countBv>9?make_separate_thousand($countBv):"0".make_separate_thousand($countBv); @endphp</h3>
                         
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
@@ -52,7 +52,7 @@
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Candidats</h3>
                         <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="candidat">@php $count = App\Models\Candidat::count(); echo $count>9?$count:"0".$count; @endphp</h3>
+                        <h3 class="text-lg font-semibold mb-2" id="candidat">@php $count = DB::table('candidats')->select(DB::raw('COUNT(*) as count'))->first()->count; echo $count>9?$count:"0".$count; @endphp</h3>
                     </div>
                 </div>
                 <div class="grid grid-cols-3 gap-4 mb-4">
@@ -62,26 +62,29 @@
                         <div class="w-full h-10">
                         </div>
                         @php
-                        $parrainCount = 0;
-                        $communes = App\Models\Commune::userlimit()->get();
-                        foreach ($communes as $commune) {
-                            foreach (optional($commune)->sections()->userlimit()->get() as $section) {
-                                foreach ($section->agentterrains as $agentterrain) {
-                                    foreach ($agentterrain->parrains as $parrain) {
-                                        $parrainCount += 1;
-                                    }
-                                } 
-                            }
-                        }           
+                        //$parrainCount = 0;
+                        //$communes = App\Models\Commune::userlimit()->get();
+                        //foreach ($communes as $commune) {
+                        //    foreach (optional($commune)->sections()->userlimit()->get() as $section) {
+                        //        foreach ($section->agentterrains as $agentterrain) {
+                        //            foreach ($agentterrain->parrains as $parrain) {
+                        //                $parrainCount += 1;
+                        //            }
+                        //        } 
+                        //    }
+                        //}           
+                        $parrainCount = DB::table('parrains')
+                        ->selectRaw('COUNT(*) as total_parrain_count')
+                        ->first()->total_parrain_count ?? 0;
                         @endphp
                         <div class="grid grid-cols-2 gap-2">
                             <div class="border-r border-r-black-400">
                                 <span class="text-gray-900 font-semibold">Récensé:</span>
-                                <span class="text-gray-700" id="parraine">{{ $parrainCount }}</span>
+                                <span class="text-gray-700" id="parraine">{{ make_separate_thousand($parrainCount) }}</span>
                             </div>
                             <div>
                                 <span class="text-gray-900 font-semibold">Objectif:</span>
-                                <span class="text-gray-700">{{ optional(App\Models\Commune::userlimit()->first())->objectif ?? "NaN" }}</span>
+                                <span class="text-gray-700">{{ ($countComnbobjectif) ?? "NaN" }}</span>
                             </div>
                         </div>
                     </div>
@@ -91,27 +94,25 @@
                         <div class="w-full h-10">
                         </div>
                         @php
-                            $counter = 0;
-                            $counter2 = 0;
-                            $avote = 0;
-                            $agents = App\Models\AgentTerrain::all();
-                            $commune = App\Models\Commune::userlimit()->first();
-                            $electorats = App\Models\CorParrain::userlimit()->get();
-                            foreach($agents as $agent){
-                                if($agent->section){
+                            $bureauVotesCounts = DB::table('agent_terrains')
+                                ->join('quartiers', 'agent_terrains.section_id', '=', 'quartiers.id')
+                                ->join('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
+                                ->join('bureau_votes', 'lieu_votes.id', '=', 'bureau_votes.lieu_vote_id')
+                                ->selectRaw('SUM(bureau_votes.votant_suivi) as total_votant_suivi, SUM(bureau_votes.votant_resul) as total_votant_resul')
+                                ->whereNotNull('agent_terrains.section_id')
+                                ->first();
 
-                                    foreach($agent->section->lieuVotes()->userlimit()->get() as $lieus){
-                                        foreach($lieus->bureauVotes as $bureau){
-                                            $counter += $bureau->votant_suivi;
-                                            $counter2 += $bureau->votant_resul;
-                                        }
-                                    }
-                                    
-                                }
-                            }
-                            foreach ($electorats as $item) {
-                                $avote += $item->a_vote;
-                            }
+                            $counter = $bureauVotesCounts->total_votant_suivi ?? 0;
+                            $counter2 = $bureauVotesCounts->total_votant_resul ?? 0;
+
+                            // Count the total a_vote from CorParrain
+                            $total_count_avote = DB::table('cor_parrains')
+                                ->selectRaw('SUM(a_vote) as total_a_vote')
+                                ->selectRaw('COUNT(*) as total_count')
+                                ->first() ?? (object)[];
+
+                            $avote = $total_count_avote->total_a_vote;
+
                         @endphp
                         <div class="grid grid-cols-2 gap-2">
                             <div class="border-r border-r-black-400">
@@ -120,7 +121,7 @@
                             </div>
                             <div>
                                 <span class="text-gray-900 font-semibold">Participation:</span>
-                                <span class="text-gray-700">{{round(($counter/(optional($commune)->nbrinscrit??1))*100, 2).'%' ?? '0'}}</span>
+                                <span class="text-gray-700">{{round(($counter/($countComnbinscrit??1))*100, 2).'%' ?? '0'}}</span>
                             </div>
                         </div>
                     </div>
@@ -132,7 +133,7 @@
                         <div class="grid grid-cols-2 gap-2">
                             <div class="border-r border-r-black-400">
                                 <span class="text-gray-900 font-semibold">Récensés:</span>
-                                <span class="text-gray-700">{{$electorats->count().'' ?? '0'}}</span>
+                                <span class="text-gray-700">{{make_separate_thousand($total_count_avote->total_count) ?? '0'}}</span>
                             </div>
                             <div>
                                 <span class="text-gray-900 font-semibold">A vote:</span>
@@ -155,18 +156,17 @@
                             </div>
                             <div>
                                 <span class="text-gray-900 font-semibold">Taux:</span>
-                                <span class="text-gray-700">{{round(($counter2/(optional($commune)->nbrinscrit??1))*100, 2).'%' ?? '0'}}</span>
+                                <span class="text-gray-700">{{round(($counter2/($countComnbinscrit??1))*100, 2).'%' ?? '0'}}</span>
                             </div>
                         </div>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h4 class="text-xxl font-semibold mb-2" style="font-size:1em; color:red">PV REÇUS/{{make_separate_thousand($countBv)}}</h4>
                         @php
-                            $bvs = App\Models\BureauVote::userlimit()->get();
-                            $bvcount = 0;
-                            foreach ($bvs as $bvv) {
-                                $bvcount += $bvv->procesVerbals->count();
-                            }
+                            $bvcount = DB::table('bureau_votes')
+                            ->join('proces_verbals', 'bureau_votes.id', '=', 'proces_verbals.bureau_vote_id')
+                            ->selectRaw('COUNT(proces_verbals.id) as total_proces_verbals')
+                            ->first()->total_proces_verbals ?? 0;
                         @endphp
                         <div class="w-full h-10">
                             <hr class="w-full bg-gray-300"/>
@@ -191,21 +191,29 @@
                 <div class="grid grid-cols-4 gap-3" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
                     @php
                     $candidats = App\Models\Candidat::all();
-                    $suffrage = 0;
-                    foreach ($bvs as $bvo) {
-                        $suffrage += ($bvo->votant_resul - ($bvo->bult_blan + $bvo->bult_nul));
-                    }
+
+                    $suffrage = DB::table('bureau_votes')
+                        ->selectRaw('SUM(votant_resul - (bult_blan + bult_nul)) as total_suffrage')
+                        ->first()->total_suffrage ?? 0;
+
+                    $bvs = DB::table('bureau_votes')
+                        ->get(['candidat_note']); // Get only the necessary column
                     @endphp
                     @foreach ($candidats as $candidat)
                         @php
+
                             $candidnote = 0;
-                            if($candidat->code){
+
+                            if ($candidat->code) {
                                 $namek = $candidat->code;
+
+                                // Using DB facade to query and process the candidat_note field
+
                                 foreach ($bvs as $bvl) {
                                     $notes = $bvl->candidat_note;
-                                    if($notes){
+                                    if ($notes) {
                                         $lists = json_decode($notes);
-                                        if(is_object($lists) && property_exists($lists, "$namek")){
+                                        if (is_object($lists) && property_exists($lists, $namek)) {
                                             $candidnote += intval($lists->$namek);
                                         }
                                     }

@@ -65,7 +65,10 @@
                                     @lang('crud.cor_parrains.inputs.carte_elect')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.cor_parrains.inputs.nom_lv')
+                                    Section
+                                </th>
+                                <th class="px-4 py-3 text-left">
+                                    Lieu de Vote
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     Parrain
@@ -97,6 +100,9 @@
                                 </td>
                                 <td class="px-4 py-3 text-left">
                                     {{ $corParrain->carte_elect ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-left">
+                                    {{ $corParrain->lieuVote?->quartier?->libel ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
                                     {{ $corParrain->nom_lv ?? '-' }}

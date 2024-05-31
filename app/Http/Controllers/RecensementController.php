@@ -10,9 +10,10 @@ use App\Models\Section;
 use App\Models\LieuVote;
 use App\Models\Quartier;
 use App\Models\SousSection;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\AgentDeSection;
 
+use App\Models\AgentDeSection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,14 +22,14 @@ class RecensementController extends Controller
  
     public function getLVList(Request $request, $single){
         if ($request->ajax()) {
-            
+
+            $totalCount = LieuVote::count();
             $lieus = LieuVote::userlimit()
-                ->with('quartier.section.section.commune')
-                ->latest()
-                ->get();
-
+                ->skip($request->start)
+                ->take($request->length);
+            // dd($lieus);
+                
             // $parrains = Parrain::all();
-
             return DataTables::of($lieus)
                 ->addColumn('regionm', function ($lieu) {
                     return optional($lieu->quartier->section->section->commune)->libel ?? '-';
@@ -55,7 +56,14 @@ class RecensementController extends Controller
                     return $parrainCount;
                 })
                 ->rawColumns(['regionm','departm','communem', 'sectionm', 'parrainm'])
-                ->make(true);
+                ->setTotalRecords($totalCount)
+                ->setFilteredRecords(intval($request->length))
+                ->toJson();
+
+            // dd($dataJson->getContent());
+
+            
+                // ->make(true);
 
         }
     }
@@ -156,7 +164,12 @@ class RecensementController extends Controller
                 ->addColumn('pphoto', function($parrain) {
                     $listofpv = "";
                     if($parrain->photo){
-                        $listofpv .= '<div class="KBmodal" data-content-url="<div style=\'position:relative;\'> <h3 style=\'background-color:white;color:black;font-weight:bold;position:absolute;left:0;top:0;\'>'.(optional($parrain)->nom??"-".' '.optional($parrain)->nom??"-").'</h3> <img src=\''.(Storage::url($parrain->photo)).'\' style=\'max-width: 1550px; max-height: 670px;\'></div>" data-content-type="html"><i class="ion ion-md-camera"></i></div>&nbsp;';
+                        $miicon = '<i class="ion ion-md-camera"></i>';
+                        if(Str::contains($parrain->photo, "parraineer.png") == false){
+                            $miicon = '<img src=\''.(Storage::url($parrain->photo)).'\' style=\'width: 30px; height: 30px; margin: 0 auto;\'>';
+                        }
+                        
+                        $listofpv .= '<div class="KBmodal" data-content-url="<div style=\'position:relative;\'> <h3 style=\'background-color:white;color:black;font-weight:bold;position:absolute;left:0;top:0;\'>'.(optional($parrain)->nom??"-".' '.optional($parrain)->nom??"-").'</h3> <img src=\''.(Storage::url($parrain->photo)).'\' style=\'max-width: 1550px; max-height: 670px;\'></div>" data-content-type="html">'.$miicon.'</div>&nbsp;';
                     }
                     // foreach($bureauvote->procesverbals as $pverb){
                     // }

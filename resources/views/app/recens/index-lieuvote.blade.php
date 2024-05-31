@@ -58,7 +58,7 @@
                                     ID
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                Région
+                                    Région
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     Departement
@@ -116,8 +116,11 @@
                     info: true,
                     // orderCellsTop: true,
                     // fixedHeader: true,
-                    pageLength: 5,
-                    lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Tous']],
+                    // pageLength: 5,
+                    "lengthMenu": [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, 'All']
+                    ], 
                     initComplete: function () {
                         $('table > thead:nth-child(1) > tr')
                         .clone(true)
@@ -175,6 +178,8 @@
                     processing: true,
                     serverSide: true,
                     ajax: "{{ route('recens.lvotes.list', ['single'=>0]) }}",
+                    "pagingType": 'full_numbers',
+                    "deferRender": true,
                     columns: [
                         {data: 'id', name: 'id'},
                         {data: 'regionm', name: 'regionm'},

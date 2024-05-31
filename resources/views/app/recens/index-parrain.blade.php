@@ -61,7 +61,7 @@
                                 class="button button-primary mx-2"
                             >
                                 <i class="mr-1 icon ion-md-paper"></i>
-                                Exporter les parrains affichés
+                                Exporter les parrainés affichés
                             </a>
                             @endif
                         </div>
