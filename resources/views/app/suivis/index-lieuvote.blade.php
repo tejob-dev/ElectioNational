@@ -148,24 +148,28 @@
                                     'input',
                                     $('.filters th').eq($(api.column(colIdx).header()).index())
                                 )
-                                    .off('keyup change')
-                                    .on('change', function (e) {
+                                    .off('keyup keydown')
+                                    .on('keydown', function (e) {
                                         // Get the search value
-                                        $(this).attr('title', $(this).val());
-                                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-             
-                                        var cursorPosition = this.selectionStart;
-                                        // Search the column for that value
-                                        api
-                                            .column(colIdx)
-                                            .search(
-                                                this.value != ''
-                                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                                    : '',
-                                                this.value != '',
-                                                this.value == ''
-                                            )
-                                            .draw();
+                                        if (e.key === 'Enter') {
+                                            
+                                            $(this).attr('title', $(this).val());
+                                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
+                 
+                                            var cursorPosition = this.selectionStart;
+                                            // Search the column for that value
+                                            api
+                                                .column(colIdx)
+                                                .search(
+                                                    this.value != ''
+                                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                                        : '',
+                                                    this.value != '',
+                                                    this.value == ''
+                                                )
+                                                .draw();
+
+                                        }
                                     })
                                     .on('keyup', function (e) {
                                         e.stopPropagation();
@@ -215,7 +219,7 @@
                     serverSide: true,
                     ajax: "{{ route('suivi.lieuvotes.list', ['single'=>0]) }}",
                     columns: [
-                        {data: 'lieuvote', name: 'lieuvote'},
+                        {data: 'lieuvote', name: 'libel'},
                         {data: 'bureauvote', name: 'bureauvote'},
                         {data: 'nbrinscrit', name: 'nbrinscrit'},
                         {data: 'votant', name: 'votant'},

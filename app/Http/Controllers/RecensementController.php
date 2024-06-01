@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 use App\Models\AgentDeSection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,7 +24,7 @@ class RecensementController extends Controller
     public function getLVList(Request $request, $single){
         if ($request->ajax()) {
 
-            $totalCount = LieuVote::count();
+            $totalCount = LieuVote::userlimit()->count();
             $lieus = LieuVote::userlimit()
                 ->skip($request->start)
                 ->take($request->length);
@@ -70,33 +71,44 @@ class RecensementController extends Controller
     
     public function getQuartierList(Request $request, $single){
         if ($request->ajax()) {
-            
-            $quartiers = Quartier::userlimit()->with('section.section.commune', 'lieuVotes')->latest()->get();
-            // $parrains = Parrain::get();
-            // $lieuVotesList = LieuVote::get();
-            // $parrainCounts = [];
 
-            // dd($quartiers, $parrains);
-            
-            // foreach ($quartiers as $quartier) {
-            //     $parrainCount = 0;
-            //     $lvIds = $quartier->lieuVotes->pluck('id')->toArray();
-                
-            //     $lieuVotes = $lieuVotesList->filter(function ($lieuVote) use($lvIds) {
-            //         return in_array($lieuVote->id, $lvIds);
-            //     });
-            
-            //     foreach ($lieuVotes as $lieuVote) {
-            //         $filteredParrains = $parrains->filter(function ($parrain) use ($lieuVote) {
-            //             return $parrain->code_lv == $lieuVote->libel;
-            //         });
-            //         $parrainCount += $filteredParrains->count();
-            //     }
-            
-            //     $parrainCounts[$quartier->id] = $parrainCount;
-            // }
+            $searchidx = get_item_of_datatables($request->all());
 
-            // dd($parrainCounts);
+            if(sizeof($searchidx) > 0){
+                // dd($searchidx);
+                if( sizeof($searchidx) == 1 && (array_key_exists("sectionm", $searchidx) || array_key_exists("name", $searchidx)) ){ 
+                    $searVal = array_key_exists("sectionm", $searchidx)?($searchidx["sectionm"]):$searchidx["name"];
+                    $quartiers = Quartier::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
+                }else if(array_key_exists("parrainm", $searchidx) 
+                    || array_key_exists("regionm", $searchidx)
+                    || array_key_exists("departm", $searchidx)
+                    || array_key_exists("communem", $searchidx)
+                ){
+                    /// QUERY MODIFIER BASED ON RELATIONSHIP
+                    $queryB = Quartier::with('section.section.commune')
+                        ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                        ->join('sections', 'rcommunes.section_id', '=', 'sections.id')
+                        ->join('communes', 'sections.commune_id', '=', 'communes.id')
+                        ->join('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
+                        ->join('parrains', 'lieu_votes.libel', '=', 'parrains.code_lv')
+                        ->select('quartiers.*', DB::raw('COUNT(parrains.id) as total_parrains'))
+                        ->where('lieu_votes.imported', '=', 0)
+                        ->groupBy('quartiers.id');
+
+                    if( array_key_exists("parrainm", $searchidx) ) $queryB = $queryB->having('total_parrains', '=', str_replace(['(', ')'], "",  $searchidx["parrainm"]));
+
+                    if(array_key_exists("regionm", $searchidx)) $queryB = $queryB->where('communes.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["regionm"]).'%' );
+                    if(array_key_exists("departm", $searchidx)) $queryB = $queryB->where('sections.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["departm"]).'%' );
+                    if(array_key_exists("communem", $searchidx)) $queryB = $queryB->where('rcommunes.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["communem"]).'%' );
+
+                    if(array_key_exists("sectionm", $searchidx)) $queryB = $queryB->where('quartiers.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["sectionm"]).'%' );
+                    $quartiers = $queryB->get();  //CHANGE
+                }else{
+                    $quartiers = Quartier::userlimit();  //CHANGE
+                }
+            }else{
+                $quartiers = Quartier::userlimit(); //CHANGE
+            }
             
             return DataTables::of($quartiers)
                 ->addColumn('regionm', function ($quartier) {
@@ -132,15 +144,19 @@ class RecensementController extends Controller
                     return $parrainCount.'';
                 })
                 ->rawColumns(['regionm', 'departm', 'communem', 'sectionm', 'parrainm'])
-                
-                ->make(true);
+                ->toJson();
         }
     }
     
     public function getParrainList(Request $request, $single){
         if ($request->ajax()) {
             
-            $parrains = Parrain::userlimit()->where("imported", "=", false)->with('agentterrain.sousSection')->latest()->get();
+            $totalCount = Parrain::userlimit()->count();
+            $parrains = Parrain::userlimit()
+            ->where("imported", "=", false)
+            // ->with('agentterrain.sousSection')
+            ->skip($request->start)
+            ->take($request->length);
     
             return DataTables::of($parrains)
                 ->addColumn('agent', function ($parrain) {
@@ -176,7 +192,9 @@ class RecensementController extends Controller
                     return $listofpv;
                 })
                 ->rawColumns(['agent', 'telephoneag', 'section', 'createdat', 'pphoto'])
-                ->make(true);
+                ->setTotalRecords($totalCount)
+                ->setFilteredRecords(intval($request->length))
+                ->toJson();
         }
     }
     

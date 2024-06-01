@@ -28,7 +28,11 @@ class ResultatController extends Controller
             
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
             $sections = Quartier::userlimit()->latest()->get();
-            $communes = Commune::userlimit()->get();
+            $totalCount = Commune::userlimit()->count();
+            $communes = Commune::userlimit()
+            ->skip($request->start)
+            ->take($request->length);
+
             return DataTables::of($communes)
                 ->addColumn('circonscription', function ($commune) use($sections) {
                     return optional($commune)->libel ?? '-';
@@ -229,7 +233,9 @@ class ResultatController extends Controller
                     'candidate', 
                     // 'candidatf',
                       ])
-                ->make(true);
+                      ->setTotalRecords($totalCount)
+                      ->setFilteredRecords(intval($request->length))
+                      ->toJson();
         }
     }
 
@@ -238,7 +244,11 @@ class ResultatController extends Controller
             
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
             $sections = Quartier::userlimit()->latest()->get();
-            $communes = Section::with("quartiers.sections.lieuVotes")->userlimit()->take(8)->get();
+            $totalCount = Section::userlimit()->count();
+            $communes = Section::userlimit()
+            ->with("quartiers.sections.lieuVotes")
+            ->skip($request->start)
+            ->take($request->length);
             
             return DataTables::of($communes)
                 ->addColumn('circonscription', function ($commune) use($sections) {
@@ -482,7 +492,9 @@ class ResultatController extends Controller
                     'candidate', 
                     // 'candidatf',
                       ])
-                ->make(true);
+                      ->setTotalRecords($totalCount)
+                      ->setFilteredRecords(intval($request->length))
+                      ->toJson();
         }
     }
     
@@ -491,7 +503,10 @@ class ResultatController extends Controller
             
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
             $sections = Quartier::userlimit()->latest()->get();
-            $communes = RCommune::userlimit()->take(8)->get();
+            $totalCount = RCommune::userlimit()->count();
+            $communes = RCommune::userlimit()
+            ->skip($request->start)
+            ->take($request->length);
             
             return DataTables::of($communes)
                 ->addColumn('circonscription', function ($commune) use($sections) {
@@ -731,7 +746,9 @@ class ResultatController extends Controller
                     'candidate', 
                     // 'candidatf',
                       ])
-                ->make(true);
+                      ->setTotalRecords($totalCount)
+                      ->setFilteredRecords(intval($request->length))
+                      ->toJson();
         }
     }
     
@@ -740,7 +757,10 @@ class ResultatController extends Controller
             
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
             $sections = Quartier::userlimit()->latest()->get();
-            $communes = Quartier::userlimit()->latest()->get();
+            $totalCount = Quartier::userlimit()->count();
+            $communes = Quartier::userlimit()
+            ->skip($request->start)
+            ->take($request->length);
             
             return DataTables::of($communes)
                 ->addColumn('circonscription', function ($commune) use($sections) {
@@ -976,17 +996,24 @@ class ResultatController extends Controller
                     'candidate', 
                     // 'candidatf',
                       ])
-                ->make(true);
+                      ->setTotalRecords($totalCount)
+                      ->setFilteredRecords(intval($request->length))
+                      ->toJson();
         }
     }
 
     public function getListLieuvote(Request $request, $single){
         if ($request->ajax()) {
             
+            // dd($request->all());
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
             $candidats = Candidat::all();
             // $sections = Quartier::userlimit()->latest()->get();
-            $lieuvotes = LieuVote::userlimit()->get();
+            $totalCount = LieuVote::userlimit()->count();
+            $lieuvotes = LieuVote::userlimit();
+            // ->skip($request->start)
+            // ->take($request->length);
+
             return DataTables::of($lieuvotes)
                 ->addColumn('lieuvote', function ($lieuvote) {
                     $this->bultnulls = 0;
@@ -1181,7 +1208,9 @@ class ResultatController extends Controller
                     // 'candidatf',
                     //  'candidatg', 'candidath',
                       ])
-                ->make(true);
+                    //   ->setTotalRecords($totalCount)
+                    //   ->setFilteredRecords($totalCount)
+                      ->make(true);
         }
     }
 
@@ -1190,7 +1219,11 @@ class ResultatController extends Controller
             
             //$agents = AgentTerrain::userlimit()->with('parrains')->with('section')->latest()->get();
             $candidats = Candidat::all();
-            $bureauvotes = BureauVote::userlimit()->get();
+            $totalCount = BureauVote::userlimit()->count();
+            $bureauvotes = BureauVote::userlimit()
+            ->skip($request->start)
+            ->take($request->length);
+
             return DataTables::of($bureauvotes)
                 ->addColumn('lieuv', function ($bureauvote) {
                     $this->bultnulls = 0;
@@ -1281,7 +1314,9 @@ class ResultatController extends Controller
                     // 'candidatg', 'candidath',
                     'pverb'
                 ])
-                ->make(true);
+                ->setTotalRecords($totalCount)
+                ->setFilteredRecords(intval($request->length))
+                ->toJson();
         }
     }
 

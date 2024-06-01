@@ -135,7 +135,7 @@
                     info: true,
                     // orderCellsTop: true,
                     // fixedHeader: true,
-                    pageLength: 5,
+                    // pageLength: 5,
                     lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Tous']],
                     initComplete: function () {
                         $('table > thead:nth-child(1) > tr')
@@ -259,7 +259,7 @@
                     },
                     buttons: [],
                     searching: true,
-                    order: [[0, 'desc']],
+                    // order: [[0, 'asc']],
                     // responsive: true,
                 }).buttons().container().enable();
                 

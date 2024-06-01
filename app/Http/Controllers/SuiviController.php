@@ -435,7 +435,32 @@ class SuiviController extends Controller
             // $agents = Rabatteur::with('parrains')->latest()->get();
             // $parrains = CorParrain::userlimit()->latest()->get();
             // $sections = Quartier::userlimit()->with('agentterrains')->latest()->get();
-            $lieuVotes = LieuVote::userlimit()->get();
+            $searchidx = get_item_of_datatables($request->all());
+
+            // dd($allSearchValuesIsNull, $allSearchValuesIsNull2, str_replace(['(', ')'], "", $searchVal));
+
+            if(sizeof($searchidx) > 0){
+                // dd($searchidx);
+                if( sizeof($searchidx) == 1 && (array_key_exists("libel", $searchidx) || array_key_exists("name", $searchidx)) ){ 
+                    $searVal = array_key_exists("libel", $searchidx)?($searchidx["libel"]):$searchidx["name"];
+                    $lieuVotes = LieuVote::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' );
+                }else if(array_key_exists("bureauvote", $searchidx)){
+                    // LieuVote::userlimit()->with("bureauvotes");
+                    $queryB = DB::table('lieu_votes')
+                        ->join('bureau_votes', 'lieu_votes.id', '=', 'bureau_votes.lieu_vote_id')
+                        ->select('lieu_votes.*', DB::raw('COUNT(bureau_votes.id) as total_bureau_votes'))
+                        ->groupBy('lieu_votes.id');
+                    if( array_key_exists("bureauvote", $searchidx) ) $queryB = $queryB->having('total_bureau_votes', '=', str_replace(['(', ')'], "",  $searchidx["bureauvote"]));
+
+                    if(array_key_exists("libel", $searchidx)) $queryB = $queryB->where('lieu_votes.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["libel"]).'%' );
+                    $lieuVotes = $queryB->get();
+                }else{
+                    $lieuVotes = LieuVote::userlimit();
+                }
+            }else{
+                $lieuVotes = LieuVote::userlimit();
+            }
+
             return DataTables::of($lieuVotes)
                 ->addColumn('lieuvote', function ($lieuvote) {
                     return $lieuvote->libel.'' ?? '-';
@@ -494,7 +519,7 @@ class SuiviController extends Controller
                     return round(($participationRate/$commune->nbrinscrit)*100, 2).'%' ?? '0';
                 })
                 ->rawColumns(['lieuvote', 'bureauvote', 'votant', 'recense', 'avote', 'participation'])
-                ->make(true);
+                ->toJson();
         }
     }
     
