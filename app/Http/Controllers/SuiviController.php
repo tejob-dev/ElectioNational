@@ -36,7 +36,7 @@ class SuiviController extends Controller
                     $searVal = array_key_exists("circonscription", $searchidx)?($searchidx["circonscription"]):$searchidx["name"];
                     if(array_key_exists("name", $searchidx))
                     $communes = Commune::userlimit()->where('libel', '=', ''.str_replace(['(', ')'], "",  $searVal).'' )->get();
-                    else $communes = Commune::userlimit()->where('libel', '=', ''.str_replace(['(', ')'], "",  $searVal).'' ); //CHANGE
+                    else $communes = Commune::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
                     // dd($communes->get());
                 }else if(
                     // array_key_exists("circonscription", $searchidx)
@@ -187,7 +187,9 @@ class SuiviController extends Controller
                 // dd($searchidx);
                 if( sizeof($searchidx) == 1 && (array_key_exists("section", $searchidx) || array_key_exists("name", $searchidx)) ){ 
                     $searVal = array_key_exists("section", $searchidx)?($searchidx["section"]):$searchidx["name"];
-                    $communes = Section::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
+                    if(array_key_exists("name", $searchidx))
+                    $communes = Section::userlimit()->where('libel', '=', ''.str_replace(['(', ')'], "",  $searVal).'' )->get();
+                    else $communes = Section::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
                 }else if(array_key_exists("circonscription", $searchidx)
                     // || array_key_exists("section", $searchidx)
                     // || array_key_exists("quartier", $searchidx)
@@ -339,7 +341,9 @@ class SuiviController extends Controller
                 // dd($searchidx);
                 if( sizeof($searchidx) == 1 && (array_key_exists("commune", $searchidx) || array_key_exists("name", $searchidx)) ){ 
                     $searVal = array_key_exists("commune", $searchidx)?($searchidx["commune"]):$searchidx["name"];
-                    $communes = RCommune::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
+                    if(array_key_exists("name", $searchidx))
+                    $communes = RCommune::userlimit()->where('libel', '=', ''.str_replace(['(', ')'], "",  $searVal).'' )->get();
+                    else $communes = RCommune::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
                 }else if(array_key_exists("circonscription", $searchidx)
                     || array_key_exists("section", $searchidx)
                     // || array_key_exists("quartier", $searchidx)
@@ -486,7 +490,9 @@ class SuiviController extends Controller
                 // dd($searchidx);
                 if( sizeof($searchidx) == 1 && (array_key_exists("quartier", $searchidx) || array_key_exists("name", $searchidx)) ){ 
                     $searVal = array_key_exists("quartier", $searchidx)?($searchidx["quartier"]):$searchidx["name"];
-                    $communes = Quartier::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
+                    if(array_key_exists("name", $searchidx))
+                    $communes = Quartier::userlimit()->where('libel', '=', ''.str_replace(['(', ')'], "",  $searVal).'' )->get();
+                    else $communes = Quartier::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
                 }else if(array_key_exists("circonscription", $searchidx)
                     || array_key_exists("section", $searchidx)
                     || array_key_exists("commune", $searchidx)
@@ -629,7 +635,9 @@ class SuiviController extends Controller
                   //CHANGE
                 if( sizeof($searchidx) == 1 && (array_key_exists("libel", $searchidx) || array_key_exists("name", $searchidx)) ){   //CHANGE
                     $searVal = array_key_exists("libel", $searchidx)?($searchidx["libel"]):$searchidx["name"];  //CHANGE
-                    $bureauvotes = BureauVote::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); 
+                    if(array_key_exists("name", $searchidx))
+                    $bureauvotes = BureauVote::userlimit()->where('libel', '=', ''.str_replace(['(', ')'], "",  $searVal).'' )->get();
+                    else $bureauvotes = BureauVote::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
                 }else if( array_key_exists("lieuv", $searchidx)
                 ){
                     /// QUERY MODIFIER BASED ON RELATIONSHIP
@@ -683,7 +691,9 @@ class SuiviController extends Controller
                   //CHANGE
                 if( sizeof($searchidx) == 1 && (array_key_exists("libel", $searchidx) || array_key_exists("name", $searchidx)) ){   //CHANGE
                     $searVal = array_key_exists("libel", $searchidx)?($searchidx["libel"]):$searchidx["name"];  //CHANGE
-                    $lieuVotes = LieuVote::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); 
+                    if(array_key_exists("name", $searchidx))
+                    $lieuVotes = LieuVote::userlimit()->where('libel', '=', ''.str_replace(['(', ')'], "",  $searVal).'' )->get();
+                    else $lieuVotes = LieuVote::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
                 }else if( array_key_exists("bureauvote", $searchidx)
                     || array_key_exists("votant", $searchidx)
                     || array_key_exists("recense", $searchidx)

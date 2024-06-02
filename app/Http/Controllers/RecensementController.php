@@ -30,7 +30,9 @@ class RecensementController extends Controller
                 // dd($searchidx);
                 if( sizeof($searchidx) == 1 && (array_key_exists("libel", $searchidx) || array_key_exists("name", $searchidx)) ){ 
                     $searVal = array_key_exists("libel", $searchidx)?($searchidx["libel"]):$searchidx["name"];
-                    $lieus = LieuVote::userlimit()->where('imported', '=', 0)->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
+                    if(array_key_exists("name", $searchidx))
+                    $lieus = LieuVote::userlimit()->where('imported', '=', 0)->where('libel', '=', ''.str_replace(['(', ')'], "",  $searVal).'' )->get();
+                    else $lieus = LieuVote::userlimit()->where('imported', '=', 0)->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
                 }else if(array_key_exists("parrainm", $searchidx) 
                     || array_key_exists("regionm", $searchidx)
                     || array_key_exists("departm", $searchidx)
@@ -39,12 +41,12 @@ class RecensementController extends Controller
                 ){
                     /// QUERY MODIFIER BASED ON RELATIONSHIP
                     $queryB = LieuVote::userlimit()->with('quartier.section.section.commune', 'parrains')
-                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
-                        ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
-                        ->join('sections', 'rcommunes.section_id', '=', 'sections.id')
-                        ->join('communes', 'sections.commune_id', '=', 'communes.id')
-                        ->join('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
-                        ->join('parrains', 'lieu_votes.libel', '=', 'parrains.code_lv')
+                        ->leftJoin('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->leftJoin('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                        ->leftJoin('sections', 'rcommunes.section_id', '=', 'sections.id')
+                        ->leftJoin('communes', 'sections.commune_id', '=', 'communes.id')
+                        ->leftJoin('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
+                        ->leftJoin('parrains', 'lieu_votes.libel', '=', 'parrains.code_lv')
                         ->select('lieu_votes.*', DB::raw('COUNT(parrains.id) as total_parrains'))
                         ->where('lieu_votes.imported', '=', 0)
                         ->groupBy('lieu_votes.id');
@@ -111,7 +113,9 @@ class RecensementController extends Controller
                 // dd($searchidx);
                 if( sizeof($searchidx) == 1 && (array_key_exists("sectionm", $searchidx) || array_key_exists("name", $searchidx)) ){ 
                     $searVal = array_key_exists("sectionm", $searchidx)?($searchidx["sectionm"]):$searchidx["name"];
-                    $quartiers = Quartier::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
+                    if(array_key_exists("name", $searchidx))
+                    $quartiers = Quartier::userlimit()->where('libel', '=', ''.str_replace(['(', ')'], "",  $searVal).'' )->get();
+                    else $quartiers = Quartier::userlimit()->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
                 }else if(array_key_exists("parrainm", $searchidx) 
                     || array_key_exists("regionm", $searchidx)
                     || array_key_exists("departm", $searchidx)
@@ -119,11 +123,11 @@ class RecensementController extends Controller
                 ){
                     /// QUERY MODIFIER BASED ON RELATIONSHIP
                     $queryB = Quartier::userlimit()->with('section.section.commune')
-                        ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
-                        ->join('sections', 'rcommunes.section_id', '=', 'sections.id')
-                        ->join('communes', 'sections.commune_id', '=', 'communes.id')
-                        ->join('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
-                        ->join('parrains', 'lieu_votes.libel', '=', 'parrains.code_lv')
+                        ->leftJoin('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                        ->leftJoin('sections', 'rcommunes.section_id', '=', 'sections.id')
+                        ->leftJoin('communes', 'sections.commune_id', '=', 'communes.id')
+                        ->leftJoin('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
+                        ->leftJoin('parrains', 'lieu_votes.libel', '=', 'parrains.code_lv')
                         ->select('quartiers.*', DB::raw('COUNT(parrains.id) as total_parrains'))
                         ->where('lieu_votes.imported', '=', 0)
                         ->groupBy('quartiers.id');
