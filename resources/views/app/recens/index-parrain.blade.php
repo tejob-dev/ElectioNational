@@ -173,8 +173,8 @@
                     info: true,
                     // orderCellsTop: true,
                     // fixedHeader: true,
-                    pageLength: 5,
-                    lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Tous']],
+                    // pageLength: 5,
+                    lengthMenu: [[10, 20, 50, 100, 150, 250, -1], [10, 20, 50, 100, 150, 250, 'Tous']],
                     initComplete: function () {
                         $('#table1 thead tr')
                         .clone(true)

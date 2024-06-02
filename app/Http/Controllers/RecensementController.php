@@ -23,12 +23,47 @@ class RecensementController extends Controller
  
     public function getLVList(Request $request, $single){
         if ($request->ajax()) {
-
-            $totalCount = LieuVote::userlimit()->count();
-            $lieus = LieuVote::userlimit()
-                ->skip($request->start)
-                ->take($request->length);
             // dd($lieus);
+            $searchidx = get_item_of_datatables($request->all());
+
+            if(sizeof($searchidx) > 0){
+                // dd($searchidx);
+                if( sizeof($searchidx) == 1 && (array_key_exists("libel", $searchidx) || array_key_exists("name", $searchidx)) ){ 
+                    $searVal = array_key_exists("libel", $searchidx)?($searchidx["libel"]):$searchidx["name"];
+                    $lieus = LieuVote::userlimit()->where('imported', '=', 0)->where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
+                }else if(array_key_exists("parrainm", $searchidx) 
+                    || array_key_exists("regionm", $searchidx)
+                    || array_key_exists("departm", $searchidx)
+                    || array_key_exists("communem", $searchidx)
+                    || array_key_exists("sectionm", $searchidx)
+                ){
+                    /// QUERY MODIFIER BASED ON RELATIONSHIP
+                    $queryB = LieuVote::userlimit()->with('quartier.section.section.commune', 'parrains')
+                        ->join('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
+                        ->join('sections', 'rcommunes.section_id', '=', 'sections.id')
+                        ->join('communes', 'sections.commune_id', '=', 'communes.id')
+                        ->join('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
+                        ->join('parrains', 'lieu_votes.libel', '=', 'parrains.code_lv')
+                        ->select('lieu_votes.*', DB::raw('COUNT(parrains.id) as total_parrains'))
+                        ->where('lieu_votes.imported', '=', 0)
+                        ->groupBy('lieu_votes.id');
+
+                    if( array_key_exists("parrainm", $searchidx) ) $queryB = $queryB->having('total_parrains', '=', str_replace(['(', ')'], "",  $searchidx["parrainm"]));
+
+                    if(array_key_exists("regionm", $searchidx)) $queryB = $queryB->where('communes.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["regionm"]).'%' );
+                    if(array_key_exists("departm", $searchidx)) $queryB = $queryB->where('sections.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["departm"]).'%' );
+                    if(array_key_exists("communem", $searchidx)) $queryB = $queryB->where('rcommunes.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["communem"]).'%' );
+                    if(array_key_exists("sectionm", $searchidx)) $queryB = $queryB->where('quartiers.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["sectionm"]).'%' );
+
+                    if(array_key_exists("libel", $searchidx)) $queryB = $queryB->where('lieu_votes.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["libel"]).'%' );
+                    $lieus = $queryB->get();  //CHANGE
+                }else{
+                    $lieus = LieuVote::userlimit()->where('imported', '=', 0);  //CHANGE
+                }
+            }else{
+                $lieus = LieuVote::userlimit()->where('imported', '=', 0); //CHANGE
+            }
                 
             // $parrains = Parrain::all();
             return DataTables::of($lieus)
@@ -57,8 +92,6 @@ class RecensementController extends Controller
                     return $parrainCount;
                 })
                 ->rawColumns(['regionm','departm','communem', 'sectionm', 'parrainm'])
-                ->setTotalRecords($totalCount)
-                ->setFilteredRecords(intval($request->length))
                 ->toJson();
 
             // dd($dataJson->getContent());
@@ -85,7 +118,7 @@ class RecensementController extends Controller
                     || array_key_exists("communem", $searchidx)
                 ){
                     /// QUERY MODIFIER BASED ON RELATIONSHIP
-                    $queryB = Quartier::with('section.section.commune')
+                    $queryB = Quartier::userlimit()->with('section.section.commune')
                         ->join('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
                         ->join('sections', 'rcommunes.section_id', '=', 'sections.id')
                         ->join('communes', 'sections.commune_id', '=', 'communes.id')
@@ -150,13 +183,44 @@ class RecensementController extends Controller
     
     public function getParrainList(Request $request, $single){
         if ($request->ajax()) {
-            
-            $totalCount = Parrain::userlimit()->count();
-            $parrains = Parrain::userlimit()
-            ->where("imported", "=", false)
-            // ->with('agentterrain.sousSection')
-            ->skip($request->start)
-            ->take($request->length);
+
+            $searchidx = get_item_of_datatables($request->all());
+
+            if(sizeof($searchidx) > 0){
+                // dd($searchidx);
+                if( sizeof($searchidx) <= 2 && (array_key_exists("nom", $searchidx) || array_key_exists("prenom", $searchidx) || array_key_exists("name", $searchidx)) ){ 
+                    $searVal = array_key_exists("nom", $searchidx)?($searchidx["nom"]):"";
+                    $searVal .= array_key_exists("prenom", $searchidx)?(" ".$searchidx["prenom"]):"";
+                    $searVal .= array_key_exists("name", $searchidx)?($searchidx["name"]):"";
+                    // dd($searVal);
+                    $parrains = Parrain::userlimit()
+                    ->where("imported", "=", false)
+                    ->select('parrains.*', DB::raw('CONCAT(COALESCE(parrains.nom, ""), " ", COALESCE(parrains.prenom, "")) as nom_prenom'))
+                    ->havingRaw('nom_prenom LIKE ?', ['%'.str_replace(['(', ')'], "",  $searVal).'%'] ); //CHANGE
+                }else if(array_key_exists("agent", $searchidx) 
+                    // || array_key_exists("regionm", $searchidx)
+                ){
+                    /// QUERY MODIFIER BASED ON RELATIONSHIP
+                    $queryB = Parrain::userlimit()
+                    ->where("imported", "=", false)->with('agentterrain.section')
+                        ->join('agent_terrains', 'parrains.telephone_par', '=', 'agent_terrains.telephone')
+                        ->join('quartiers', 'agent_terrains.section_id', '=', 'quartiers.id')
+                        ->select('parrains.*', DB::raw('CONCAT(COALESCE(agent_terrains.nom, ""), " ", COALESCE(agent_terrains.prenom, "")) as nom_prenom'))
+                        ->groupBy('parrains.id');
+
+                    // if( array_key_exists("parrainm", $searchidx) ) $queryB = $queryB->having('total_parrains', '=', str_replace(['(', ')'], "",  $searchidx["parrainm"]));
+
+                    if(array_key_exists("agent", $searchidx)) $queryB = $queryB->havingRaw('nom_prenom LIKE ?', ['%'.str_replace(['(', ')'], "",  $searchidx["agent"]).'%'] );
+                    
+                    $parrains = $queryB->get();  //CHANGE
+                }else{
+                    $parrains = Parrain::userlimit()
+                    ->where("imported", "=", false);  //CHANGE
+                }
+            }else{
+                $parrains = Parrain::userlimit()
+                ->where("imported", "=", false); //CHANGE
+            }
     
             return DataTables::of($parrains)
                 ->addColumn('agent', function ($parrain) {
@@ -192,8 +256,6 @@ class RecensementController extends Controller
                     return $listofpv;
                 })
                 ->rawColumns(['agent', 'telephoneag', 'section', 'createdat', 'pphoto'])
-                ->setTotalRecords($totalCount)
-                ->setFilteredRecords(intval($request->length))
                 ->toJson();
         }
     }

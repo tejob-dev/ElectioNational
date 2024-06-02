@@ -136,7 +136,7 @@
                     // orderCellsTop: true,
                     // fixedHeader: true,
                     // pageLength: 5,
-                    lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Tous']],
+                    lengthMenu: [[10, 20, 50, 100, 150, 250, -1], [10, 20, 50, 100, 150, 250, 'Tous']],
                     initComplete: function () {
                         $('table > thead:nth-child(1) > tr')
                         .clone(true)

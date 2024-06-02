@@ -113,8 +113,8 @@
                     info: true,
                     // orderCellsTop: true,
                     // fixedHeader: true,
-                    pageLength: 5,
-                    lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Tous']],
+                    // pageLength: 5, //remove this for cancel asc
+                    lengthMenu: [[10, 20, 50, 100, 150, 250, -1], [10, 20, 50, 100, 150, 250, 'Tous']],
                     initComplete: function () {
                         $('table > thead:nth-child(1) > tr')
                         .clone(true)
@@ -186,7 +186,7 @@
                     },
                     buttons: [],
                     searching: true,
-                    order: [[0, 'desc']],
+                    order: [[0, 'asc']],
                     // responsive: true,
                 }).buttons().container().enable();
                 
