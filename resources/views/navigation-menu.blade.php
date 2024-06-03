@@ -160,6 +160,16 @@
                                 Parrainés
                             </x-dropdown-link>
                         @endcan
+                        @can('view-any', App\Models\ElectorParrain::class)
+                            <x-dropdown-link href="{{ route('elector-parrains.index') }}">
+                                Electorat 2023
+                            </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\ElectorParrain::class)
+                            <x-dropdown-link href="{{ route('elector-parrains.index2') }}">
+                                Electorat 2024
+                            </x-dropdown-link>
+                        @endcan
                     </x-nav-dropdown>
                 @endif
 

@@ -30,6 +30,7 @@ use App\Http\Controllers\SupLieuDeVoteController;
 use App\Http\Controllers\AgentDeSectionController;
 use App\Http\Controllers\OperateurSuiviController;
 use App\Http\Controllers\AgentDuBureauVoteController;
+use App\Http\Controllers\ElectorParrainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -148,6 +149,8 @@ Route::prefix('/')
         Route::get("/export/all/parrains", [ParrainController::class, "exportParrains"])->name("parrains.export");
         Route::get("/export/parrain/only", [ParrainController::class, "exportParrainsOnly"]);
 
+        Route::get('/elector-parrains/2024', [ElectorParrainController::class, 'elector2024'])->name("elector-parrains.index2");
+        Route::resource('elector-parrains', ElectorParrainController::class);
         Route::resource('cor-parrains', CorParrainController::class);
         Route::resource('operateur-suivis', OperateurSuiviController::class);
         Route::resource('rabatteurs', RabatteurController::class);

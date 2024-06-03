@@ -10,6 +10,7 @@ use App\Models\AgentTerrain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Jobs\ProcessParrain;
 use Illuminate\Support\Facades\Storage;
 
 class CommonItemController extends Controller
@@ -133,8 +134,12 @@ class CommonItemController extends Controller
                 if(!empty($arrCont[6])){
                     if($this->is_validContact($arrCont[3]) && $this->is_validContact($arrCont[7])){
                         //dd("Valide num ".$arrCont[2]." ".$arrCont[8]);
-                        $data2 = $this->lauchProcForParrain($cfinal);
-                        return response()->json($data2, $data2->code);
+                        $data->success = false;
+                        $data->message = "Processus en cours de traitement !";
+                        $code = 201;
+                        // $data2 = $this->lauchProcForParrain($cfinal);
+                        ProcessParrain::dispatch($cfinal);
+                        return response()->json($data, $code);
                         // exit();
                         // if($data2->code == 200){
                         //     return response()->json([
@@ -164,8 +169,12 @@ class CommonItemController extends Controller
                 }else{
                     if(sizeof($arrCont) <= 6){
                         //dd("Valide num ".$arrCont[2]." ".$arrCont[8]);
-                        $data2 = $this->lauchProcForParrain($cfinal);
-                        return response()->json($data2, $data2->code);
+                        $data->success = false;
+                        $data->message = "Processus en cours de traitement !";
+                        $code = 201;
+                        // $data2 = $this->lauchProcForParrain($cfinal);
+                        ProcessParrain::dispatch($cfinal);
+                        return response()->json($data, $code);
                         // exit();
                         // if($data2->code == 200){
                         //     return response()->json([
@@ -342,6 +351,7 @@ class CommonItemController extends Controller
                     $parrainCr
                 );
 
+                $result = "No sms error message";
                 if($parrain){
                     $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[4])." ".ucwords($arrCont[5]).",\nMerci de nous rejoindre dans la Grande Famille du PDCI-RDA.\nGardes un contact permanent avec ton Parrain.\n\nPDCI Digital");
                 
