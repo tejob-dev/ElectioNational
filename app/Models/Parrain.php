@@ -51,7 +51,7 @@ class Parrain extends Model
     
     public function lieuVote()
     {
-        return $this->belongsTo(LieuVote::class, "code_lv", "libel");
+        return $this->belongsTo(LieuVote::class, "code_lv", "code");
     }
 
     public function scopeUserlimit($query)

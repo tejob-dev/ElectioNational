@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\Parrain;
 use App\Models\AgentTerrain;
 use App\Models\ElectorParrain;
+use App\Models\LieuVote;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -122,7 +123,11 @@ class ProcessParrain implements ShouldQueue
                 $dateNaissElect = $date_obj->format('d/m/Y');
                 $created_it = Carbon::createFromFormat("d/m/Y H:i:s", str_replace("-", "/", $arrCont[1]))->toDateTimeString();
                 //dd("Valide num ".$agTerrainPhone." ".$dateNaiss);
-                
+                Log::info(json_encode([
+                    'nom' => "$arrCont[4]",
+                    'prenom' => "$arrCont[5]",
+                    'date_naiss' => "$dateNaissElect",
+                ]));
                 //CHECK ON LIST ELECTOR
                 $csvUrl = env('CSV_URL')??"http://127.0.0.1:5000";
                 $response = Http::post("$csvUrl/check_elector", [
@@ -152,6 +157,7 @@ class ProcessParrain implements ShouldQueue
                 if($result_elector_exist){
                     //ADD PARRIN INFO IN ELECTOR LIST 2023
                     $curr_index = ElectorParrain::count() + 1;
+                    $lvget = LieuVote::where("code", "=", "$arrCont[9]")->first();
                     ElectorParrain::create([
                         'subid' => "E23_$curr_index",
                         'nom_prenoms' => strtoupper($arrCont[4])." ".ucwords($arrCont[5]),
@@ -163,7 +169,7 @@ class ProcessParrain implements ShouldQueue
                         'adress_physiq' => "N/A",
                         'adress_postal' => "N/A",
                         'carte_elect' => "$result_cardelector",
-                        'nom_lv' => optional($arrCont[9])?"$arrCont[9]":"AUTRE CIRCONSCRIPTION",
+                        'nom_lv' => $lvget!=null?($lvget->libel):"AUTRE CIRCONSCRIPTION",
                         'agent_res_nompren' => "$agTerrain->nom $agTerrain->prenom",
                         'agent_res_phone' => "$agTerrainPhone",
                         'recenser' => "$agent_recences",
@@ -182,7 +188,7 @@ class ProcessParrain implements ShouldQueue
                     'prenom' => "$arrCont[5]",
                     'list_elect' => "$arrCont[10]",
                     'cni_dispo' => "$arrCont[11]",
-                    'is_milit' => "$arrCont[12]",
+                    'is_milit' => ($arrCont[12] == "1")?"Sympathisant":"Militant",
                     'extrait' => "$extrait",
                     'telephone' => "$parrainPhone",
                     'date_naiss' => "$dateNaiss",
