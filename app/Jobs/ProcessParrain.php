@@ -124,16 +124,16 @@ class ProcessParrain implements ShouldQueue
                 $created_it = Carbon::createFromFormat("d/m/Y H:i:s", str_replace("-", "/", $arrCont[1]))->toDateTimeString();
                 //dd("Valide num ".$agTerrainPhone." ".$dateNaiss);
                 Log::info(json_encode([
-                    'nom' => "$arrCont[4]",
-                    'prenom' => "$arrCont[5]",
-                    'date_naiss' => "$dateNaissElect",
+                    'nom' => removeAccentsAndUpperCase($arrCont[4]),
+                    'prenom' => removeAccentsAndUpperCase($arrCont[5]),
+                    'date_naiss' => str_replace("\\", "", $dateNaissElect),
                 ]));
                 //CHECK ON LIST ELECTOR
                 $csvUrl = env('CSV_URL')??"http://127.0.0.1:5000";
                 $response = Http::post("$csvUrl/check_elector", [
-                    'nom' => "$arrCont[4]",
-                    'prenom' => "$arrCont[5]",
-                    'date_naiss' => "$dateNaissElect",
+                    'nom' => removeAccentsAndUpperCase($arrCont[4]),
+                    'prenom' => removeAccentsAndUpperCase($arrCont[5]),
+                    'date_naiss' => str_replace("\\", "", $dateNaissElect),
                 ]);
                 
                 $task_id = $response->json('task_id');
