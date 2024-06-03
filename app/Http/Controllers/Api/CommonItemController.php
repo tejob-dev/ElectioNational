@@ -118,7 +118,7 @@ class CommonItemController extends Controller
 
         }
 
-        // dd($request->all())
+        // dd($request->text);
         if(empty($content)) return response()->json($data, 202);
         $cfinal = "";
         $code = 200;

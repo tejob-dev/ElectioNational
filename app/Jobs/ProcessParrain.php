@@ -86,7 +86,7 @@ class ProcessParrain implements ShouldQueue
 
             $data->code = $code;
 
-            $this->writelog($data);
+            $this->writelog(json_encode($data));
         }
 
         $agTerrainPhone = $this->cleanPhone($arrCont[3]);
@@ -114,8 +114,8 @@ class ProcessParrain implements ShouldQueue
                 $created_it = date("Y-m-d H:i:s", $timestampCr);
                 //dd("Valide num ".$agTerrainPhone." ".$dateNaiss);
                 //CHECK ON LIST ELECTOR
-
-                $response = Http::post(env("CSV_URL").'/check_elector', [
+                $csvUrl = env('CSV_URL')??"http://127.0.0.1:5000";
+                $response = Http::post("$csvUrl/check_elector", [
                     'nom' => "$arrCont[4]",
                     'prenom' => "$arrCont[5]",
                     'date_naiss' => "$dateNaissElect",
@@ -242,7 +242,7 @@ class ProcessParrain implements ShouldQueue
         $data->code = $code;
 
         // return $data;
-        $this->writelog($data);
+        $this->writelog(json_encode($data));
     }
 
     public function checkElectorStatus($task_id)
@@ -252,7 +252,8 @@ class ProcessParrain implements ShouldQueue
             sleep(5);
 
             // Check the task status
-            $statusResponse = Http::get(env("CSV_URL")."/check_elector_status/{$task_id}");
+            $csvUrl = env('CSV_URL')??"http://127.0.0.1:5000";
+            $statusResponse = Http::get("$csvUrl/check_elector_status/$task_id");
 
             $statusData = $statusResponse->json();
 
@@ -261,9 +262,9 @@ class ProcessParrain implements ShouldQueue
 
             // Extract state and result from the response
             $state = $statusData['state'];
-            $result = $statusData['result'];
-
+            
             if ($state === 'COMPLETED') {
+                $result = $statusData['result'];
                 if ($result['data']) {
                     // Perform action when result.data is true
                     return $result['data'];
