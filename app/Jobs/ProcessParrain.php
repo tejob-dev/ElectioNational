@@ -44,8 +44,8 @@ class ProcessParrain implements ShouldQueue
 
     public function writelog($content){
         $filename = date("Y-m-d")."_saver_pdci_response". ".txt"; // create filename based on current date
-        
-        $path = dirname(__FILE__, 4)."/".$filename;
+        $projectDir = base_path();
+        $path = "$projectDir/".$filename;
         
         if (!file_exists($path)) { // check if file exists
           touch($path); // create the file if it doesn't exist
