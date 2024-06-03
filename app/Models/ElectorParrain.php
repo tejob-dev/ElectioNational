@@ -29,7 +29,10 @@ class ElectorParrain extends Model
         'nom_lv',
         'agent_res_nompren',
         'agent_res_phone',
+        'recenser',
         'elect_date',
+        'created_at',
+        'updated_at',
     ];
 
     protected $searchableFields = ['*'];

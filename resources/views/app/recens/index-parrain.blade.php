@@ -102,7 +102,7 @@
                                     Liste électorale
                                 </th>
                                 <th class="px-4 py-3 ">
-                                    N° DE CARTE
+                                    Militant ou Sympatisant
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     LV
@@ -245,7 +245,7 @@
                         {data: 'date_naissp', name: 'date_naissp'},
                         {data: 'telephone', name: 'telephone'},
                         {data: 'list_elect', name: 'list_elect'},
-                        {data: 'cart_elect', name: 'cart_elect'},
+                        {data: 'is_milit', name: 'is_milit'},
                         {data: 'code_lv', name: 'code_lv'},
                         {data: 'cni_dispo', name: 'cni_dispo'},
                         {data: 'extrait', name: 'extrait'},

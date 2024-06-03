@@ -62,8 +62,9 @@ class ProcessParrain implements ShouldQueue
 
         if(sizeof($arrCont) <= 6){
 
-            $timestampCr = strtotime($arrCont[1]);
-            $created_it = date("Y-m-d H:i:s", $timestampCr);
+            // $timestampCr = strtotime($arrCont[1]);
+            // $created_it = date("Y-m-d H:i:s", $timestampCr);
+            $created_it = Carbon::createFromFormat("d/m/Y H:i:s", str_replace("-", "/", $arrCont[1]))->toDateTimeString();
             //dd($created_it);
             $parrain = Parrain::where("created_at", $created_it)->first();
             
@@ -84,9 +85,17 @@ class ProcessParrain implements ShouldQueue
                 $code = 202;
             }
 
+            $electorat = ElectorParrain::where("created_at", $created_it)->first();
+
+            if($electorat){
+                $electorat->recenser = $arrCont[5];
+                $electorat->save();
+            }
+
             $data->code = $code;
 
             $this->writelog(json_encode($data));
+            return null;
         }
 
         $agTerrainPhone = $this->cleanPhone($arrCont[3]);
@@ -104,15 +113,16 @@ class ProcessParrain implements ShouldQueue
 
             if(sizeof($arrCont) > 4){
                 
-                $timestampCr = strtotime($arrCont[1]);
+                // $timestampCr = strtotime();
                 // $timestampDateNaissCr = strtotime($arrCont[6]);
                 // $dateNaiss = date("Y-m-d H:i:s", $timestampDateNaissCr);
                 $date_obj = Carbon::createFromFormat('d/m/Y', str_replace("-", "/", $arrCont[6]));
                 // $lieuvote = LieuVote::where("libel", "like", "%".$arrCont[9]."%")->first();
                 $dateNaiss = $date_obj->format('Y-m-d H:i:s');
                 $dateNaissElect = $date_obj->format('d/m/Y');
-                $created_it = date("Y-m-d H:i:s", $timestampCr);
+                $created_it = Carbon::createFromFormat("d/m/Y H:i:s", str_replace("-", "/", $arrCont[1]))->toDateTimeString();
                 //dd("Valide num ".$agTerrainPhone." ".$dateNaiss);
+                
                 //CHECK ON LIST ELECTOR
                 $csvUrl = env('CSV_URL')??"http://127.0.0.1:5000";
                 $response = Http::post("$csvUrl/check_elector", [
@@ -120,22 +130,31 @@ class ProcessParrain implements ShouldQueue
                     'prenom' => "$arrCont[5]",
                     'date_naiss' => "$dateNaissElect",
                 ]);
-        
+                
                 $task_id = $response->json('task_id');
                 $result_elector_exist = false;
+                $result_cardelector = "N/A";
                 if ($task_id) {
                     // Start checking the task status
-                    $result_elector_exist = $this->checkElectorStatus($task_id);
+                    list($result_cardelector, $result_elector_exist) = $this->checkElectorStatus($task_id);
                 }
 
                 //END CHECK ON LIST ELECTOR
+
+                
+                $extrait = "";
+                $observation = "";
+                $agent_recences = "";
+                if(array_key_exists(13, $arrCont)) $extrait = $arrCont[13];
+                if(array_key_exists(14, $arrCont)) $observation = $arrCont[14];
+                if(array_key_exists(15, $arrCont)) $agent_recences = $arrCont[15];
 
                 if($result_elector_exist){
                     //ADD PARRIN INFO IN ELECTOR LIST 2023
                     $curr_index = ElectorParrain::count() + 1;
                     ElectorParrain::create([
                         'subid' => "E23_$curr_index",
-                        'nom_prenoms' => "$arrCont[4] $arrCont[5]",
+                        'nom_prenoms' => strtoupper($arrCont[4])." ".ucwords($arrCont[5]),
                         'phone' => "$parrainPhone",
                         'date_naiss' => "$dateNaiss",
                         'lieu_naiss' => "N/A",
@@ -143,21 +162,18 @@ class ProcessParrain implements ShouldQueue
                         'genre' => "N/A",
                         'adress_physiq' => "N/A",
                         'adress_postal' => "N/A",
-                        'carte_elect' => "N/A",
+                        'carte_elect' => "$result_cardelector",
                         'nom_lv' => optional($arrCont[9])?"$arrCont[9]":"AUTRE CIRCONSCRIPTION",
                         'agent_res_nompren' => "$agTerrain->nom $agTerrain->prenom",
                         'agent_res_phone' => "$agTerrainPhone",
+                        'recenser' => "$agent_recences",
                         'elect_date' => "2023",
+                        'created_at' => $created_it,
+                        'updated_at' => $created_it,
                     ]);
                 }
 
 
-                $extrait = "";
-                $observation = "";
-                $agent_recences = "";
-                if(array_key_exists(12, $arrCont)) $extrait = $arrCont[12];
-                if(array_key_exists(13, $arrCont)) $observation = $arrCont[13];
-                if(array_key_exists(14, $arrCont)) $agent_recences = $arrCont[14];
                 $parrainCr = [
                     'nom_pren_par' => "$agTerrain->nom $agTerrain->prenom",
                     'telephone_par' => "$agTerrainPhone",
@@ -166,6 +182,7 @@ class ProcessParrain implements ShouldQueue
                     'prenom' => "$arrCont[5]",
                     'list_elect' => "$arrCont[10]",
                     'cni_dispo' => "$arrCont[11]",
+                    'is_milit' => "$arrCont[12]",
                     'extrait' => "$extrait",
                     'telephone' => "$parrainPhone",
                     'date_naiss' => "$dateNaiss",
@@ -267,17 +284,21 @@ class ProcessParrain implements ShouldQueue
                 $result = $statusData['result'];
                 if ($result['data']) {
                     // Perform action when result.data is true
-                    return $result['data'];
+                    return [$result['cardelect'], $result['data']];
                 } else {
                     // Perform action when result.data is false
-                    return $result['data'];
+                    return [$result['cardelect'], $result['data']];
                 }
             }
+
+            if($state == 'FAILED')
+                $state = 'COMPLETED';
+
         } while ($state !== 'COMPLETED');
 
         $this->writelog('Task did not complete successfully');
 
-        return false;
+        return [null, false];
     }
 
     public function sendToOtherApis($urla, $content){

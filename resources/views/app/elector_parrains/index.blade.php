@@ -49,9 +49,9 @@
                     <table class="w-full max-w-full mb-4 bg-transparent">
                         <thead class="text-gray-700">
                             <tr>
-                                <th class="px-4 py-3 text-left">
+                                <!-- <th class="px-4 py-3 text-left">
                                     ID
-                                </th>
+                                </th> -->
                                 <th class="px-4 py-3 text-left">
                                     @lang('crud.cor_parrains.inputs.nom_prenoms')
                                 </th>
@@ -59,7 +59,7 @@
                                     @lang('crud.cor_parrains.inputs.phone')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.cor_parrains.inputs.carte_elect')
+                                    N° de carte d'électeur
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     Section
@@ -68,10 +68,13 @@
                                     Lieu de Vote
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Parrain
+                                    Nom du parrain 
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     Tel.&nbsp;Parrain
+                                </th>
+                                <th class="px-4 py-3 text-left">
+                                    Recenseur
                                 </th>
                                 <th></th>
                             </tr>
@@ -79,9 +82,6 @@
                         <tbody class="text-gray-600">
                             @forelse($electorParrains as $electorParrain)
                             <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-3 text-left">
-                                    {{ $electorParrain->subid ?? '-' }}
-                                </td>
                                 <td class="px-4 py-3 text-left">
                                     {{ $electorParrain->nom_prenoms ?? '-' }}
                                 </td>
@@ -102,6 +102,9 @@
                                 </td>
                                 <td class="px-4 py-3 text-left">
                                     {{ $electorParrain->agent_res_phone ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-left">
+                                    {{ $electorParrain->recenser ?? '-' }}
                                 </td>
                                 <td
                                     class="px-4 py-3 text-center"

@@ -21,6 +21,7 @@ class Parrain extends Model
         'nom',
         'prenom',
         'cart_milit',
+        'is_milit',
         'list_elect',
         'cart_elect',
         'cni_dispo',
