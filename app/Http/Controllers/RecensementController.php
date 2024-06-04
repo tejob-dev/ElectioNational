@@ -236,9 +236,9 @@ class RecensementController extends Controller
                 ->addColumn('section', function ($parrain) {
                     return (optional($parrain->agentterrain)->section->libel ?? '-');
                 })
-                // ->addColumn('soussection', function ($parrain) {
-                //     return (optional($parrain->agentterrain)->sousSection->libel ?? "-");
-                // })
+                ->addColumn('codelv', function ($parrain) {
+                    return (optional($parrain->lieuVote)->libel ?? "-");
+                })
                 ->addColumn('date_naissp', function ($parrain) {
                     return $parrain->date_naiss ? Carbon::createFromFormat('Y-m-d H:i:s', $parrain->date_naiss)->format('d/m/Y'): '-';
                 })

@@ -246,7 +246,7 @@
                         {data: 'telephone', name: 'telephone'},
                         {data: 'list_elect', name: 'list_elect'},
                         {data: 'is_milit', name: 'is_milit'},
-                        {data: 'code_lv', name: 'code_lv'},
+                        {data: 'codelv', name: 'codelv'},
                         {data: 'cni_dispo', name: 'cni_dispo'},
                         {data: 'extrait', name: 'extrait'},
                         // {data: 'telparrain', name: 'telparrain'},
