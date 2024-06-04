@@ -46,7 +46,7 @@ class Parrain extends Model
     
     public function agentTerrain()
     {
-        return $this->belongsTo(AgentTerrain::class,  "telephone", "telephone_par");
+        return $this->belongsTo(AgentTerrain::class, "telephone_par", "telephone");
     }
     
     public function lieuVote()
