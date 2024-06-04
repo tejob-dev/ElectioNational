@@ -202,16 +202,18 @@ class RecensementController extends Controller
                     ->select('parrains.*', DB::raw('CONCAT(COALESCE(parrains.nom, ""), " ", COALESCE(parrains.prenom, "")) as nom_prenom'))
                     ->havingRaw('nom_prenom LIKE ?', ['%'.str_replace(['(', ')'], "",  $searVal).'%'] ); //CHANGE
                 }else if(array_key_exists("agent", $searchidx) 
-                    // || array_key_exists("regionm", $searchidx)
+                    || array_key_exists("codelv", $searchidx)
                 ){
                     /// QUERY MODIFIER BASED ON RELATIONSHIP
                     $queryB = Parrain::userlimit()
                     ->where("imported", "=", false)->with('agentterrain.section')
                         ->join('agent_terrains', 'parrains.telephone_par', '=', 'agent_terrains.telephone')
                         ->join('quartiers', 'agent_terrains.section_id', '=', 'quartiers.id')
+                        ->leftJoin('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
                         ->select('parrains.*', DB::raw('CONCAT(COALESCE(agent_terrains.nom, ""), " ", COALESCE(agent_terrains.prenom, "")) as nom_prenom'))
                         ->groupBy('parrains.id');
 
+                    if(array_key_exists("codelv", $searchidx)) $queryB = $queryB->where('lieu_votes.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["codelv"]).'%' );
                     // if( array_key_exists("parrainm", $searchidx) ) $queryB = $queryB->having('total_parrains', '=', str_replace(['(', ')'], "",  $searchidx["parrainm"]));
 
                     if(array_key_exists("agent", $searchidx)) $queryB = $queryB->havingRaw('nom_prenom LIKE ?', ['%'.str_replace(['(', ')'], "",  $searchidx["agent"]).'%'] );
@@ -259,7 +261,7 @@ class RecensementController extends Controller
                     // }
                     return $listofpv;
                 })
-                ->rawColumns(['agent', 'telephoneag', 'section', 'createdat', 'pphoto'])
+                ->rawColumns(['agent', 'codelv', 'telephoneag', 'section', 'createdat', 'pphoto'])
                 ->toJson();
         }
     }

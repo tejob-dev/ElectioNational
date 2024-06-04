@@ -1,0 +1,5 @@
+{"success":false,"error":"","message":"Agent non reconnu!","code":202}
+{"success":false,"error":"","message":"Agent non reconnu!","code":202}
+{"success":false,"error":"","message":"Agent non reconnu!","code":202}
+{"success":false,"error":"","message":"Agent non reconnu!","code":202}
+{"success":false,"error":"ERROR: if type is set to text then only characters from GSM-7 alphabet are supported. Remove unsupported characters or set type to unicode","message":"Recensement \u00e9ffectu\u00e9 avec succ\u00e8s et message non transmis","code":202}
