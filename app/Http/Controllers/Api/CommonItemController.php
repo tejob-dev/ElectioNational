@@ -75,14 +75,15 @@ class CommonItemController extends Controller
                 $date = explode("*", $dataId)[0];
             
                 // Finding the parent by created_at equal to the extracted date
-                $timestampCr = strtotime($date);
-                $created_it = date("Y-m-d H:i:s", $timestampCr);
+                // $timestampCr = strtotime($date);
+                // $created_it = date("Y-m-d H:i:s", $timestampCr);
+                $created_it = Carbon::createFromFormat("d/m/Y H:i:s", str_replace("-", "/", $date))->toDateTimeString();
                 //dd($created_it);
                 $parrain = Parrain::where("created_at", $created_it)->first();
             
                 $data->success = true;
                 $data->error = "";
-                $data->message = "Parrain introuvé !!";
+                $data->message = "Parrain non trouvé !!";
                 
                 if ($parrain) {
                     // Decoding photoContent from base64
@@ -104,7 +105,7 @@ class CommonItemController extends Controller
                         $parrain->photo = $filename;
                         $parrain->save();
                         
-                        $data->message = "Photo recu avec succes";
+                        $data->message = "Photo recu avec succès";
 
                         return response()->json($data, $code);
                     }
@@ -114,6 +115,8 @@ class CommonItemController extends Controller
                     return response()->json($data, 301);
                 }
 
+            }else{
+                return response()->json([], 301);
             }
 
         }
@@ -265,149 +268,149 @@ class CommonItemController extends Controller
         return preg_replace("/^(?:\+|)225/i", "", trim($phone));
     }
 
-    public function lauchProcForParrain($cont){
-        $data = new \stdClass();
-        $code = 404;
-        $arrCont = explode("*", $cont);
+    // public function lauchProcForParrain($cont){
+    //     $data = new \stdClass();
+    //     $code = 404;
+    //     $arrCont = explode("*", $cont);
 
-        if(sizeof($arrCont) <= 6){
+    //     if(sizeof($arrCont) <= 6){
 
-            $timestampCr = strtotime($arrCont[1]);
-            $created_it = date("Y-m-d H:i:s", $timestampCr);
-            //dd($created_it);
-            $parrain = Parrain::where("created_at", $created_it)->first();
+    //         $timestampCr = strtotime($arrCont[1]);
+    //         $created_it = date("Y-m-d H:i:s", $timestampCr);
+    //         //dd($created_it);
+    //         $parrain = Parrain::where("created_at", $created_it)->first();
             
-            if($parrain){
-                $data->success = true;
-                $data->message = "Enrégistrement trouvé, mise à jour!";
-                $data->error = "";
-                $code = 200;
+    //         if($parrain){
+    //             $data->success = true;
+    //             $data->message = "Enrégistrement trouvé, mise à jour!";
+    //             $data->error = "";
+    //             $code = 200;
 
-                $parrain->extrait = $arrCont[3];
-                $parrain->observation = $arrCont[4];
-                $parrain->recenser = $arrCont[5];
-                $parrain->save();
-            }else{
-                $data->success = true;
-                $data->message = "Enrégistrement introuvale, non mise à jour!";
-                $data->error = "";
-                $code = 202;
-            }
+    //             $parrain->extrait = $arrCont[3];
+    //             $parrain->observation = $arrCont[4];
+    //             $parrain->recenser = $arrCont[5];
+    //             $parrain->save();
+    //         }else{
+    //             $data->success = true;
+    //             $data->message = "Enrégistrement introuvale, non mise à jour!";
+    //             $data->error = "";
+    //             $code = 202;
+    //         }
 
-            $data->code = $code;
+    //         $data->code = $code;
 
-            return $data;
-        }
+    //         return $data;
+    //     }
 
-        $agTerrainPhone = $this->cleanPhone($arrCont[3]);
-        $parrainPhone = $this->cleanPhone($arrCont[7]);
-        $agTerrain = AgentTerrain::with("lieuVote")->where("telephone", $agTerrainPhone)->first();
+    //     $agTerrainPhone = $this->cleanPhone($arrCont[3]);
+    //     $parrainPhone = $this->cleanPhone($arrCont[7]);
+    //     $agTerrain = AgentTerrain::with("lieuVote")->where("telephone", $agTerrainPhone)->first();
 
-        if(!$agTerrain) {
-            $data->success = false;
-            $data->error = "";
-            $data->message = "Agent non reconnu!";
-            $code = 202;
+    //     if(!$agTerrain) {
+    //         $data->success = false;
+    //         $data->error = "";
+    //         $data->message = "Agent non reconnu!";
+    //         $code = 202;
 
-        }else{
+    //     }else{
 
-            if(sizeof($arrCont) > 4){
+    //         if(sizeof($arrCont) > 4){
                 
-                $timestampCr = strtotime($arrCont[1]);
-                // $timestampDateNaissCr = strtotime($arrCont[6]);
-                // $dateNaiss = date("Y-m-d H:i:s", $timestampDateNaissCr);
-                $date_obj = Carbon::createFromFormat('d/m/Y', str_replace("-", "/", $arrCont[6]));
-                // $lieuvote = LieuVote::where("libel", "like", "%".$arrCont[9]."%")->first();
-                $dateNaiss = $date_obj->format('Y-m-d H:i:s');
-                $created_it = date("Y-m-d H:i:s", $timestampCr);
-                //dd("Valide num ".$agTerrainPhone." ".$dateNaiss);
-                $extrait = "";
-                $observation = "";
-                $agent_recences = "";
-                if(array_key_exists(12, $arrCont)) $extrait = $arrCont[12];
-                if(array_key_exists(13, $arrCont)) $observation = $arrCont[13];
-                if(array_key_exists(14, $arrCont)) $agent_recences = $arrCont[14];
-                $parrainCr = [
-                    'nom_pren_par' => "$agTerrain->nom $agTerrain->prenom",
-                    'telephone_par' => "$agTerrainPhone",
-                    'recenser' => "$agent_recences",
-                    'nom' => "$arrCont[4]",
-                    'prenom' => "$arrCont[5]",
-                    'list_elect' => "$arrCont[10]",
-                    'cni_dispo' => "$arrCont[11]",
-                    'extrait' => "$extrait",
-                    'telephone' => "$parrainPhone",
-                    'date_naiss' => "$dateNaiss",
-                    'code_lv' => optional($arrCont[9])?"$arrCont[9]":"AUTRE CIRCONSCRIPTION",
-                    'residence' => "N/A",
-                    'profession' => "$arrCont[8]",
-                    'observation' => "$observation",
-                    'status' => "Non traité",
-                    'created_at' => $created_it,
-                    'updated_at' => $created_it,
-                ];
-                //dd($parrainCr);
-                $parrain = Parrain::create(
-                    $parrainCr
-                );
+    //             $timestampCr = strtotime($arrCont[1]);
+    //             // $timestampDateNaissCr = strtotime($arrCont[6]);
+    //             // $dateNaiss = date("Y-m-d H:i:s", $timestampDateNaissCr);
+    //             $date_obj = Carbon::createFromFormat('d/m/Y', str_replace("-", "/", $arrCont[6]));
+    //             // $lieuvote = LieuVote::where("libel", "like", "%".$arrCont[9]."%")->first();
+    //             $dateNaiss = $date_obj->format('Y-m-d H:i:s');
+    //             $created_it = date("Y-m-d H:i:s", $timestampCr);
+    //             //dd("Valide num ".$agTerrainPhone." ".$dateNaiss);
+    //             $extrait = "";
+    //             $observation = "";
+    //             $agent_recences = "";
+    //             if(array_key_exists(12, $arrCont)) $extrait = $arrCont[12];
+    //             if(array_key_exists(13, $arrCont)) $observation = $arrCont[13];
+    //             if(array_key_exists(14, $arrCont)) $agent_recences = $arrCont[14];
+    //             $parrainCr = [
+    //                 'nom_pren_par' => "$agTerrain->nom $agTerrain->prenom",
+    //                 'telephone_par' => "$agTerrainPhone",
+    //                 'recenser' => "$agent_recences",
+    //                 'nom' => "$arrCont[4]",
+    //                 'prenom' => "$arrCont[5]",
+    //                 'list_elect' => "$arrCont[10]",
+    //                 'cni_dispo' => "$arrCont[11]",
+    //                 'extrait' => "$extrait",
+    //                 'telephone' => "$parrainPhone",
+    //                 'date_naiss' => "$dateNaiss",
+    //                 'code_lv' => optional($arrCont[9])?"$arrCont[9]":"AUTRE CIRCONSCRIPTION",
+    //                 'residence' => "N/A",
+    //                 'profession' => "$arrCont[8]",
+    //                 'observation' => "$observation",
+    //                 'status' => "Non traité",
+    //                 'created_at' => $created_it,
+    //                 'updated_at' => $created_it,
+    //             ];
+    //             //dd($parrainCr);
+    //             $parrain = Parrain::create(
+    //                 $parrainCr
+    //             );
 
-                $result = "No sms error message";
-                if($parrain){
-                    $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[4])." ".ucwords($arrCont[5]).",\nMerci de nous rejoindre dans la Grande Famille du PDCI-RDA.\nGardes un contact permanent avec ton Parrain.\n\nPDCI Digital");
+    //             $result = "No sms error message";
+    //             if($parrain){
+    //                 $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[4])." ".ucwords($arrCont[5]).",\nMerci de nous rejoindre dans la Grande Famille du PDCI-RDA.\nGardes un contact permanent avec ton Parrain.\n\nPDCI Digital");
                 
                 
-                    if( !empty($result) ){
-                        if(preg_match("/OK\:/i", $result)){
-                            $data->success = true;
-                            $data->message = "Recensement éffectué avec succès et message transmis";
-                            $data->error = "";
-                            $code = 200;
-                        }else{
-                            $data->success = false;
-                            $data->error = $result;
-                            $data->message = "Recensement éffectué avec succès et message non transmis";
-                            $code = 202;
-                        }
-                    }else{
-                        $data->success = false;
-                        $data->error = $result;
-                        $data->message = "Recensement éffectué avec succès et message non transmis";
-                        $code = 202;
-                    }
-                }else{
-                    if( !empty($result) ){
-                        if(preg_match("/OK\:/i", $result)){
-                            $data->success = true;
-                            $data->message = "Echec recensement et message transmis";
-                            $data->error = "";
-                            $code = 202;
-                        }else{
-                            $data->success = false;
-                            $data->error = $result;
-                            $data->message = "Echec recensement et message non transmis";
-                            $code = 202;
-                        }
-                    }else{
-                        $data->success = false;
-                        $data->error = $result;
-                        $data->message = "Echec recensement et message non transmis";
-                        $code = 202;
-                    }
-                }
-            }else{
-                $data->success = true;
-                $data->message = "Rien à enrégistrer!";
-                $data->error = "";
-                $code = 202;
-            }
+    //                 if( !empty($result) ){
+    //                     if(preg_match("/OK\:/i", $result)){
+    //                         $data->success = true;
+    //                         $data->message = "Recensement éffectué avec succès et message transmis";
+    //                         $data->error = "";
+    //                         $code = 200;
+    //                     }else{
+    //                         $data->success = false;
+    //                         $data->error = $result;
+    //                         $data->message = "Recensement éffectué avec succès et message non transmis";
+    //                         $code = 202;
+    //                     }
+    //                 }else{
+    //                     $data->success = false;
+    //                     $data->error = $result;
+    //                     $data->message = "Recensement éffectué avec succès et message non transmis";
+    //                     $code = 202;
+    //                 }
+    //             }else{
+    //                 if( !empty($result) ){
+    //                     if(preg_match("/OK\:/i", $result)){
+    //                         $data->success = true;
+    //                         $data->message = "Echec recensement et message transmis";
+    //                         $data->error = "";
+    //                         $code = 202;
+    //                     }else{
+    //                         $data->success = false;
+    //                         $data->error = $result;
+    //                         $data->message = "Echec recensement et message non transmis";
+    //                         $code = 202;
+    //                     }
+    //                 }else{
+    //                     $data->success = false;
+    //                     $data->error = $result;
+    //                     $data->message = "Echec recensement et message non transmis";
+    //                     $code = 202;
+    //                 }
+    //             }
+    //         }else{
+    //             $data->success = true;
+    //             $data->message = "Rien à enrégistrer!";
+    //             $data->error = "";
+    //             $code = 202;
+    //         }
 
         
-        }
+    //     }
 
-        $data->code = $code;
+    //     $data->code = $code;
 
-        return $data;
-    }
+    //     return $data;
+    // }
 
     public function is_base64Str($cont){
         if( base64_encode(base64_decode($cont, true)) == $cont ) return true;

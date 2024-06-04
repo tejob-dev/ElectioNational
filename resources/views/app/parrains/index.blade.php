@@ -84,9 +84,9 @@
                                 <th class="px-4 py-3 ">
                                     Liste électorale
                                 </th>
-                                <th class="px-4 py-3 ">
+                                <!-- <th class="px-4 py-3 ">
                                     Nº&nbsp;Carte
-                                </th>
+                                </th> -->
                                 <th class="px-4 py-3 ">
                                     Tel.
                                 </th>
@@ -147,9 +147,9 @@
                                 <td class="px-4 py-3 text-left">
                                     {{ $parrain->list_elect ?? '-' }}
                                 </td>
-                                <td class="px-4 py-3 text-left">
+                                <!-- <td class="px-4 py-3 text-left">
                                     {{ $parrain->cart_elect ?? '-' }}
-                                </td>
+                                </td> -->
                                 <td class="px-4 py-3 text-left">
                                     {{ $parrain->telephone ?? '-' }}
                                 </td>
