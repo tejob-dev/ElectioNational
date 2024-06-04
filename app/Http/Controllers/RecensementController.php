@@ -206,10 +206,10 @@ class RecensementController extends Controller
                 ){
                     /// QUERY MODIFIER BASED ON RELATIONSHIP
                     $queryB = Parrain::userlimit()
-                    ->where("imported", "=", false)->with('agentterrain.section')
+                    ->where("parrains.imported", "=", false)->with('agentterrain.section')
                         ->join('agent_terrains', 'parrains.telephone_par', '=', 'agent_terrains.telephone')
                         ->join('quartiers', 'agent_terrains.section_id', '=', 'quartiers.id')
-                        ->leftJoin('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
+                        ->leftJoin('lieu_votes', 'parrains.code_lv', '=', 'lieu_votes.code')
                         ->select('parrains.*', DB::raw('CONCAT(COALESCE(agent_terrains.nom, ""), " ", COALESCE(agent_terrains.prenom, "")) as nom_prenom'))
                         ->groupBy('parrains.id');
 
@@ -217,7 +217,7 @@ class RecensementController extends Controller
                     // if( array_key_exists("parrainm", $searchidx) ) $queryB = $queryB->having('total_parrains', '=', str_replace(['(', ')'], "",  $searchidx["parrainm"]));
 
                     if(array_key_exists("agent", $searchidx)) $queryB = $queryB->havingRaw('nom_prenom LIKE ?', ['%'.str_replace(['(', ')'], "",  $searchidx["agent"]).'%'] );
-                    
+                    // dd($queryB->first());
                     $parrains = $queryB->get();  //CHANGE
                 }else{
                     $parrains = Parrain::userlimit()
