@@ -53,13 +53,13 @@
         ></x-inputs.text>
     </x-inputs.group>
 
-    @if($editing)
     <x-inputs.group class="w-full">
-        <x-inputs.checkbox
-            name="a_vote"
-            label="A Vote"
-            :checked="old('a_vote', ($editing ? $electorParrain->a_vote : 0))"
-        ></x-inputs.checkbox>
+        <x-inputs.text
+            name="recenser"
+            label="Agent Recenseur"
+            :value="old('recenser', ($editing ? $electorParrain->recenser : ''))"
+        ></x-inputs.text>
     </x-inputs.group>
-    @endif
+
+    
 </div>

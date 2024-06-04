@@ -9,21 +9,21 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-partials.card>
                 <x-slot name="title">
-                    <a href="{{ route('cor-parrains.index') }}" class="mr-4"
+                    <a href="{{ route('elector-parrains.index') }}" class="mr-4"
                         ><i class="mr-1 icon ion-md-arrow-back"></i
                     ></a>
                 </x-slot>
 
                 <x-form
                     method="PUT"
-                    action="{{ route('cor-parrains.update', $electorParrain) }}"
+                    action="{{ route('elector-parrains.update', $electorParrain) }}"
                     class="mt-4"
                 >
-                    @include('app.cor_parrains.form-inputs')
+                    @include('app.elector_parrains.form-inputs')
 
                     <div class="mt-10">
                         <a
-                            href="{{ route('cor-parrains.index') }}"
+                            href="{{ route('elector-parrains.index') }}"
                             class="button"
                         >
                             <i
@@ -38,7 +38,7 @@
                         </a>
 
                         <a
-                            href="{{ route('cor-parrains.create') }}"
+                            href="{{ route('elector-parrains.create') }}"
                             class="button"
                         >
                             <i class="mr-1 icon ion-md-add text-primary"></i>

@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-partials.card>
                 <x-slot name="title">
-                    <a href="{{ route('cor-parrains.index') }}" class="mr-4"
+                    <a href="{{ route('elector-parrains.index') }}" class="mr-4"
                         ><i class="mr-1 icon ion-md-arrow-back"></i
                     ></a>
                 </x-slot>
@@ -53,20 +53,20 @@
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
-                            @lang('crud.cor_parrains.inputs.a_vote')
+                            Le recenseur
                         </h5>
-                        <span>{{ $electorParrain->a_vote ?? '-' }}</span>
+                        <span>{{ $electorParrain->recenser ?? '-' }}</span>
                     </div>
                 </div>
 
                 <div class="mt-10">
-                    <a href="{{ route('cor-parrains.index') }}" class="button">
+                    <a href="{{ route('elector-parrains.index') }}" class="button">
                         <i class="mr-1 icon ion-md-return-left"></i>
                         @lang('crud.common.back')
                     </a>
 
-                    @can('create', App\Models\CorParrain::class)
-                    <a href="{{ route('cor-parrains.create') }}" class="button">
+                    @can('create', App\Models\ElectorParrain::class)
+                    <a href="{{ route('elector-parrains.create') }}" class="button">
                         <i class="mr-1 icon ion-md-add"></i>
                         @lang('crud.common.create')
                     </a>
