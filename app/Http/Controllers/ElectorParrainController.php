@@ -71,7 +71,7 @@ class ElectorParrainController extends Controller
         $electorParrain = ElectorParrain::create($validated);
 
         return redirect()
-            ->route('cor-parrains.edit', $electorParrain)
+            ->route('elector-parrains.edit', $electorParrain)
             ->withSuccess(__('crud.common.created'));
     }
 
@@ -115,7 +115,7 @@ class ElectorParrainController extends Controller
         $electorParrain->update($validated);
 
         return redirect()
-            ->route('cor-parrains.edit', $electorParrain)
+            ->route('elector-parrains.edit', $electorParrain)
             ->withSuccess(__('crud.common.saved'));
     }
 
@@ -131,7 +131,7 @@ class ElectorParrainController extends Controller
         $electorParrain->delete();
 
         return redirect()
-            ->route('cor-parrains.index')
+            ->route('elector-parrains.index')
             ->withSuccess(__('crud.common.removed'));
     }
 }

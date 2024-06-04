@@ -128,15 +128,17 @@ class ParrainController extends Controller
     public function updateAutoIncrementValue($table, $newLastId)
     {
         // Disable foreign key checks to avoid potential issues
-        $idd = Parrain::all()->last()->id;
-        if($idd === $newLastId){
-            DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        
-            // Update the auto-increment value for the table
-            DB::statement("ALTER TABLE $table AUTO_INCREMENT = $newLastId");
-        
-            // Enable foreign key checks
-            DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        if(Parrain::count() > 0){
+            $idd = Parrain::all()->last()->id;
+            if($idd === $newLastId){
+                DB::statement('SET FOREIGN_KEY_CHECKS=0');
+            
+                // Update the auto-increment value for the table
+                DB::statement("ALTER TABLE $table AUTO_INCREMENT = $newLastId");
+            
+                // Enable foreign key checks
+                DB::statement('SET FOREIGN_KEY_CHECKS=1');
+            }
         }
     }
 
