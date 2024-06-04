@@ -16,7 +16,7 @@
 
                 <x-form
                     method="PUT"
-                    action="{{ route('cor-parrains.update', $corParrain) }}"
+                    action="{{ route('cor-parrains.update', $electorParrain) }}"
                     class="mt-4"
                 >
                     @include('app.cor_parrains.form-inputs')

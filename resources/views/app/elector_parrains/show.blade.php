@@ -19,43 +19,43 @@
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.cor_parrains.inputs.nom_prenoms')
                         </h5>
-                        <span>{{ $corParrain->nom_prenoms ?? '-' }}</span>
+                        <span>{{ $electorParrain->nom_prenoms ?? '-' }}</span>
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.cor_parrains.inputs.phone')
                         </h5>
-                        <span>{{ $corParrain->phone ?? '-' }}</span>
+                        <span>{{ $electorParrain->phone ?? '-' }}</span>
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.cor_parrains.inputs.carte_elect')
                         </h5>
-                        <span>{{ $corParrain->carte_elect ?? '-' }}</span>
+                        <span>{{ $electorParrain->carte_elect ?? '-' }}</span>
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.cor_parrains.inputs.nom_lv')
                         </h5>
-                        <span>{{ $corParrain->nom_lv ?? '-' }}</span>
+                        <span>{{ $electorParrain->nom_lv ?? '-' }}</span>
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.cor_parrains.inputs.agent_res_nompren')
                         </h5>
-                        <span>{{ $corParrain->agent_res_nompren ?? '-' }}</span>
+                        <span>{{ $electorParrain->agent_res_nompren ?? '-' }}</span>
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.cor_parrains.inputs.agent_res_phone')
                         </h5>
-                        <span>{{ $corParrain->agent_res_phone ?? '-' }}</span>
+                        <span>{{ $electorParrain->agent_res_phone ?? '-' }}</span>
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.cor_parrains.inputs.a_vote')
                         </h5>
-                        <span>{{ $corParrain->a_vote ?? '-' }}</span>
+                        <span>{{ $electorParrain->a_vote ?? '-' }}</span>
                     </div>
                 </div>
 
