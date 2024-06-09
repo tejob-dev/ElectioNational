@@ -111,6 +111,11 @@
                                 ->selectRaw('COUNT(*) as total_count')
                                 ->first() ?? (object)[];
 
+                            $elector_par_total_count_avote = DB::table('elector_parrains')
+                                ->selectRaw('COUNT(*) as total_count')
+                                ->where('elect_date', '=', '2023')
+                                ->first() ?? (object)[];
+
                             $avote = $total_count_avote->total_a_vote;
 
                         @endphp
@@ -132,12 +137,12 @@
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div class="border-r border-r-black-400">
-                                <span class="text-gray-900 font-semibold">Récensés:</span>
-                                <span class="text-gray-700">{{make_separate_thousand($total_count_avote->total_count) ?? '0'}}</span>
+                                <span class="text-gray-900 font-semibold">Electorat:</span>
+                                <span class="text-gray-700">{{make_separate_thousand($elector_par_total_count_avote->total_count) ?? '0'}}</span>
                             </div>
                             <div>
                                 <span class="text-gray-900 font-semibold">A vote:</span>
-                                <span class="text-gray-700">{{$avote.'' ?? '0'}}</span>
+                                <span class="text-gray-700">{{ $avote??'0'}}</span>
                             </div>
                         </div>
                     </div>
