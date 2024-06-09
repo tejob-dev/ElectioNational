@@ -42,7 +42,25 @@
                 <div class="mb-5 mt-4">
                     <div class="flex flex-wrap justify-between">
                         <div class="md:w-1/2">
-                            
+                            <form>
+                                <div class="flex items-center w-full">
+                                    <x-inputs.text
+                                        name="search"
+                                        value="{{ $search ?? '' }}"
+                                        placeholder="{{ __('crud.common.search') }} Communes ou Departements ou Régions"
+                                        autocomplete="off"
+                                    ></x-inputs.text>
+                                    
+                                    <div class="ml-1">
+                                        <button
+                                            type="submit"
+                                            class="button button-primary"
+                                        >
+                                            <i class="icon ion-md-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="md:w-1/2 text-right flex justify-end">
                            
@@ -77,22 +95,39 @@
                             @forelse($sections as $section)
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-4 py-3 text-left">
-                                        {{ $section->section->section->commune->libel ?? '-' }}
+                                        {{ $section?->section?->commune?->libel ?? '-' }}
                                     </td>
                                     <td class="px-4 py-3 text-left">
-                                        {{ $section->section->section->libel ?? '-' }}
+                                        {{ $section?->section?->libel ?? '-' }}
                                     </td>
                                     <td class="px-4 py-3 text-left">
-                                        {{ $section->section->libel ?? '-' }}
+                                        {{ $section?->libel ?? '-' }}
                                     </td>
                                     @php
-                                    $parrainCount = 0;
-                                    foreach ($section->agentterrains as $agentterrain) {
-                                        $parrainCount += $agentterrain->parrains->count();
-                                    }           
+                                    $queryB = App\Models\RCommune::userlimit()
+                                    //->leftJoin('sections', 'communes.id', '=', 'sections.commune_id')
+                                    //->leftJoin('rcommunes', 'sections.id', '=', 'rcommunes.section_id')
+                                    ->leftJoin('quartiers', 'rcommunes.id', '=', 'quartiers.r_commune_id')
+                                    ->leftJoin('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
+                                    ->leftJoin('bureau_votes', 'lieu_votes.id', '=', 'bureau_votes.lieu_vote_id')
+                                    ->leftJoin('elector_parrains', function ($join) {
+                                        $join->on('lieu_votes.libel', '=', 'elector_parrains.nom_lv')
+                                            ->where('elector_parrains.elect_date', '=', '2023');
+                                    })
+                                    ->leftJoin('parrains', 'lieu_votes.code', '=', 'parrains.code_lv')
+                                    ->select('rcommunes.*', DB::raw('COUNT(DISTINCT parrains.id) as total_parrains'), DB::raw('COUNT(DISTINCT elector_parrains.id) as total_electorats'))
+                                    ->where('rcommunes.id', '=', $section->id)
+                                    //->where('elector_parrains.elect_date', '=', "2023")
+                                    ->groupBy('rcommunes.id')->first();
+                                    //dd($queryB);
+                                    $parrainCount = $queryB?->total_parrains??0;
+                                    $electorCount = $queryB?->total_electorats??0;         
                                     @endphp
                                     <td class="px-4 py-3 text-right">
                                         {{ $parrainCount ?? '-' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-right">
+                                        {{ $electorCount ?? '-' }}
                                     </td>
                                     <td class="px-4 py-3 text-right">
                                         {{ $section->objectif ?? '-' }}
@@ -107,7 +142,13 @@
                             @endforelse
                         </tbody>
                         <tfoot>
-                            
+                            <tr>
+                                <td colspan="5">
+                                    <div class="mt-10 px-4">
+                                        {!! $sections->render() !!}
+                                    </div>
+                                </td>
+                            </tr>
                         </tfoot>
                     </table>
                 </div>

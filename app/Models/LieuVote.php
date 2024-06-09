@@ -54,6 +54,11 @@ class LieuVote extends Model
         return $this->hasMany(Parrain::class, "code_lv", "libel");
     }
 
+    public function electorats()
+    {
+        return $this->hasMany(ElectorParrain::class, "nom_lv", "libel");
+    }
+
     public function communes()
     {
         return $this->belongsToMany(Commune::class);

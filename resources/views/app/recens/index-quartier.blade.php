@@ -182,6 +182,7 @@
                         {data: 'communem', name: 'communem'},
                         {data: 'sectionm', name: 'sectionm'},
                         {data: 'parrainm', name: 'parrainm'},
+                        {data: 'electorm', name: 'electorm'},
                         {data: 'objectif', name: 'objectif'},
                     ],
                     language: {

@@ -64,15 +64,32 @@
                                         {{ $commune->libel ?? '-' }}
                                     </td>
                                     @php
-                                    $parrainCount = 0;
-                                    foreach ($commune->sections as $section) {
-                                        foreach ($section->agentterrains as $agentterrain) {
-                                            $parrainCount += $agentterrain->parrains->count();
-                                        }
-                                    }          
+
+                                    $queryB = App\Models\Commune::userlimit()
+                                    ->leftJoin('sections', 'communes.id', '=', 'sections.commune_id')
+                                    ->leftJoin('rcommunes', 'sections.id', '=', 'rcommunes.section_id')
+                                    ->leftJoin('quartiers', 'rcommunes.id', '=', 'quartiers.r_commune_id')
+                                    ->leftJoin('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
+                                    ->leftJoin('bureau_votes', 'lieu_votes.id', '=', 'bureau_votes.lieu_vote_id')
+                                    ->leftJoin('elector_parrains', function ($join) {
+                                        $join->on('lieu_votes.libel', '=', 'elector_parrains.nom_lv')
+                                            ->where('elector_parrains.elect_date', '=', '2023');
+                                    })
+                                    ->leftJoin('parrains', 'lieu_votes.code', '=', 'parrains.code_lv')
+                                    ->select('communes.*', DB::raw('COUNT(DISTINCT parrains.id) as total_parrains'), DB::raw('COUNT(DISTINCT elector_parrains.id) as total_electorats'))
+                                    ->where('communes.id', '=', $commune->id)
+                                    //->where('elector_parrains.elect_date', '=', "2023")
+                                    ->groupBy('communes.id')->first();
+                                    //dd($queryB);
+                                    $parrainCount = $queryB?->total_parrains??0;
+                                    $electorCount = $queryB?->total_electorats??0;
+
                                     @endphp
                                     <td class="px-4 py-3 text-right">
                                         {{ $parrainCount ?? '-' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-right">
+                                        {{ $electorCount ?? '-' }}
                                     </td>
                                     <td class="px-4 py-3 text-right">
                                         {{ $commune->objectif ?? '-' }}

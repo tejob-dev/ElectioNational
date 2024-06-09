@@ -14,6 +14,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 use App\Models\AgentDeSection;
+use App\Models\ElectorParrain;
+use App\Models\RCommune;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -45,7 +47,7 @@ class RecensementController extends Controller
                         ->leftJoin('rcommunes', 'quartiers.r_commune_id', '=', 'rcommunes.id')
                         ->leftJoin('sections', 'rcommunes.section_id', '=', 'sections.id')
                         ->leftJoin('communes', 'sections.commune_id', '=', 'communes.id')
-                        ->leftJoin('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
+                        // ->leftJoin('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
                         ->leftJoin('parrains', 'lieu_votes.libel', '=', 'parrains.code_lv')
                         ->select('lieu_votes.*', DB::raw('COUNT(parrains.id) as total_parrains'))
                         ->where('lieu_votes.imported', '=', 0)
@@ -59,6 +61,7 @@ class RecensementController extends Controller
                     if(array_key_exists("sectionm", $searchidx)) $queryB = $queryB->where('quartiers.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["sectionm"]).'%' );
 
                     if(array_key_exists("libel", $searchidx)) $queryB = $queryB->where('lieu_votes.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["libel"]).'%' );
+                    // dd($searchidx["sectionm"], $queryB->get());
                     $lieus = $queryB->get();  //CHANGE
                 }else{
                     $lieus = LieuVote::userlimit()->where('imported', '=', 0);  //CHANGE
@@ -85,13 +88,23 @@ class RecensementController extends Controller
                     // $parrainCount = Parrain::where('code_lv', 'like', '%'.$lieu->libel.'%')->count();
                     $lieuId = $lieu->id;
                     $parrainCount = Parrain::whereIn('code_lv', function ($query) use ($lieuId) {
-                        $query->select('lieu_votes.libel')
-                            ->from('agent_terrains')
-                            ->join('quartiers', 'agent_terrains.section_id', '=', 'quartiers.id')
-                            ->join('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
-                            ->where('lieu_votes.id', $lieuId);
+                        $query->select('lieu_votes.code')
+                            ->from('lieu_votes')
+                            ->where('lieu_votes.id', $lieuId)
+                            ->where('lieu_votes.imported', false);
                     })->count();  
                     return $parrainCount;
+                })
+                ->addColumn('electorm', function ($lieu) {
+                    // $parrainCount = Parrain::where('code_lv', 'like', '%'.$lieu->libel.'%')->count();
+                    $lieuId = $lieu->id;
+                    $electorCount = ElectorParrain::whereIn('nom_lv', function ($query) use ($lieuId) {
+                        $query->select('lieu_votes.libel')
+                            ->from('lieu_votes')
+                            ->where('lieu_votes.id', $lieuId)
+                            ->where('lieu_votes.imported', false);
+                    })->where('elect_date', "=", "2023")->count();  
+                    return $electorCount;
                 })
                 ->rawColumns(['regionm','departm','communem', 'sectionm', 'parrainm'])
                 ->toJson();
@@ -127,6 +140,10 @@ class RecensementController extends Controller
                         ->leftJoin('sections', 'rcommunes.section_id', '=', 'sections.id')
                         ->leftJoin('communes', 'sections.commune_id', '=', 'communes.id')
                         ->leftJoin('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
+                        ->leftJoin('elector_parrains', function ($join) {
+                            $join->on('lieu_votes.libel', '=', 'elector_parrains.nom_lv')
+                                ->where('elector_parrains.elect_date', '=', '2023');
+                        })
                         ->leftJoin('parrains', 'lieu_votes.libel', '=', 'parrains.code_lv')
                         ->select('quartiers.*', DB::raw('COUNT(parrains.id) as total_parrains'))
                         ->where('lieu_votes.imported', '=', 0)
@@ -164,12 +181,11 @@ class RecensementController extends Controller
                     $parrainCount = 0;
                     $quartierId = $quartier->id;
                     $parrainCount = Parrain::whereIn('code_lv', function ($query) use ($quartierId) {
-                        $query->select('lieu_votes.libel')
-                            ->from('agent_terrains')
-                            ->join('quartiers', 'agent_terrains.section_id', '=', 'quartiers.id')
-                            ->join('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
-                            ->where('quartiers.id', $quartierId)
-                            ->where('lieu_votes.imported', false);
+                        $query->select('lieu_votes.code')
+                        ->from('lieu_votes')
+                        ->leftJoin('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                        ->where('quartiers.id', $quartierId)
+                        ->where('lieu_votes.imported', false);
                     })->count();                    
 
                     // foreach ($quartier->lieuVotes->where("imported", "=", false) as $lieuVote){
@@ -180,7 +196,29 @@ class RecensementController extends Controller
                     // }
                     return $parrainCount.'';
                 })
-                ->rawColumns(['regionm', 'departm', 'communem', 'sectionm', 'parrainm'])
+                ->addColumn('electorm', function ($quartier)  {
+                    $electorCount = 0;
+                    $quartierId = $quartier->id;
+                    $electorCount = ElectorParrain::where('elect_date', "=", "2023")
+                        ->whereIn('nom_lv', function ($query) use ($quartierId) {
+                            $query->select('lieu_votes.libel')
+                                ->from('lieu_votes')
+                                ->leftJoin('quartiers', 'lieu_votes.quartier_id', '=', 'quartiers.id')
+                                ->where('quartiers.id', $quartierId)
+                                ->where('lieu_votes.imported', false);
+                        })
+                        ->count();
+                   
+
+                    // foreach ($quartier->lieuVotes->where("imported", "=", false) as $lieuVote){
+                    //     $parrainCount += Parrain::where('code_lv', 'like', '%'.$lieuVote->libel.'%')->count();;
+                    // }
+                    // foreach ($quartier->section->agentTerrains as $terrain) {
+                    //     $parrainCount += $terrain->parrains->count();
+                    // }
+                    return $electorCount.'';
+                })
+                ->rawColumns(['regionm', 'departm', 'communem', 'sectionm', 'parrainm', 'electorm'])
                 ->toJson();
         }
     }
@@ -303,7 +341,7 @@ class RecensementController extends Controller
         $curr_user = Auth::user();
         $agent_Section = null;
         $isOperateur = false;
-        $sectionModel = new Quartier;
+        $sectionModel = new Section();
         $query = $sectionModel->newQuery();
         $query->userlimit();
         if($request->search){
@@ -333,6 +371,8 @@ class RecensementController extends Controller
             $sections = $query->where("id", $sectionId)->paginate(12)
             ->withQueryString();
         }
+
+        // dd($sections);
 
         return view("app.recens.index-section", compact("sections", "isOperateur"));
     }
@@ -378,18 +418,18 @@ class RecensementController extends Controller
         $curr_user = Auth::user();
         $agent_Section = null;
         $isOperateur = false;
-        $sectionModel = new Quartier;
+        $sectionModel = new RCommune;
         $query = $sectionModel->newQuery();
 
         if($request->search){
             $sear = $request->search;
-            $query->with(["commune","quartiers"])
+            $query->with("section.commune")
             ->where("libel", "like", "%".$request->search."%")
-            ->orWhereHas("commune", function($q) use($sear){
-                $q->where("libel", "like", "%".$sear."%");
-            })
-            ->orWhereHas("quartiers", function($q) use($sear){
-                $q->where("libel", "like", "%".$sear."%");
+            ->orWhereHas('section', function($q) use ($sear) {
+                $q->where('libel', 'like', '%' . $sear . '%')
+                  ->orWhereHas('commune', function($q) use ($sear) {
+                      $q->where('libel', 'like', '%' . $sear . '%');
+                  });
             });
         }
 

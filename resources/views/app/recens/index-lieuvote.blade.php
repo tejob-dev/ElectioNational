@@ -188,6 +188,7 @@
                         {data: 'sectionm', name: 'sectionm'},
                         {data: 'libel', name: 'libel'},
                         {data: 'parrainm', name: 'parrainm'},
+                        {data: 'electorm', name: 'electorm'},
                         {data: 'objectif', name: 'objectif'},
                     ],
                     language: {
