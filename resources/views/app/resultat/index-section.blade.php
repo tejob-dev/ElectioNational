@@ -32,7 +32,7 @@
     
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Résultat du scrutin - Departement
+            Résultat du scrutin - Departements
         </h2>
     </x-slot>
     @php
@@ -57,10 +57,10 @@
                             <tr>
                             </tr>
                                 <th class="px-4 py-3 text-center" style="min-width:18vw">
-                                    Région
+                                    Régions
                                 </th>
                                 <th class="px-4 py-3 text-center" style="min-width:18vw">
-                                Departement
+                                Departements
                                 </th>
                                 <th class="px-4 py-3 text-center">
                                     LV

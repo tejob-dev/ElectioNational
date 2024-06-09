@@ -65,7 +65,7 @@
                                     Section
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Lieu de Vote
+                                    Lieux de Vote
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     Nom du parrain 

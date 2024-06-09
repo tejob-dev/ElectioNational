@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            @lang('crud.agent_du_bureau_votes.index_title')
+            Liste des Agents des Bureaux de Vote
         </h2>
     </x-slot>
 
@@ -53,13 +53,13 @@
                                     @lang('crud.agent_du_bureau_votes.inputs.nom')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.agent_du_bureau_votes.inputs.prenom')
+                                    Prénoms
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     @lang('crud.agent_du_bureau_votes.inputs.telphone')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.agent_du_bureau_votes.inputs.bureau_vote_id')
+                                    Bureaux de vote
                                 </th>
                                 <th></th>
                             </tr>

@@ -41,7 +41,7 @@
     
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Résultats du scrutin - Lieu de Vote
+            Résultats du scrutin - Lieux de Vote
         </h2>
     </x-slot>
     @php

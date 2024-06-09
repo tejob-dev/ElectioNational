@@ -69,19 +69,19 @@
                                 <!--    @lang('crud.quartiers.inputs.seuil')-->
                                 <!--</th>-->
                                 <th class="px-4 py-3 text-left">
-                                    Region
+                                    Regions
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Departement
+                                    Departements
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Commune
+                                    Communes
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Section
+                                    Sections
                                 </th>
                                 <th class="px-4 py-3 text-right">
-                                    Parrainé
+                                    Parrainés
                                 </th>
                                 <th class="px-4 py-3 text-right">
                                     Objectif

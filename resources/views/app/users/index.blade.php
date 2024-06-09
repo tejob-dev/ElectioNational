@@ -62,7 +62,7 @@
                                     @lang('crud.users.inputs.name')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.users.inputs.prenom')
+                                    Prénoms
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     @lang('crud.users.inputs.email')

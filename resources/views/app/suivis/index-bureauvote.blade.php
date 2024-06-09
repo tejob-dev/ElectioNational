@@ -37,7 +37,7 @@
     
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Suivi du scrutin - Bureau de Vote
+            Suivi du scrutin - Bureaux de Vote
         </h2>
     </x-slot>
 
@@ -60,16 +60,16 @@
                             <tr>
                             </tr>
                                 <th class="px-4 py-3 text-center" style="min-width:18vw">
-                                    Lieu de vote
+                                    Lieux de vote
                                 </th>
                                 <th class="px-4 py-3 text-center" style="min-width:18vw">
-                                    Bureau de Vote
+                                    Bureaux de Vote
                                 </th>
                                 <th class="px-4 py-3 text-center">
                                     Inscrits
                                 </th>
                                 <th class="px-4 py-3 text-center">
-                                    Objectifs
+                                    Objectif
                                 </th>
                                 <th class="px-4 py-3 text-center">
                                     Votants

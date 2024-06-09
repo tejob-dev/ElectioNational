@@ -54,12 +54,12 @@
                         <hr class="w-full bg-gray-300 h-1/2" />
                         @can('view-any', App\Models\LieuVote::class)
                             <x-dropdown-link href="{{ route('lieu-votes.index') }}">
-                                Lieu de votes
+                                Lieux de vote
                             </x-dropdown-link>
                         @endcan
                         @can('view-any', App\Models\BureauVote::class)
                             <x-dropdown-link href="{{ route('bureau-votes.index') }}">
-                                Bureau Votes
+                                Bureaux de vote
                             </x-dropdown-link>
                         @endcan
                         <hr class="w-full bg-gray-300 h-1/2" />
@@ -96,12 +96,12 @@
                         @endcan
                         @can('view-any', App\Models\SupLieuDeVote::class)
                             <x-dropdown-link href="{{ route('sup-lieu-de-votes.index') }}">
-                                Sup Lieu De Votes
+                                Sup Lieux de vote
                             </x-dropdown-link>
                         @endcan
                         @can('view-any', App\Models\AgentDuBureauVote::class)
                             <x-dropdown-link href="{{ route('agent-du-bureau-votes.index') }}">
-                                Agent Du Bureau Votes
+                                Agent Bureaux de vote
                             </x-dropdown-link>
                         @endcan
                         <!-- @can('view-any', App\Models\Rabatteur::class)
@@ -152,7 +152,7 @@
                         @endcan
                         @can('recens-lieuvote', App\Models\LieuVote::class)
                             <x-dropdown-link href="{{ route('recens.lieuvotes.index') }}">
-                                Lieu de votes
+                                Lieux de vote
                             </x-dropdown-link>
                         @endcan
                         @can('recens-parrain', App\Models\Parrain::class)
@@ -202,12 +202,12 @@
                         @endcan
                         @can('suivi-lieuvote', App\Models\LieuVote::class)
                             <x-dropdown-link href="{{ route('suivi.lieuvotes.index') }}">
-                                Lieu de votes
+                                Lieux de vote
                             </x-dropdown-link>
                         @endcan
                         @can('suivi-bureauvote', App\Models\BureauVote::class)
                             <x-dropdown-link href="{{ route('suivi.bureauvotes.index') }}">
-                                Bureau de votes
+                                Bureaux de vote
                             </x-dropdown-link>
                         @endcan
                         @can('view-any', App\Models\CorParrain::class)
@@ -252,12 +252,12 @@
                         @endcan
                         @can('resultat-lieuvote', App\Models\LieuVote::class)
                             <x-dropdown-link href="{{ route('resultats.lieuvotes.index') }}">
-                                Lieu de votes
+                                Lieux de vote
                             </x-dropdown-link>
                         @endcan
                         @can('resultat-bureauvote', App\Models\BureauVote::class)
                             <x-dropdown-link href="{{ route('resultats.bureauvotes.index') }}">
-                                Bureau de votes
+                                Bureaux de vote
                             </x-dropdown-link>
                         @endcan
                     </x-nav-dropdown>
@@ -445,7 +445,7 @@
             @endcan
             @can('view-any', App\Models\AgentDuBureauVote::class)
                 <x-jet-responsive-nav-link href="{{ route('agent-du-bureau-votes.index') }}">
-                    Agent Du Bureau Votes
+                    Agent Bureaux de vote
                 </x-jet-responsive-nav-link>
             @endcan
             @can('view-any', App\Models\AgentTerrain::class)
@@ -455,7 +455,7 @@
             @endcan
             @can('view-any', App\Models\BureauVote::class)
                 <x-jet-responsive-nav-link href="{{ route('bureau-votes.index') }}">
-                    Bureau Votes
+                    Bureaux de vote
                 </x-jet-responsive-nav-link>
             @endcan
             @can('view-any', App\Models\Candidat::class)
@@ -470,7 +470,7 @@
             @endcan
             @can('view-any', App\Models\LieuVote::class)
                 <x-jet-responsive-nav-link href="{{ route('lieu-votes.index') }}">
-                    Lieu Votes
+                    Lieux de vote
                 </x-jet-responsive-nav-link>
             @endcan
             @can('view-any', App\Models\Parrain::class)
@@ -505,7 +505,7 @@ Departements
             @endcan
             @can('view-any', App\Models\SupLieuDeVote::class)
                 <x-jet-responsive-nav-link href="{{ route('sup-lieu-de-votes.index') }}">
-                    Sup Lieu De Votes
+                    Sup Lieux de vote
                 </x-jet-responsive-nav-link>
             @endcan
             @can('view-any', App\Models\OperateurSuivi::class)

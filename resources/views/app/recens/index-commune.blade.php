@@ -41,10 +41,13 @@
                         <thead class="text-gray-700">
                             <tr>
                                 <th class="px-4 py-3 text-left">
-                                    Région
+                                    Régions
                                 </th>
                                 <th class="px-4 py-3 text-right">
-                                    Parrainé
+                                    Parrainés
+                                </th>
+                                <th class="px-4 py-3 text-right">
+                                    Electorat
                                 </th>
                                 <th class="px-4 py-3 text-right">
                                     Objectif

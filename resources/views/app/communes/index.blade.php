@@ -50,7 +50,7 @@
                         <thead class="text-gray-700">
                             <tr>
                                 <th class="px-4 py-3 text-left">
-                                    Region
+                                    Régions
                                 </th>
                                 <th class="px-4 py-3 text-right">
                                     @lang('crud.communes.inputs.nbrinscrit')

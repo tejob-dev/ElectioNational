@@ -56,7 +56,7 @@
                                     @lang('crud.proces_verbals.inputs.photo')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.proces_verbals.inputs.bureau_vote_id')
+                                    Bureaux de Vote
                                 </th>
                                 <th></th>
                             </tr>

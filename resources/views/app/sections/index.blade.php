@@ -57,7 +57,7 @@ Departement: {{optional($sections[0])->libel??"Pas de donnée"}}
                                     @lang('crud.sections.inputs.commune_id')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Departement
+                                    Départements
                                 </th>
                                 <!-- <th class="px-4 py-3 text-right">
                                     Parrainé

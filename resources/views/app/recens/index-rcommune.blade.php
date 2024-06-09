@@ -55,16 +55,19 @@
                             <tr>
                             </tr>
                                 <th class="px-4 py-3 text-left">
-                                Région
+                                Régions
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Departement
+                                    Departements
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Commune
+                                    Communes
                                 </th>
                                 <th class="px-4 py-3 text-right">
-                                    Parrainé
+                                    Parrainés
+                                </th>
+                                <th class="px-4 py-3 text-right">
+                                    Electorat
                                 </th>
                                 <th class="px-4 py-3 text-right">
                                     Objectif

@@ -55,22 +55,22 @@
                         <thead class="text-gray-700">
                             <tr>
                                 <th class="px-4 py-3 text-left">
-                                    Region
+                                    Régions
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Departement
+                                    Departements
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Commune
+                                    Communes
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Section
+                                    Sections
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Lieu De Vote
+                                    Lieux De Vote
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Bureau De Vote
+                                    Bureaux De Vote
                                 </th>
                                 <th class="px-4 py-3 text-right">
                                     @lang('crud.bureau_votes.inputs.objectif')
@@ -98,6 +98,10 @@
                                 </td>
                                 <td class="px-4 py-3 text-left">
                                     {{ optional($bureauVote->lieuVote->quartier)->libel ??
+                                    '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-left">
+                                    {{ optional($bureauVote->lieuVote)->libel ??
                                     '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">

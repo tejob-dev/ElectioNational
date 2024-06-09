@@ -55,19 +55,19 @@
                         <thead class="text-gray-700">
                             <tr>
                                 <th class="px-4 py-3 text-left">
-                                    Region
+                                    Regions
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Departement
+                                    Departements
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Commune
+                                    Communes
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Section
+                                    Sections
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    Lieu De Vote
+                                    Lieux De Vote
                                 </th>
                                 <!-- <th class="px-4 py-3 text-left">
                                     @lang('crud.lieu_votes.inputs.code')

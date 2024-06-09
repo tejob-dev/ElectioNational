@@ -53,7 +53,7 @@
                                     @lang('crud.candidats.inputs.nom')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.candidats.inputs.prenom')
+                                    Prénoms
                                 </th>
                                 <!--<th class="px-4 py-3 text-left">-->
                                 <!--    @lang('crud.candidats.inputs.code')-->

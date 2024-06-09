@@ -76,7 +76,7 @@
                                     Nom
                                 </th>
                                 <th class="px-4 py-3 ">
-                                    Prenom
+                                    Prénoms
                                 </th>
                                 <th class="px-4 py-3 ">
                                     Date de naissance

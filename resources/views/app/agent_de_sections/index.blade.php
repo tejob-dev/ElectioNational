@@ -53,7 +53,7 @@
                                     @lang('crud.agent_de_sections.inputs.nom')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.agent_de_sections.inputs.prenom')
+                                    Prénoms
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     @lang('crud.agent_de_sections.inputs.telephone')

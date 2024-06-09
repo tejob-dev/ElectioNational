@@ -71,7 +71,7 @@
                                     Nom
                                 </th>
                                 <th class="px-4 py-3 text-center">
-                                    Prénom
+                                    Prénoms
                                 </th>
                                 <th class="px-4 py-3 text-center">
                                     Téléphone

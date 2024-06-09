@@ -79,7 +79,7 @@
                                     Recenseur
                                 </th>
                                 <th class="px-4 py-3">
-Departement
+Departements
                                 </th>
                                 <th class="px-4 py-3">
                                     Sous Section

@@ -53,13 +53,13 @@
                                     @lang('crud.sup_lieu_de_votes.inputs.nom')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.sup_lieu_de_votes.inputs.prenom')
+                                    Prénoms
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     @lang('crud.sup_lieu_de_votes.inputs.telephone')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.sup_lieu_de_votes.inputs.lieu_vote_id')
+                                    Lieux de vote
                                 </th>
                                 <th></th>
                             </tr>

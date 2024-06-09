@@ -33,7 +33,7 @@
                         <h3 class="text-lg font-semibold mb-2" id="quartier">@php $count = DB::table('quartiers')->select(DB::raw('COUNT(*) as count'))->first()->count; echo $count>9?$count:"0".$count; @endphp</h3>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
-                        <h3 class="text-lg font-bold mb-2">Lieu de vote</h3>
+                        <h3 class="text-lg font-bold mb-2">Lieux de vote</h3>
                         <hr class="w-full bg-gray-300"/>
                         <h3 class="text-lg font-semibold mb-2" id="lieuv">@php $count = DB::table('lieu_votes')->select(DB::raw('COUNT(*) as count'))->first()->count; echo $count>9?make_separate_thousand($count):"0".make_separate_thousand($count); @endphp</h3>
                     </div>
@@ -79,7 +79,7 @@
                         @endphp
                         <div class="grid grid-cols-2 gap-2">
                             <div class="border-r border-r-black-400">
-                                <span class="text-gray-900 font-semibold">Récensé:</span>
+                                <span class="text-gray-900 font-semibold">Récensés:</span>
                                 <span class="text-gray-700" id="parraine">{{ make_separate_thousand($parrainCount) }}</span>
                             </div>
                             <div>
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4">
-                        <h4 class="text-lg font-semibold mb-2">Suivi Scrutin</h4>
+                        <h4 class="text-lg font-semibold mb-2">Suivi Du Scrutin</h4>
                         <hr class="w-full bg-gray-300"/>
                         <div class="w-full h-10">
                         </div>

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Liste des messages envoyé au agent.
+            Liste des messages envoyé aux agents.
         </h2>
     </x-slot>
 

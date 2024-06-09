@@ -43,7 +43,7 @@
     
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Résultats du scrutin - Bureau de Vote
+            Résultats du scrutin - Bureaux de Vote
         </h2>
     </x-slot>
     @php
@@ -71,7 +71,7 @@
                                     Lieux de Vote
                                 </th>
                                 <th class="px-4 py-3 text-center" style="min-width:18vw">
-                                    Bureau de Vote
+                                    Bureaux de Vote
                                 </th>
                                 <th class="px-4 py-3 text-center">
                                     Inscrits

@@ -28,7 +28,7 @@
     
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Suivi du scrutin - Commune
+            Suivi du scrutin - Communes
         </h2>
     </x-slot>
 
@@ -51,13 +51,13 @@
                             <tr>
                             </tr>
                                 <th class="px-4 py-3 text-center" style="min-width:18vw">
-                                    Région
+                                    Régions
                                 </th>
                                 <th class="px-4 py-3 text-center" style="min-width:18vw">
-                                    Departement
+                                    Departements
                                 </th>
                                 <th class="px-4 py-3 text-center" style="min-width:18vw">
-                                    Commune
+                                    Communes
                                 </th>
                                 <th class="px-4 py-3 text-center">
                                     LV
