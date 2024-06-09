@@ -69,7 +69,7 @@
                                 <!--    @lang('crud.rcommunes.inputs.seuil')-->
                                 <!--</th>-->
                                 <th class="px-4 py-3 text-left">
-                                    Regions
+                                    Régions
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     Departements
