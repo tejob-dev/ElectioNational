@@ -154,7 +154,7 @@
                                     {{ $parrain->telephone ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
-                                    {{ $parrain?->lieuVote?->libel ?? '-' }}
+                                    {{ $parrain?->lieuVote?->libel ?? 'AUTRE CIRCONSCRIPTION' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
                                     {{ $parrain->residence ?? '-' }}
