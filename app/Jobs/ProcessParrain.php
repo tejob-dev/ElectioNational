@@ -138,10 +138,11 @@ class ProcessParrain implements ShouldQueue
                 
                 $task_id = $response->json('task_id');
                 $result_elector_exist = false;
+                $lvname = "N/A";
                 $result_cardelector = "N/A";
                 if ($task_id) {
                     // Start checking the task status
-                    list($result_cardelector, $result_elector_exist) = $this->checkElectorStatus($task_id);
+                    list($lvname, $result_cardelector, $result_elector_exist) = $this->checkElectorStatus($task_id);
                 }
 
                 //END CHECK ON LIST ELECTOR
@@ -157,7 +158,7 @@ class ProcessParrain implements ShouldQueue
                 if($result_elector_exist){
                     //ADD PARRIN INFO IN ELECTOR LIST 2023
                     $curr_index = ElectorParrain::count() + 1;
-                    $lvget = LieuVote::where("code", "=", "$arrCont[9]")->first();
+                    // $lvget = LieuVote::where("code", "=", "$arrCont[9]")->first();
                     ElectorParrain::create([
                         'subid' => "E23_$curr_index",
                         'nom_prenoms' => strtoupper($arrCont[4])." ".ucwords($arrCont[5]),
@@ -169,7 +170,7 @@ class ProcessParrain implements ShouldQueue
                         'adress_physiq' => "N/A",
                         'adress_postal' => "N/A",
                         'carte_elect' => "$result_cardelector",
-                        'nom_lv' => $lvget!=null?($lvget->libel):"AUTRE CIRCONSCRIPTION",
+                        'nom_lv' => $lvname!=null?($lvname):"AUTRE CIRCONSCRIPTION",
                         'agent_res_nompren' => "$agTerrain->nom $agTerrain->prenom",
                         'agent_res_phone' => "$agTerrainPhone",
                         'recenser' => "$agent_recences",
@@ -290,10 +291,10 @@ class ProcessParrain implements ShouldQueue
                 $result = $statusData['result'];
                 if ($result['data']) {
                     // Perform action when result.data is true
-                    return [$result['cardelect'], $result['data']];
+                    return [$result['lvname'], $result['cardelect'], $result['data']];
                 } else {
                     // Perform action when result.data is false
-                    return [$result['cardelect'], $result['data']];
+                    return [$result['lvname'], $result['cardelect'], $result['data']];
                 }
             }
 
