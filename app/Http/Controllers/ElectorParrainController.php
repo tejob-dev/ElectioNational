@@ -20,7 +20,7 @@ class ElectorParrainController extends Controller
         $search = $request->get('search', '');
 
         $electorParrains = ElectorParrain::search($search)->where("elect_date", "=", "2023")
-            ->latest()
+            ->orderBy("nom_prenoms", "desc")
             ->paginate(5)
             ->withQueryString();
         $curr_year = 2023;
@@ -39,7 +39,7 @@ class ElectorParrainController extends Controller
         $search = $request->get('search', '');
 
         $electorParrains = ElectorParrain::search($search)->where("elect_date", "=", "2024")
-            ->latest()
+            ->orderBy("nom_prenoms", "desc")
             ->paginate(5)
             ->withQueryString();
         $curr_year = 2024;
