@@ -155,4 +155,7 @@ Route::prefix('/')
         Route::resource('operateur-suivis', OperateurSuiviController::class);
         Route::resource('rabatteurs', RabatteurController::class);
 
+        Route::resource('regions', RegionController::class);
+        Route::resource('districts', DistrictController::class);
+
     });

@@ -90,7 +90,11 @@ return [
             'prenom' => 'Prénom',
             'code' => 'Code',
             'telephone' => 'Téléphone',
-            'lieu_vote_id' => 'Lieu de Vote',
+            'profil' => 'Profil',
+            'district_id' => 'District',
+            'region_id' => 'Région',
+            'departement_id' => 'Département',
+            'commune_id' => 'Commune',
         ],
     ],
     
@@ -155,7 +159,9 @@ return [
             'nbrinscrit' => 'Nombre d\'inscrits',
             'objectif' => 'Objectif',
             'seuil' => 'Seuil',
-            'quartier_id' => 'Section',
+            'a_vote' => 'A Vote',
+            'imported' => 'Importé',
+            'commune_id' => 'Commune',
         ],
     ],
     
@@ -180,6 +186,7 @@ return [
             'residence' => 'Résidence',
             'profession' => 'Profession',
             'idee_projet' => 'Idée du projet',
+            'commune_id' => 'Commune',
         ],
     ],
     
@@ -400,6 +407,37 @@ return [
         'show_title' => 'Afficher rabatteur et Lieu vote',
         'inputs' => [
             'lieu_vote_id' => 'Lieux Votes',
+        ],
+    ],
+
+    'regions' => [
+        'name' => 'Régions',
+        'index_title' => 'Liste des régions',
+        'new_title' => 'Nouvelle région',
+        'create_title' => 'Créer une région',
+        'edit_title' => 'Modifier la région',
+        'show_title' => 'Afficher la région',
+        'inputs' => [
+            'libel' => 'Libellé',
+            'nbrinscrit' => 'Nombre d\'inscrits',
+            'objectif' => 'Objectif',
+            'seuil' => 'Seuil',
+            'district_id' => 'District',
+        ],
+    ],
+
+    'districts' => [
+        'name' => 'Districts',
+        'index_title' => 'Liste des districts',
+        'new_title' => 'Nouveau district',
+        'create_title' => 'Créer un district',
+        'edit_title' => 'Modifier le district',
+        'show_title' => 'Afficher le district',
+        'inputs' => [
+            'libel' => 'Libellé',
+            'nbrinscrit' => 'Nombre d\'inscrits',
+            'objectif' => 'Objectif',
+            'seuil' => 'Seuil',
         ],
     ],
     

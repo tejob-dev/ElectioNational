@@ -18,30 +18,37 @@ class Commune extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['libel', 'nbrinscrit', 'objectif', 'seuil'];
+    protected $fillable = [
+        'libel',
+        'code',
+        'nbrinscrit',
+        'objectif',
+        'seuil',
+        'rgph_population',
+        'departement_id',
+    ];
 
     protected $searchableFields = ['*'];
-//REGIONS
-    public function users()
+    //REGIONS
+    public function agentTerrains()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(AgentTerrain::class);
     }
 
-    public function sections()//Departement
+    public function parrains()
     {
-        return $this->hasMany(Section::class);
+        return $this->hasMany(Parrain::class);
     }
 
     public function lieuVotes()
     {
-        return $this->belongsToMany(LieuVote::class);
+        return $this->hasMany(LieuVote::class);
     }
 
-    public function departements()
+    public function departement()
     {
-        return $this->belongsToMany(Departement::class);
+        return $this->belongsTo(Departement::class);
     }
-
     public function scopeUserlimit($query)
     {
         $user = Auth::user();

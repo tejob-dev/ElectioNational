@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-partials.card>
+            <<x-partials.card>
                 <x-slot name="title">
                     <a href="{{ route('agent-terrains.index') }}" class="mr-4"
                         ><i class="mr-1 icon ion-md-arrow-back"></i
@@ -27,12 +27,12 @@
                         </h5>
                         <span>{{ $agentTerrain->prenom ?? '-' }}</span>
                     </div>
-                    <!-- <div class="mb-4">
+                    <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.agent_terrains.inputs.code')
                         </h5>
                         <span>{{ $agentTerrain->code ?? '-' }}</span>
-                    </div> -->
+                    </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.agent_terrains.inputs.telephone')
@@ -41,10 +41,43 @@
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
-Departement
+                            @lang('crud.agent_terrains.inputs.profil')
+                        </h5>
+                        <span>{{ $agentTerrain->profil ?? '-' }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.agent_terrains.inputs.district_id')
                         </h5>
                         <span
-                            >{{ optional($agentTerrain->section)->libel ?? '-'
+                            >{{ optional($agentTerrain->district)->libel ?? '-'
+                            }}</span
+                        >
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.agent_terrains.inputs.region_id')
+                        </h5>
+                        <span
+                            >{{ optional($agentTerrain->region)->libel ?? '-'
+                            }}</span
+                        >
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.agent_terrains.inputs.departement_id')
+                        </h5>
+                        <span
+                            >{{ optional($agentTerrain->departement)->libel ??
+                            '-' }}</span
+                        >
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.agent_terrains.inputs.commune_id')
+                        </h5>
+                        <span
+                            >{{ optional($agentTerrain->commune)->libel ?? '-'
                             }}</span
                         >
                     </div>

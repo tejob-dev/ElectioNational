@@ -34,6 +34,7 @@ class Parrain extends Model
         'observation',
         'status',
         'a_vote',
+        'commune_id',
         'created_at',
         'updated_at',
     ];
@@ -49,9 +50,14 @@ class Parrain extends Model
         return $this->belongsTo(AgentTerrain::class, "telephone_par", "telephone");
     }
     
-    public function lieuVote()
+    // public function lieuVote()
+    // {
+    //     return $this->belongsTo(LieuVote::class, "code_lv", "code");
+    // }
+
+    public function commune()
     {
-        return $this->belongsTo(LieuVote::class, "code_lv", "code");
+        return $this->belongsTo(Commune::class);
     }
 
     public function scopeUserlimit($query)

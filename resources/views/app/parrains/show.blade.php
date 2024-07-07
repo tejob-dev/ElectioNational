@@ -71,9 +71,12 @@
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
-                            @lang('crud.parrains.inputs.code_lv')
+                            @lang('crud.parrains.inputs.commune_id')
                         </h5>
-                        <span>{{ $parrain->code_lv ?? '-' }}</span>
+                        <span
+                            >{{ optional($parrain->commune)->libel ?? '-'
+                            }}</span
+                        >
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">

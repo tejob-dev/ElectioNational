@@ -22,28 +22,50 @@ class AgentTerrain extends Model
         'prenom',
         'code',
         'telephone',
-        'lieu_vote_id',
-        'section_id',
-        'sous_section_id',
+        'profil',
+        'district_id',
+        'region_id',
+        'departement_id',
+        'commune_id',
     ];
 
     protected $searchableFields = ['*'];
 
     protected $table = 'agent_terrains';
 
-    public function lieuVote()
+    // public function lieuVote()
+    // {
+    //     return $this->belongsTo(LieuVote::class);
+    // }
+    
+    // public function section()
+    // {
+    //     return $this->belongsTo(Quartier::class);
+    // }
+    // public function sousSection()
+    // {
+    //     return $this->belongsTo(SousSection::class);
+    // }
+    public function district()
     {
-        return $this->belongsTo(LieuVote::class);
+        return $this->belongsTo(District::class);
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function departement()
+    {
+        return $this->belongsTo(Departement::class);
+    }
+
+    public function commune()
+    {
+        return $this->belongsTo(Commune::class);
     }
     
-    public function section()
-    {
-        return $this->belongsTo(Quartier::class);
-    }
-    public function sousSection()
-    {
-        return $this->belongsTo(SousSection::class);
-    }
 
     public function parrains()
     {

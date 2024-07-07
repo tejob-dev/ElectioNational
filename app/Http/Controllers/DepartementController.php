@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Region;
+use Illuminate\View\View;
 use App\Models\Departement;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\DepartementStoreRequest;
 use App\Http\Requests\DepartementUpdateRequest;
 
 class DepartementController extends Controller
 {
-    /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+   /**
+     * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $this->authorize('view-any', Departement::class);
 
@@ -21,31 +23,31 @@ class DepartementController extends Controller
 
         $departements = Departement::search($search)
             ->latest()
-            ->paginate(12)
+            ->paginate(5)
             ->withQueryString();
 
         return view(
-            'app.sections.index',
+            'app.departements.index',
             compact('departements', 'search')
         );
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create(Request $request): View
     {
         $this->authorize('create', Departement::class);
 
-        return view('app.sections.create');
+        $regions = Region::pluck('libel', 'id');
+
+        return view('app.departements.create', compact('regions'));
     }
 
     /**
-     * @param \App\Http\Requests\DepartementStoreRequest $request
-     * @return \Illuminate\Http\Response
+     * Store a newly created resource in storage.
      */
-    public function store(DepartementStoreRequest $request)
+    public function store(DepartementStoreRequest $request): RedirectResponse
     {
         $this->authorize('create', Departement::class);
 
@@ -59,38 +61,34 @@ class DepartementController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Departement $departement
-     * @return \Illuminate\Http\Response
+     * Display the specified resource.
      */
-    public function show(Request $request, Departement $departement)
+    public function show(Request $request, Departement $departement): View
     {
         $this->authorize('view', $departement);
 
-        return view('app.sections.show', compact('departement'));
+        return view('app.departements.show', compact('departement'));
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Departement $departement
-     * @return \Illuminate\Http\Response
+     * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, Departement $departement)
+    public function edit(Request $request, Departement $departement): View
     {
         $this->authorize('update', $departement);
 
-        return view('app.sections.edit', compact('departement'));
+        $regions = Region::pluck('libel', 'id');
+
+        return view('app.departements.edit', compact('departement', 'regions'));
     }
 
     /**
-     * @param \App\Http\Requests\DepartementUpdateRequest $request
-     * @param \App\Models\Departement $departement
-     * @return \Illuminate\Http\Response
+     * Update the specified resource in storage.
      */
     public function update(
         DepartementUpdateRequest $request,
         Departement $departement
-    ) {
+    ): RedirectResponse {
         $this->authorize('update', $departement);
 
         $validated = $request->validated();
@@ -103,12 +101,12 @@ class DepartementController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Departement $departement
-     * @return \Illuminate\Http\Response
+     * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, Departement $departement)
-    {
+    public function destroy(
+        Request $request,
+        Departement $departement
+    ): RedirectResponse {
         $this->authorize('delete', $departement);
 
         $departement->delete();

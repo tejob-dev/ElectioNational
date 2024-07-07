@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            @lang('crud.communes.index_title')
+            @lang('crud.regions.index_title')
         </h2>
     </x-slot>
 
@@ -32,9 +32,9 @@
                             </form>
                         </div>
                         <div class="md:w-1/2 text-right">
-                            @can('create', App\Models\Commune::class)
+                            @can('create', App\Models\Region::class)
                             <a
-                                href="{{ route('communes.create') }}"
+                                href="{{ route('regions.create') }}"
                                 class="button button-primary"
                             >
                                 <i class="mr-1 icon ion-md-add"></i>
@@ -50,53 +50,41 @@
                         <thead class="text-gray-700">
                             <tr>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.communes.inputs.libel')
+                                    @lang('crud.regions.inputs.libel')
+                                </th>
+                                <th class="px-4 py-3 text-right">
+                                    @lang('crud.regions.inputs.nbrinscrit')
+                                </th>
+                                <th class="px-4 py-3 text-right">
+                                    @lang('crud.regions.inputs.objectif')
+                                </th>
+                                <th class="px-4 py-3 text-right">
+                                    @lang('crud.regions.inputs.seuil')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.communes.inputs.code')
-                                </th>
-                                <th class="px-4 py-3 text-right">
-                                    @lang('crud.communes.inputs.nbrinscrit')
-                                </th>
-                                <th class="px-4 py-3 text-right">
-                                    @lang('crud.communes.inputs.objectif')
-                                </th>
-                                <th class="px-4 py-3 text-right">
-                                    @lang('crud.communes.inputs.seuil')
-                                </th>
-                                <th class="px-4 py-3 text-right">
-                                    @lang('crud.communes.inputs.rgph_population')
-                                </th>
-                                <th class="px-4 py-3 text-left">
-                                    @lang('crud.communes.inputs.departement_id')
+                                    @lang('crud.regions.inputs.district_id')
                                 </th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-600">
-                            @forelse($communes as $commune)
+                            @forelse($regions as $region)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-4 py-3 text-left">
-                                    {{ $commune->libel ?? '-' }}
+                                    {{ $region->libel ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    {{ $region->nbrinscrit ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    {{ $region->objectif ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-right">
+                                    {{ $region->seuil ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
-                                    {{ $commune->code ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-right">
-                                    {{ $commune->nbrinscrit ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-right">
-                                    {{ $commune->objectif ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-right">
-                                    {{ $commune->seuil ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-right">
-                                    {{ $commune->rgph_population ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ optional($commune->departement)->libel ??
-                                    '-' }}
+                                    {{ optional($region->district)->libel ?? '-'
+                                    }}
                                 </td>
                                 <td
                                     class="px-4 py-3 text-center"
@@ -111,9 +99,9 @@
                                             align-middle
                                         "
                                     >
-                                        @can('update', $commune)
+                                        @can('update', $region)
                                         <a
-                                            href="{{ route('communes.edit', $commune) }}"
+                                            href="{{ route('regions.edit', $region) }}"
                                             class="mr-1"
                                         >
                                             <button
@@ -125,9 +113,9 @@
                                                 ></i>
                                             </button>
                                         </a>
-                                        @endcan @can('view', $commune)
+                                        @endcan @can('view', $region)
                                         <a
-                                            href="{{ route('communes.show', $commune) }}"
+                                            href="{{ route('regions.show', $region) }}"
                                             class="mr-1"
                                         >
                                             <button
@@ -137,9 +125,9 @@
                                                 <i class="icon ion-md-eye"></i>
                                             </button>
                                         </a>
-                                        @endcan @can('delete', $commune)
+                                        @endcan @can('delete', $region)
                                         <form
-                                            action="{{ route('communes.destroy', $commune) }}"
+                                            action="{{ route('regions.destroy', $region) }}"
                                             method="POST"
                                             onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')"
                                         >
@@ -163,7 +151,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="8">
+                                <td colspan="6">
                                     @lang('crud.common.no_items_found')
                                 </td>
                             </tr>
@@ -171,9 +159,9 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="8">
+                                <td colspan="6">
                                     <div class="mt-10 px-4">
-                                        {!! $communes->render() !!}
+                                        {!! $regions->render() !!}
                                     </div>
                                 </td>
                             </tr>

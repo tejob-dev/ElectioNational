@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
+use App\Models\Region;
+use App\Models\Commune;
 use App\Models\Section;
-use App\Models\SousSection;
+use App\Models\District;
 use App\Models\LieuVote;
+use App\Models\Departement;
+use App\Models\SousSection;
 use App\Models\AgentTerrain;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AgentTerrainStoreRequest;
 use App\Http\Requests\AgentTerrainUpdateRequest;
-use DataTables;
-use Illuminate\Support\Facades\Auth;
 
 class AgentTerrainController extends Controller
 {
@@ -84,11 +88,21 @@ class AgentTerrainController extends Controller
     {
         $this->authorize('create', AgentTerrain::class);
 
-        $sections = Section::pluck('libel', 'id');
+        // $sections = Section::pluck('libel', 'id');
         
-        $soussections = SousSection::pluck("libel","id");
+        // $soussections = SousSection::pluck("libel","id");
 
-        return view('app.agent_terrains.create', compact('sections', 'soussections'));
+        // return view('app.agent_terrains.create', compact('sections', 'soussections'));
+
+        $districts = District::pluck('libel', 'id');
+        $regions = Region::pluck('libel', 'id');
+        $departements = Departement::pluck('libel', 'id');
+        $communes = Commune::pluck('libel', 'id');
+
+        return view(
+            'app.agent_terrains.create',
+            compact('districts', 'regions', 'departements', 'communes')
+        );
     }
 
     /**
@@ -129,13 +143,29 @@ class AgentTerrainController extends Controller
     {
         $this->authorize('update', $agentTerrain);
 
-        $sections = Section::pluck('libel', 'id');
+        // $sections = Section::pluck('libel', 'id');
         
-        $soussections = SousSection::pluck("libel","id");
+        // $soussections = SousSection::pluck("libel","id");
+
+        // return view(
+        //     'app.agent_terrains.edit',
+        //     compact('agentTerrain', 'sections', 'soussections')
+        // );
+
+        $districts = District::pluck('libel', 'id');
+        $regions = Region::pluck('libel', 'id');
+        $departements = Departement::pluck('libel', 'id');
+        $communes = Commune::pluck('libel', 'id');
 
         return view(
             'app.agent_terrains.edit',
-            compact('agentTerrain', 'sections', 'soussections')
+            compact(
+                'agentTerrain',
+                'districts',
+                'regions',
+                'departements',
+                'communes'
+            )
         );
     }
 

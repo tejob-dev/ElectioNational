@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commune;
+use App\Models\Departement;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommuneStoreRequest;
 use App\Http\Requests\CommuneUpdateRequest;
@@ -36,7 +37,10 @@ class CommuneController extends Controller
     {
         $this->authorize('create', Commune::class);
 
-        return view('app.communes.create');
+        // return view('app.communes.create');
+        $departements = Departement::pluck('libel', 'id');
+
+        return view('app.communes.create', compact('departements'));
     }
 
     /**
@@ -77,7 +81,10 @@ class CommuneController extends Controller
     {
         $this->authorize('update', $commune);
 
-        return view('app.communes.edit', compact('commune'));
+        // return view('app.communes.edit', compact('commune'));
+        $departements = Departement::pluck('libel', 'id');
+
+        return view('app.communes.edit', compact('commune', 'departements'));
     }
 
     /**

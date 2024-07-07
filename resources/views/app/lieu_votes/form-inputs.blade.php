@@ -66,10 +66,43 @@
     </x-inputs.group>
 
     <x-inputs.group class="w-full">
-        <x-inputs.select name="quartier_id" label="Quartier" required>
-            @php $selected = old('quartier_id', ($editing ? $lieuVote->quartier_id : '')) @endphp
-            <option disabled {{ empty($selected) ? 'selected' : '' }}>Faites votre choix de Quartier</option>
-            @foreach($quartiers as $value => $label)
+        <x-inputs.text
+            name="code"
+            label="Code"
+            :value="old('code', ($editing ? $lieuVote->code : ''))"
+            maxlength="255"
+            placeholder="Code"
+            required
+        ></x-inputs.text>
+    </x-inputs.group>
+
+    <x-inputs.group class="w-full">
+        <x-inputs.number
+            name="a_vote"
+            label="A Vote"
+            :value="old('a_vote', ($editing ? $lieuVote->a_vote : '0'))"
+            max="255"
+            placeholder="A Vote"
+            required
+        ></x-inputs.number>
+    </x-inputs.group>
+
+    <x-inputs.group class="w-full">
+        <x-inputs.number
+            name="imported"
+            label="Imported"
+            :value="old('imported', ($editing ? $lieuVote->imported : '0'))"
+            max="255"
+            placeholder="Imported"
+            required
+        ></x-inputs.number>
+    </x-inputs.group>
+
+    <x-inputs.group class="w-full">
+        <x-inputs.select name="commune_id" label="Commune" required>
+            @php $selected = old('commune_id', ($editing ? $lieuVote->commune_id : '')) @endphp
+            <option disabled {{ empty($selected) ? 'selected' : '' }}>Please select the Commune</option>
+            @foreach($communes as $value => $label)
             <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
             @endforeach
         </x-inputs.select>

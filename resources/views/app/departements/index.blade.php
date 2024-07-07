@@ -61,6 +61,9 @@
                                 <th class="px-4 py-3 text-right">
                                     @lang('crud.departements.inputs.seuil')
                                 </th>
+                                <th class="px-4 py-3 text-left">
+                                    @lang('crud.departements.inputs.region_id')
+                                </th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -78,6 +81,10 @@
                                 </td>
                                 <td class="px-4 py-3 text-right">
                                     {{ $departement->seuil ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-left">
+                                    {{ optional($departement->region)->libel ??
+                                    '-' }}
                                 </td>
                                 <td
                                     class="px-4 py-3 text-center"
@@ -144,7 +151,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5">
+                                <td colspan="6">
                                     @lang('crud.common.no_items_found')
                                 </td>
                             </tr>
@@ -152,7 +159,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="5">
+                                <td colspan="6">
                                     <div class="mt-10 px-4">
                                         {!! $departements->render() !!}
                                     </div>

@@ -23,6 +23,12 @@
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
+                            @lang('crud.communes.inputs.code')
+                        </h5>
+                        <span>{{ $commune->code ?? '-' }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
                             @lang('crud.communes.inputs.nbrinscrit')
                         </h5>
                         <span>{{ $commune->nbrinscrit ?? '-' }}</span>
@@ -38,6 +44,21 @@
                             @lang('crud.communes.inputs.seuil')
                         </h5>
                         <span>{{ $commune->seuil ?? '-' }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.communes.inputs.rgph_population')
+                        </h5>
+                        <span>{{ $commune->rgph_population ?? '-' }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.communes.inputs.departement_id')
+                        </h5>
+                        <span
+                            >{{ optional($commune->departement)->libel ?? '-'
+                            }}</span
+                        >
                     </div>
                 </div>
 

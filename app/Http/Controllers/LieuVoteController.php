@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commune;
 use App\Models\LieuVote;
 use App\Models\Quartier;
 use Illuminate\Http\Request;
@@ -37,9 +38,9 @@ class LieuVoteController extends Controller
     {
         $this->authorize('create', LieuVote::class);
 
-        $quartiers = Quartier::userlimit()->pluck('libel', 'id');
+        $communes = Commune::pluck('libel', 'id');
 
-        return view('app.lieu_votes.create', compact('quartiers'));
+        return view('app.lieu_votes.create', compact('communes'));
     }
 
     /**
@@ -80,9 +81,9 @@ class LieuVoteController extends Controller
     {
         $this->authorize('update', $lieuVote);
 
-        $quartiers = Quartier::userlimit()->pluck('libel', 'id');
+        $communes = Commune::pluck('libel', 'id');
 
-        return view('app.lieu_votes.edit', compact('lieuVote', 'quartiers'));
+        return view('app.lieu_votes.edit', compact('lieuVote', 'communes'));
     }
 
     /**

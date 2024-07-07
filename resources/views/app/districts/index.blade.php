@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            @lang('crud.communes.index_title')
+            @lang('crud.districts.index_title')
         </h2>
     </x-slot>
 
@@ -32,9 +32,9 @@
                             </form>
                         </div>
                         <div class="md:w-1/2 text-right">
-                            @can('create', App\Models\Commune::class)
+                            @can('create', App\Models\District::class)
                             <a
-                                href="{{ route('communes.create') }}"
+                                href="{{ route('districts.create') }}"
                                 class="button button-primary"
                             >
                                 <i class="mr-1 icon ion-md-add"></i>
@@ -50,53 +50,34 @@
                         <thead class="text-gray-700">
                             <tr>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.communes.inputs.libel')
-                                </th>
-                                <th class="px-4 py-3 text-left">
-                                    @lang('crud.communes.inputs.code')
+                                    @lang('crud.districts.inputs.libel')
                                 </th>
                                 <th class="px-4 py-3 text-right">
-                                    @lang('crud.communes.inputs.nbrinscrit')
+                                    @lang('crud.districts.inputs.nbrinscrit')
                                 </th>
                                 <th class="px-4 py-3 text-right">
-                                    @lang('crud.communes.inputs.objectif')
+                                    @lang('crud.districts.inputs.objectif')
                                 </th>
                                 <th class="px-4 py-3 text-right">
-                                    @lang('crud.communes.inputs.seuil')
-                                </th>
-                                <th class="px-4 py-3 text-right">
-                                    @lang('crud.communes.inputs.rgph_population')
-                                </th>
-                                <th class="px-4 py-3 text-left">
-                                    @lang('crud.communes.inputs.departement_id')
+                                    @lang('crud.districts.inputs.seuil')
                                 </th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-600">
-                            @forelse($communes as $commune)
+                            @forelse($districts as $district)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-4 py-3 text-left">
-                                    {{ $commune->libel ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ $commune->code ?? '-' }}
+                                    {{ $district->libel ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-right">
-                                    {{ $commune->nbrinscrit ?? '-' }}
+                                    {{ $district->nbrinscrit ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-right">
-                                    {{ $commune->objectif ?? '-' }}
+                                    {{ $district->objectif ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-right">
-                                    {{ $commune->seuil ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-right">
-                                    {{ $commune->rgph_population ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ optional($commune->departement)->libel ??
-                                    '-' }}
+                                    {{ $district->seuil ?? '-' }}
                                 </td>
                                 <td
                                     class="px-4 py-3 text-center"
@@ -111,9 +92,9 @@
                                             align-middle
                                         "
                                     >
-                                        @can('update', $commune)
+                                        @can('update', $district)
                                         <a
-                                            href="{{ route('communes.edit', $commune) }}"
+                                            href="{{ route('districts.edit', $district) }}"
                                             class="mr-1"
                                         >
                                             <button
@@ -125,9 +106,9 @@
                                                 ></i>
                                             </button>
                                         </a>
-                                        @endcan @can('view', $commune)
+                                        @endcan @can('view', $district)
                                         <a
-                                            href="{{ route('communes.show', $commune) }}"
+                                            href="{{ route('districts.show', $district) }}"
                                             class="mr-1"
                                         >
                                             <button
@@ -137,9 +118,9 @@
                                                 <i class="icon ion-md-eye"></i>
                                             </button>
                                         </a>
-                                        @endcan @can('delete', $commune)
+                                        @endcan @can('delete', $district)
                                         <form
-                                            action="{{ route('communes.destroy', $commune) }}"
+                                            action="{{ route('districts.destroy', $district) }}"
                                             method="POST"
                                             onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')"
                                         >
@@ -163,7 +144,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="8">
+                                <td colspan="5">
                                     @lang('crud.common.no_items_found')
                                 </td>
                             </tr>
@@ -171,9 +152,9 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="8">
+                                <td colspan="5">
                                     <div class="mt-10 px-4">
-                                        {!! $communes->render() !!}
+                                        {!! $districts->render() !!}
                                     </div>
                                 </td>
                             </tr>

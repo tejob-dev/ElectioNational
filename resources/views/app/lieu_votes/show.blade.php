@@ -17,15 +17,15 @@
                 <div class="mt-4 px-4">
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
-                            @lang('crud.lieu_votes.inputs.code')
-                        </h5>
-                        <span>{{ $lieuVote->code ?? '-' }}</span>
-                    </div>
-                    <div class="mb-4">
-                        <h5 class="font-medium text-gray-700">
                             @lang('crud.lieu_votes.inputs.libel')
                         </h5>
                         <span>{{ $lieuVote->libel ?? '-' }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.lieu_votes.inputs.code')
+                        </h5>
+                        <span>{{ $lieuVote->code ?? '-' }}</span>
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
@@ -47,10 +47,22 @@
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
-                            @lang('crud.lieu_votes.inputs.quartier_id')
+                            @lang('crud.lieu_votes.inputs.a_vote')
+                        </h5>
+                        <span>{{ $lieuVote->a_vote ?? '-' }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.lieu_votes.inputs.imported')
+                        </h5>
+                        <span>{{ $lieuVote->imported ?? '-' }}</span>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.lieu_votes.inputs.commune_id')
                         </h5>
                         <span
-                            >{{ optional($lieuVote->quartier)->libel ?? '-'
+                            >{{ optional($lieuVote->commune)->libel ?? '-'
                             }}</span
                         >
                     </div>

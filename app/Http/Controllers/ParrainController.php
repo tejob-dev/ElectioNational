@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Parrain;
+use App\Models\Commune;
 
+use App\Models\Parrain;
 use App\Models\LieuVote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
+
 use App\Http\Requests\ParrainStoreRequest;
 use App\Http\Requests\ParrainUpdateRequest;
-
-use Illuminate\Support\Facades\DB;
 
 class ParrainController extends Controller
 {
@@ -43,7 +44,9 @@ class ParrainController extends Controller
     {
         $this->authorize('create', Parrain::class);
 
-        return view('app.parrains.create');
+        $communes = Commune::pluck('libel', 'id');
+
+        return view('app.parrains.create', compact('communes'));
     }
 
     /**
@@ -84,7 +87,9 @@ class ParrainController extends Controller
     {
         $this->authorize('update', $parrain);
 
-        return view('app.parrains.edit', compact('parrain'));
+        $communes = Commune::pluck('libel', 'id');
+
+        return view('app.parrains.edit', compact('parrain', 'communes'));
     }
 
     /**

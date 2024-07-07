@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CommuneUpdateRequest extends FormRequest
+class RegionUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,12 +21,10 @@ class CommuneUpdateRequest extends FormRequest
     {
         return [
             'libel' => ['required', 'max:255', 'string'],
-            'code' => ['nullable', 'max:255', 'string'],
             'nbrinscrit' => ['required', 'numeric'],
             'objectif' => ['required', 'numeric'],
             'seuil' => ['required', 'numeric'],
-            'rgph_population' => ['required', 'numeric'],
-            'departement_id' => ['required', 'exists:departements,id'],
+            'district_id' => ['required', 'exists:districts,id'],
         ];
     }
 }

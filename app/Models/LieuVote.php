@@ -17,21 +17,27 @@ class LieuVote extends Model
     use Searchable;
 
     protected $fillable = [
-        'code',
         'libel',
+        'code',
         'nbrinscrit',
         'objectif',
         'seuil',
-        'quartier_id',
+        'a_vote',
+        'imported',
+        'commune_id',
     ];
 
     protected $searchableFields = ['*'];
 
     protected $table = 'lieu_votes';
 
-    public function quartier()//section
+    // public function quartier()//section
+    // {
+    //     return $this->belongsTo(Quartier::class);
+    // }
+    public function commune()
     {
-        return $this->belongsTo(Quartier::class);
+        return $this->belongsTo(Commune::class);
     }
 
     public function bureauVotes()
