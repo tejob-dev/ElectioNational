@@ -27,6 +27,7 @@ class ElectorParrain extends Model
         'adress_postal',
         'carte_elect',
         'nom_lv',
+        'commune_id',
         'agent_res_nompren',
         'agent_res_phone',
         'recenser',
@@ -46,6 +47,11 @@ class ElectorParrain extends Model
     public function lieuVote()
     {
         return $this->belongsTo(LieuVote::class, "nom_lv", "libel");
+    }
+
+    public function commune()
+    {
+        return $this->belongsTo(Commune::class);
     }
 
     public function scopeUserlimit($query)

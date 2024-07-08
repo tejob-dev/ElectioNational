@@ -132,12 +132,12 @@ return [
     ],
 
     'communes' => [
-        'name' => 'Regions',
-        'index_title' => 'Liste des regions',
-        'new_title' => 'Nouvelle region',
-        'create_title' => 'Ajouter une region',
-        'edit_title' => 'Modifier une region',
-        'show_title' => 'Afficher une region',
+        'name' => 'Communes',
+        'index_title' => 'Liste des communes',
+        'new_title' => 'Nouvelle commune',
+        'create_title' => 'Ajouter une commune',
+        'edit_title' => 'Modifier une commune',
+        'show_title' => 'Afficher une commune',
         'inputs' => [
         'libel' => 'Libellé',
         'nbrinscrit' => 'Nombre d\'inscrits',
@@ -166,15 +166,15 @@ return [
     ],
     
     'parrains' => [
-        'name' => 'Parrainés',
-        'index_title' => 'Liste des parrainés',
-        'new_title' => 'Nouveau parrainé',
-        'create_title' => 'Ajouter un parrainé',
-        'edit_title' => 'Modifier un parrainé',
-        'show_title' => 'Afficher un parrainé',
+        'name' => 'Recensés',
+        'index_title' => 'Liste des recensés',
+        'new_title' => 'Nouveau recensé',
+        'create_title' => 'Ajouter un recensé',
+        'edit_title' => 'Modifier un recensé',
+        'show_title' => 'Afficher un recensé',
         'inputs' => [
-            'nom_pren_par' => 'Nom et prénom du parrainé',
-            'telephone_par' => 'Téléphone du parrainé',
+            'nom_pren_par' => 'Nom et prénom du recensé',
+            'telephone_par' => 'Téléphone du recensé',
             'nom' => 'Nom',
             'prenom' => 'Prénom',
             'lieu_projet' => 'Idée du projet',
@@ -314,6 +314,7 @@ return [
             'nbrinscrit' => 'Nombre d\'inscrits',
             'objectif' => 'Objectif',
             'seuil' => 'Seuil',
+            'region_id' => 'Région',
         ],
     ],
     

@@ -336,4 +336,5 @@ Route::name('api.')
     Route::post("/poste/alerte/agent", [AlerteController::class, "store"]);
     
     Route::post("/common/apis/all/items", [CommonItemController::class, "checker"])->name("common.api.all.items");
+    Route::post("/common/apis/nmd/items", [CommonItemController::class, "checkernmd"])->name("common.api.nmd.items");
     //Route::post("/common/apis/mobile/items", [CommonItemMobileController::class, "checker"])->name("common.api.mobille.items");

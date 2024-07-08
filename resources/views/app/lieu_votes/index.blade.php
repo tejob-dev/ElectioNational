@@ -55,6 +55,9 @@
                         <thead class="text-gray-700">
                             <tr>
                                 <th class="px-4 py-3 text-left">
+                                    Districts
+                                </th>
+                                <th class="px-4 py-3 text-left">
                                     Régions
                                 </th>
                                 <th class="px-4 py-3 text-left">
@@ -62,9 +65,6 @@
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     Communes
-                                </th>
-                                <th class="px-4 py-3 text-left">
-                                    Sections
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     Lieux De Vote
@@ -89,19 +89,19 @@
                             @forelse($lieuVotes as $lieuVote)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-4 py-3 text-left">
-                                    {{ optional(optional(optional($lieuVote->quartier)->section)->section)->commune->libel ??
+                                    {{ optional(optional(optional($lieuVote->commune)->departement)->region)->district?->libel ??
                                     '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
-                                    {{ optional(optional($lieuVote->quartier)->section)->section->libel ??
+                                    {{ optional(optional($lieuVote->commune)->departement)->region?->libel ??
                                     '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
-                                    {{ optional($lieuVote->quartier)->section->libel ??
+                                    {{ optional($lieuVote->commune)->departement?->libel ??
                                     '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
-                                    {{ optional($lieuVote->quartier)->libel ??
+                                    {{ optional($lieuVote->commune)->libel ??
                                     '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">

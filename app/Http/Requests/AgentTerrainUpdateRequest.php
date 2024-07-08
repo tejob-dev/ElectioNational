@@ -36,7 +36,7 @@ class AgentTerrainUpdateRequest extends FormRequest
             'district_id' => ['nullable', 'exists:districts,id'],
             'region_id' => ['nullable', 'exists:regions,id'],
             'departement_id' => ['nullable', 'exists:departements,id'],
-            'commune_id' => ['nullable', 'exists:communes,id'],
+            'commune_id' => ['required', 'exists:communes,id'],
         ];
     }
 }

@@ -31,6 +31,7 @@ class ElectorParrainStoreRequest extends FormRequest
             'agent_res_nompren' => ['nullable', 'max:255', 'string'],
             'agent_res_phone' => ['nullable', 'max:255', 'string'],
             'elect_date' => ['nullable', 'string'],
+            'commune_id' => ['nullable', 'string'],
             'recenser' => ['nullable', 'string'],
         ];
     }

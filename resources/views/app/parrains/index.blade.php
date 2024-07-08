@@ -21,7 +21,7 @@
                                     <x-inputs.text
                                         name="search"
                                         value="{{ $search ?? '' }}"
-                                        placeholder="{{ __('crud.common.search') }} parrains"
+                                        placeholder="{{ __('crud.common.search') }} recensé"
                                         autocomplete="off"
                                     ></x-inputs.text>
 
@@ -58,16 +58,28 @@
                                     ID
                                 </th>
                                 <th class="px-4 py-3 text-left">
+                                Districts
+                                </th>
+                                <th class="px-4 py-3 text-left">
+                                Régions
+                                </th>
+                                <th class="px-4 py-3 text-left">
+                                Départements
+                                </th>
+                                <th class="px-4 py-3 text-left">
+                                Communes
+                                </th>
+                                <th class="px-4 py-3 text-left">
                                     Parrain
+                                </th>
+                                <th class="px-4 py-3">
+                                    Profil du parrain
                                 </th>
                                 <th class="px-4 py-3">
                                     Tel.&nbsp;Parrain
                                 </th>
                                 <th class="px-4 py-3">
                                     Recenseur
-                                </th>
-                                <th class="px-4 py-3">
-                                    Section
                                 </th>
                                 <!-- <th class="px-4 py-3">
                                     Sous Section
@@ -91,9 +103,6 @@
                                     Tel.
                                 </th>
                                 <th class="px-4 py-3 ">
-                                    LV
-                                </th>
-                                <th class="px-4 py-3 ">
                                     Résidence
                                 </th>
                                 <th class="px-4 py-3">
@@ -103,7 +112,7 @@
                                     Observation
                                 </th>
                                 <th class="px-4 py-3">
-                                    Parrainé le
+                                Recensé le
                                 </th>
                                 <th class="px-4 py-3 text-right">
                                     Statut
@@ -120,17 +129,28 @@
                                     {{ $parrain->id ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
+                                    {{ ($parrain->commune)->departement?->region?->district?->libel ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-left">
+                                    {{ ($parrain->commune)->departement?->region?->libel ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-left">
+                                    {{ ($parrain->commune)->departement?->libel ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-left">
+                                    {{ ($parrain->commune)->libel ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-left">
                                     {{ ($parrain->agentterrain)->nom ?? '-' }} {{ ($parrain->agentterrain)->prenom ?? '-' }}
                                 </td>
-                                
+                                <td class="px-4 py-3 text-left">
+                                {{ ($parrain->agentterrain)->profil ?? '-' }}
+                                </td>
                                 <td class="px-4 py-3 text-left">
                                 {{ ($parrain->agentterrain)->telephone ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
                                     {{ $parrain->recenser ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ ($parrain->agentterrain->section)->libel ?? '-' }}
                                 </td>
                                 <!-- <td class="px-4 py-3 text-left">
                                     {{ ($parrain->agentterrain->sousSection)->libel ?? '-' }}
@@ -152,9 +172,6 @@
                                 </td> -->
                                 <td class="px-4 py-3 text-left">
                                     {{ $parrain->telephone ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ $parrain?->lieuVote?->libel ?? 'AUTRE CIRCONSCRIPTION' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
                                     {{ $parrain->residence ?? '-' }}

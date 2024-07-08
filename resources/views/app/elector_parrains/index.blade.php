@@ -53,6 +53,18 @@
                                     ID
                                 </th> -->
                                 <th class="px-4 py-3 text-left">
+                                Districts
+                                </th>
+                                <th class="px-4 py-3 text-left">
+                                Régions
+                                </th>
+                                <th class="px-4 py-3 text-left">
+                                Départements
+                                </th>
+                                <th class="px-4 py-3 text-left">
+                                Communes
+                                </th>
+                                <th class="px-4 py-3 text-left">
                                     @lang('crud.cor_parrains.inputs.nom_prenoms')
                                 </th>
                                 <th class="px-4 py-3 text-left">
@@ -60,9 +72,6 @@
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     N° de carte d'électeur
-                                </th>
-                                <th class="px-4 py-3 text-left">
-                                    Section
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     Lieux de Vote
@@ -83,6 +92,18 @@
                             @forelse($electorParrains as $electorParrain)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-4 py-3 text-left">
+                                    {{ ($electorParrain->commune)->departement?->region?->district?->libel ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-left">
+                                    {{ ($electorParrain->commune)->departement?->region?->libel ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-left">
+                                    {{ ($electorParrain->commune)->departement?->libel ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-left">
+                                    {{ ($electorParrain->commune)->libel ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-left">
                                     {{ $electorParrain->nom_prenoms ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
@@ -90,9 +111,6 @@
                                 </td>
                                 <td class="px-4 py-3 text-left">
                                     {{ $electorParrain->carte_elect ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ $electorParrain->lieuVote?->quartier?->libel ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
                                     {{ $electorParrain->nom_lv ?? '-' }}

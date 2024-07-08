@@ -21,34 +21,24 @@
 
                 @if (auth()->user()->hasPermissionTo('administration viewer'))
                     <x-nav-dropdown title="Administration" align="right" width="48">
+                        @can('view-any', App\Models\District::class)
+                            <x-dropdown-link href="{{ route('districts.index') }}">
+                                Districts
+                            </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\Region::class)
+                            <x-dropdown-link href="{{ route('regions.index') }}">
+                                Régions
+                            </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\Departement::class)
+                            <x-dropdown-link href="{{ route('departements.index') }}">
+                                Départements
+                            </x-dropdown-link>
+                        @endcan
                         @can('view-any', App\Models\Commune::class)
                             <x-dropdown-link href="{{ route('communes.index') }}">
-                                Regions
-                            </x-dropdown-link>
-                        @endcan
-                        @can('view-any', App\Models\Section::class)
-                            <x-dropdown-link href="{{ route('sections.index') }}">
-                                Departements
-                            </x-dropdown-link>
-                        @endcan
-                        <!-- @can('view-any', App\Models\SousSection::class)
-                            <x-dropdown-link href="{{ route('sous-sections.index') }}">
-                                Sous Sections
-                            </x-dropdown-link>
-                        @endcan -->
-                        <!-- @can('view-any', App\Models\Departement::class)
-    <x-dropdown-link href="{{ route('departements.index') }}">
-                            Departements
-                            </x-dropdown-link>
-@endcan -->
-                        @can('view-any', App\Models\Departement::class)
-                            <x-dropdown-link href="{{ route('rcommunes.index') }}">
                                 Communes
-                            </x-dropdown-link>
-                        @endcan
-                        @can('view-any', App\Models\Quartier::class)
-                            <x-dropdown-link href="{{ route('quartiers.index') }}">
-                                Sections
                             </x-dropdown-link>
                         @endcan
                         <hr class="w-full bg-gray-300 h-1/2" />
@@ -85,10 +75,40 @@
                         @endcan
                         @can('view-any', App\Models\Parrain::class)
                             <x-dropdown-link href="{{ route('parrains.index') }}">
-                                Parrainés
+                            Recensés
                             </x-dropdown-link>
                         @endcan
                         <hr class="w-full bg-gray-300 h-1/2" />
+                        @can('view-any', App\Models\AgentDeSection::class)
+                            <x-dropdown-link href="#">
+                            Délégation départementale 
+                            </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\AgentDeSection::class)
+                            <x-dropdown-link href="#">
+                            Délégation communale  
+                            </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\AgentDeSection::class)
+                            <x-dropdown-link href="#">
+                            Organisation  
+                            </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\AgentDeSection::class)
+                            <x-dropdown-link href="#">
+                            Délégué départemental   
+                            </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\AgentDeSection::class)
+                            <x-dropdown-link href="#">
+                            Délégué communal    
+                            </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\AgentDeSection::class)
+                            <x-dropdown-link href="#">
+                            Resp. d’organisation   
+                            </x-dropdown-link>
+                        @endcan
                         @can('view-any', App\Models\AgentDeSection::class)
                             <x-dropdown-link href="{{ route('agent-de-sections.index') }}">
                                 Responsable De Sections
@@ -125,39 +145,29 @@
 
                 @if (auth()->user()->hasPermissionTo('recensement viewer'))
                     <x-nav-dropdown title="Recensement" align="right" width="48">
+                        @can('recens-district', App\Models\District::class)
+                            <x-dropdown-link href="{{ route('recens.districts.index') }}">
+                                Districts
+                            </x-dropdown-link>
+                        @endcan
+                        @can('recens-region', App\Models\Region::class)
+                            <x-dropdown-link href="{{ route('recens.regions.index') }}">
+                                Régions
+                            </x-dropdown-link>
+                        @endcan
+                        @can('recens-departement', App\Models\Departement::class)
+                            <x-dropdown-link href="{{ route('recens.departements.index') }}">
+                                Départements
+                            </x-dropdown-link>
+                        @endcan
                         @can('recens-commune', App\Models\Commune::class)
                             <x-dropdown-link href="{{ route('recens.communes.index') }}">
-                                Regions
-                            </x-dropdown-link>
-                        @endcan
-                        @can('recens-section', App\Models\Section::class)
-                            <x-dropdown-link href="{{ route('recens.sections.index') }}">
-                                Departements
-                            </x-dropdown-link>
-                        @endcan
-                        <!-- @can('recens-sous-section', App\Models\SousSection::class)
-                            <x-dropdown-link href="{{ route('recens.soussections.index') }}">
-                                Sous Sections
-                            </x-dropdown-link>
-                        @endcan -->
-                        @can('recens-quartier', App\Models\Quartier::class)
-                            <x-dropdown-link href="{{ route('recens.rcommunes.index') }}">
                                 Communes
-                            </x-dropdown-link>
-                        @endcan
-                        @can('recens-quartier', App\Models\Quartier::class)
-                            <x-dropdown-link href="{{ route('recens.quartiers.index') }}">
-                                Sections
-                            </x-dropdown-link>
-                        @endcan
-                        @can('recens-lieuvote', App\Models\LieuVote::class)
-                            <x-dropdown-link href="{{ route('recens.lieuvotes.index') }}">
-                                Lieux de vote
                             </x-dropdown-link>
                         @endcan
                         @can('recens-parrain', App\Models\Parrain::class)
                             <x-dropdown-link href="{{ route('recens.parrains.index') }}">
-                                Parrainés
+                                Recensés
                             </x-dropdown-link>
                         @endcan
                         @can('view-any', App\Models\ElectorParrain::class)

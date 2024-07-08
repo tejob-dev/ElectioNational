@@ -13,24 +13,24 @@
             <div class="rounded-lg shadow-xs p-6" style="background:linear-gradient(to top, rgb(255 255 255), rgb(152 87 87 / 0%)), linear-gradient(to top, rgb(255 255 255 / 73%), rgb(255 255 255 / 0%)), linear-gradient(to top, rgb(255 255 255 / 14%), rgb(255 255 255 / 0%));">
                 <div class="grid grid-cols-4 gap-4 mb-4" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
+                        <h3 class="text-lg font-bold mb-2">Districts</h3>
+                        <hr class="w-full bg-gray-300"/>
+                        <h3 class="text-lg font-semibold mb-2" id="commune">@php $valueCom = DB::table('districts')->select(DB::raw('SUM(objectif) as total_objectif, SUM(nbrinscrit) as total_nbrinscrit, COUNT(*) as count'))->first(); $count = $valueCom->count; $countComnbinscrit = $valueCom->total_nbrinscrit;  $countComnbobjectif = $valueCom->total_objectif; echo $count>9?$count:"0".$count; @endphp</h3>
+                    </div>    
+                    <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Régions</h3>
                         <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="commune">@php $valueCom = DB::table('communes')->select(DB::raw('SUM(objectif) as total_objectif, SUM(nbrinscrit) as total_nbrinscrit, COUNT(*) as count'))->first(); $count = $valueCom->count; $countComnbinscrit = $valueCom->total_nbrinscrit;  $countComnbobjectif = $valueCom->total_objectif; echo $count>9?$count:"0".$count; @endphp</h3>
+                        <h3 class="text-lg font-semibold mb-2" id="commune">@php $valueCom = DB::table('regions')->select(DB::raw('SUM(objectif) as total_objectif, SUM(nbrinscrit) as total_nbrinscrit, COUNT(*) as count'))->first(); $count = $valueCom->count; $countComnbinscrit = $valueCom->total_nbrinscrit;  $countComnbobjectif = $valueCom->total_objectif; echo $count>9?$count:"0".$count; @endphp</h3>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Départements</h3>
                         <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="section">@php $count = DB::table('sections')->select(DB::raw('COUNT(*) as count'))->first()->count; echo $count>9?$count:"0".$count; @endphp</h3>
+                        <h3 class="text-lg font-semibold mb-2" id="section">@php $count = DB::table('departements')->select(DB::raw('COUNT(*) as count'))->first()->count; echo $count>9?$count:"0".$count; @endphp</h3>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Communes</h3>
                         <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="rcommune">@php $count = DB::table('rcommunes')->select(DB::raw('COUNT(*) as count'))->first()->count; echo $count>9?$count:"0".$count; @endphp</h3>
-                    </div>
-                    <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
-                        <h3 class="text-lg font-bold mb-2">Sections</h3>
-                        <hr class="w-full bg-gray-300"/>
-                        <h3 class="text-lg font-semibold mb-2" id="quartier">@php $count = DB::table('quartiers')->select(DB::raw('COUNT(*) as count'))->first()->count; echo $count>9?$count:"0".$count; @endphp</h3>
+                        <h3 class="text-lg font-semibold mb-2" id="rcommune">@php $count = DB::table('communes')->select(DB::raw('COUNT(*) as count'))->first()->count; echo $count>9?$count:"0".$count; @endphp</h3>
                     </div>
                     <div class="shadow-md bg-gray-100 rounded-lg p-4 text-center">
                         <h3 class="text-lg font-bold mb-2">Lieux de vote</h3>
@@ -95,11 +95,11 @@
                         </div>
                         @php
                             $bureauVotesCounts = DB::table('agent_terrains')
-                                ->join('quartiers', 'agent_terrains.section_id', '=', 'quartiers.id')
-                                ->join('lieu_votes', 'quartiers.id', '=', 'lieu_votes.quartier_id')
+                                ->join('communes', 'agent_terrains.commune_id', '=', 'communes.id')
+                                ->join('lieu_votes', 'communes.id', '=', 'lieu_votes.commune_id')
                                 ->join('bureau_votes', 'lieu_votes.id', '=', 'bureau_votes.lieu_vote_id')
                                 ->selectRaw('SUM(bureau_votes.votant_suivi) as total_votant_suivi, SUM(bureau_votes.votant_resul) as total_votant_resul')
-                                ->whereNotNull('agent_terrains.section_id')
+                                ->whereNotNull('agent_terrains.commune_id')
                                 ->first();
 
                             $counter = $bureauVotesCounts->total_votant_suivi ?? 0;
@@ -206,7 +206,6 @@
                     @endphp
                     @foreach ($candidats as $candidat)
                         @php
-
                             $candidnote = 0;
 
                             if ($candidat->code) {

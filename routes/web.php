@@ -8,10 +8,12 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SuiviController;
 use App\Http\Controllers\AlerteController;
+use App\Http\Controllers\RegionController;
 use App\Http\Controllers\CommuneController;
 use App\Http\Controllers\ParrainController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\CandidatController;
+use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\LieuVoteController;
 use App\Http\Controllers\QuartierController;
 use App\Http\Controllers\RCommuneController;
@@ -28,9 +30,9 @@ use App\Http\Controllers\MessageAgentController;
 use App\Http\Controllers\ProcesVerbalController;
 use App\Http\Controllers\SupLieuDeVoteController;
 use App\Http\Controllers\AgentDeSectionController;
+use App\Http\Controllers\ElectorParrainController;
 use App\Http\Controllers\OperateurSuiviController;
 use App\Http\Controllers\AgentDuBureauVoteController;
-use App\Http\Controllers\ElectorParrainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +58,7 @@ Route::middleware(['auth:sanctum', 'verified'])
 Route::get("/recens/parrains/{single}/data", [RecensementController::class, "getParrainList"])->name("recens.parrains.list");
 Route::get("/recens/quartiers/{single}/data", [RecensementController::class, "getQuartierList"])->name("recens.quartiers.list");
 Route::get("/recens/lvotes/{single}/data", [RecensementController::class, "getLVList"])->name("recens.lvotes.list");
+Route::get("/recens/districts/{single}/data", [RecensementController::class, "getDistrictList"])->name("recens.districts.list");
 
 Route::get("/agentterrains/{single}/data", [AgentTerrainController::class, "getAgentList"])->name("agentterrains.list");
 
@@ -121,6 +124,9 @@ Route::prefix('/')
         Route::post("/alerte/agent/update/{alerte}", [AlerteController::class, "update"])->name("alerte.agentlist.update");
         
         Route::get("/recens/sous-sections", [RecensementController::class, "listSousSection"])->name("recens.soussections.index");
+        Route::get("/recens/districts", [RecensementController::class, "listDistrict"])->name("recens.districts.index");
+        Route::get("/recens/regions", [RecensementController::class, "listRegion"])->name("recens.regions.index");
+        Route::get("/recens/departements", [RecensementController::class, "listDepartement"])->name("recens.departements.index");
         Route::get("/recens/communes", [RecensementController::class, "listCommune"])->name("recens.communes.index");
         Route::get("/recens/rcommunes", [RecensementController::class, "listRCommune"])->name("recens.rcommunes.index");
         Route::get("/recens/sections", [RecensementController::class, "listSection"])->name("recens.sections.index");

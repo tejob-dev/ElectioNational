@@ -74,17 +74,29 @@
                                 <th class="px-4 py-3 text-center">
                                     ID
                                 </th>
+                                <th class="px-4 py-3 text-left">
+                                Districts
+                                </th>
+                                <th class="px-4 py-3 text-left">
+                                Régions
+                                </th>
+                                <th class="px-4 py-3 text-left">
+                                Départements
+                                </th>
+                                <th class="px-4 py-3 text-left">
+                                Communes
+                                </th>
                                 <th class="px-4 py-3 text-center">
                                     Parrain
+                                </th>
+                                <th class="px-4 py-3">
+                                    Profil du parrain
                                 </th>
                                 <th class="px-4 py-3">
                                     Tel.&nbsp;Parrain
                                 </th>
                                 <th class="px-4 py-3">
                                     Recenseur
-                                </th>
-                                <th class="px-4 py-3">
-                                    Section
                                 </th>
                                 <th class="px-4 py-3 ">
                                     Nom
@@ -104,9 +116,6 @@
                                 <th class="px-4 py-3 ">
                                     Militant ou Sympatisant
                                 </th>
-                                <th class="px-4 py-3 text-left">
-                                    LV
-                                </th>
                                 <th class="px-4 py-3 ">
                                     Une carte CNI
                                 </th>
@@ -123,7 +132,7 @@
                                     Observation
                                 </th>
                                 <th class="px-4 py-3">
-                                    Parrainé le
+                                    Recensé le
                                 </th>
                                 <th class="px-4 py-3">
                                     Statut
@@ -235,10 +244,15 @@
                     ajax: "{{ route('recens.parrains.list', ['single'=>0]) }}",
                     columns: [
                         {data: 'id', name: 'id'},
+                        {data: 'district', name: 'district'},
+                        {data: 'region', name: 'region'},
+                        {data: 'departement', name: 'departement'},
+                        {data: 'commune', name: 'commune'},
                         {data: 'agent', name: 'agent'},
+                        {data: 'profil', name: 'profil'},
                         {data: 'telephoneag', name: 'telephoneag'},
                         {data: 'recenser', name: 'recenser'},
-                        {data: 'section', name: 'section'},
+                        // {data: 'section', name: 'section'},
                         // {data: 'soussection', name: 'soussection'},
                         {data: 'nom', name: 'nom'},
                         {data: 'prenom', name: 'prenom'},
@@ -246,7 +260,7 @@
                         {data: 'telephone', name: 'telephone'},
                         {data: 'list_elect', name: 'list_elect'},
                         {data: 'is_milit', name: 'is_milit'},
-                        {data: 'codelv', name: 'codelv'},
+                        // {data: 'codelv', name: 'codelv'},
                         {data: 'cni_dispo', name: 'cni_dispo'},
                         {data: 'extrait', name: 'extrait'},
                         // {data: 'telparrain', name: 'telparrain'},

@@ -53,7 +53,7 @@
                                     @lang('crud.communes.inputs.libel')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.communes.inputs.code')
+                                    Code
                                 </th>
                                 <th class="px-4 py-3 text-right">
                                     @lang('crud.communes.inputs.nbrinscrit')
@@ -65,10 +65,10 @@
                                     @lang('crud.communes.inputs.seuil')
                                 </th>
                                 <th class="px-4 py-3 text-right">
-                                    @lang('crud.communes.inputs.rgph_population')
+                                    RGPH
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.communes.inputs.departement_id')
+                                    Département
                                 </th>
                                 <th></th>
                             </tr>
