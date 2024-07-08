@@ -162,5 +162,19 @@
             // Update the date and time every second (1000 milliseconds)
             setInterval(updateDateTime, 1000);
         </script>
+
+        <script>
+            $(document).ready(function () {
+                const $scrollableTableContainer = $('div.block.w-full.overflow-auto.scrolling-touch');
+
+                $(document).on('keydown', function (event) {
+                    if (event.key === 'ArrowLeft') {
+                        $scrollableTableContainer.scrollLeft($scrollableTableContainer.scrollLeft() - 50); // Adjust the value to control the scroll amount
+                    } else if (event.key === 'ArrowRight') {
+                        $scrollableTableContainer.scrollLeft($scrollableTableContainer.scrollLeft() + 50); // Adjust the value to control the scroll amount
+                    }
+                });
+            });
+        </script>
     </body>
 </html>
