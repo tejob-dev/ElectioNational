@@ -103,128 +103,135 @@ class ProcessParrainSms implements ShouldQueue
         $agTerrainPhone = $this->cleanPhone($arrCont[1]);
         $parrainPhone = $this->cleanPhone($arrCont[5]);
         $agTerrain = AgentTerrain::with("commune")->where("telephone", $agTerrainPhone)->first();
-        $agCommune = $agTerrain->commune;
+        $agCommune = $agTerrain?->commune??null;
 
-        if(!$agTerrain) {
+        if($agCommune){
+            if(!$agTerrain) {
 
-            $data->success = false;
-            $data->error = "";
-            $data->message = "Agent non reconnu!";
-            $code = 202;
-
-        }else{
-
-            if(sizeof($arrCont) > 4){
-                
-                // $timestampCr = strtotime();
-                // $timestampDateNaissCr = strtotime($arrCont[6]);
-                // $dateNaiss = date("Y-m-d H:i:s", $timestampDateNaissCr);
-                $date_obj = Carbon::createFromFormat('d/m/Y', str_replace("-", "/", $arrCont[4]));
-                // $lieuvote = LieuVote::where("libel", "like", "%".$arrCont[9]."%")->first();
-                $dateNaiss = $date_obj->format('Y-m-d H:i:s');
-                $dateNaissElect = $date_obj->format('d/m/Y');
-                // $created_it = Carbon::createFromFormat("d/m/Y H:i:s", str_replace("-", "/", $arrCont[1]))->toDateTimeString();
-                //dd("Valide num ".$agTerrainPhone." ".$dateNaiss);
-                Log::info(json_encode([
-                    'nom' => removeAccentsAndUpperCase($arrCont[2]),
-                    'prenom' => removeAccentsAndUpperCase($arrCont[3]),
-                    'date_naiss' => str_replace("\\", "", $dateNaissElect),
-                ]));
-                //CHECK ON LIST ELECTOR
-                $csvUrl = env('CSV_URL')??"http://127.0.0.1:5585";
-                $response = Http::post("$csvUrl/check_elector", [
-                    'nom' => removeAccentsAndUpperCase($arrCont[2]),
-                    'prenom' => removeAccentsAndUpperCase($arrCont[3]),
-                    'date_naiss' => str_replace("\\", "", $dateNaissElect),
-                ]);
-                
-                $task_id = $response->json('task_id');
-                $result_elector_exist = false;
-                $lvname = "N/A";
-                $result_cardelector = "N/A";
-                if ($task_id) {
-                    // Start checking the task status
-                    list($lvname, $result_cardelector, $result_elector_exist) = $this->checkElectorStatus($task_id);
-                }
-
-                //END CHECK ON LIST ELECTOR
-
-                
-                $extrait = "";
-                $observation = "";
-                $agent_recences = "";
-                if(array_key_exists(9, $arrCont)) $extrait = $arrCont[9]=="Y"?"Oui":"Non";
-                $observation = "N/A"; //if(array_key_exists(14, $arrCont)) 
-                if(array_key_exists(11, $arrCont)) $agent_recences = $arrCont[11];
-
-                if($result_elector_exist){
-                    //ADD PARRIN INFO IN ELECTOR LIST 2023
-                    $curr_index = ElectorParrain::count() + 1;
-                    // $lvget = LieuVote::where("code", "=", "$arrCont[9]")->first();
-                    ElectorParrain::create([
-                        'subid' => "E23_$curr_index",
-                        'nom_prenoms' => strtoupper($arrCont[2])." ".ucwords($arrCont[3]),
-                        'phone' => "$parrainPhone",
-                        'date_naiss' => "$dateNaiss",
-                        'lieu_naiss' => "N/A",
-                        'profession' => "$arrCont[6]",
-                        'genre' => "N/A",
-                        'adress_physiq' => "N/A",
-                        'adress_postal' => "N/A",
-                        'carte_elect' => "$result_cardelector",
-                        'nom_lv' => $lvname!=null?($lvname):"AUTRE CIRCONSCRIPTION",
-                        'commune_id' => $agCommune?->id??null,
-                        'agent_res_nompren' => "$agTerrain->nom $agTerrain->prenom",
-                        'agent_res_phone' => "$agTerrainPhone",
+                $data->success = false;
+                $data->error = "";
+                $data->message = "Agent non reconnu!";
+                $code = 202;
+    
+            }else{
+    
+                if(sizeof($arrCont) > 4){
+                    
+                    // $timestampCr = strtotime();
+                    // $timestampDateNaissCr = strtotime($arrCont[6]);
+                    // $dateNaiss = date("Y-m-d H:i:s", $timestampDateNaissCr);
+                    $date_obj = Carbon::createFromFormat('d/m/Y', str_replace("-", "/", $arrCont[4]));
+                    // $lieuvote = LieuVote::where("libel", "like", "%".$arrCont[9]."%")->first();
+                    $dateNaiss = $date_obj->format('Y-m-d H:i:s');
+                    $dateNaissElect = $date_obj->format('d/m/Y');
+                    // $created_it = Carbon::createFromFormat("d/m/Y H:i:s", str_replace("-", "/", $arrCont[1]))->toDateTimeString();
+                    //dd("Valide num ".$agTerrainPhone." ".$dateNaiss);
+                    Log::info(json_encode([
+                        'nom' => removeAccentsAndUpperCase($arrCont[2]),
+                        'prenom' => removeAccentsAndUpperCase($arrCont[3]),
+                        'date_naiss' => str_replace("\\", "", $dateNaissElect),
+                    ]));
+                    //CHECK ON LIST ELECTOR
+                    $csvUrl = env('CSV_URL')??"http://127.0.0.1:5585";
+                    $response = Http::post("$csvUrl/check_elector", [
+                        'nom' => removeAccentsAndUpperCase($arrCont[2]),
+                        'prenom' => removeAccentsAndUpperCase($arrCont[3]),
+                        'date_naiss' => str_replace("\\", "", $dateNaissElect),
+                    ]);
+                    
+                    $task_id = $response->json('task_id');
+                    $result_elector_exist = false;
+                    $lvname = "N/A";
+                    $result_cardelector = "N/A";
+                    if ($task_id) {
+                        // Start checking the task status
+                        list($lvname, $result_cardelector, $result_elector_exist) = $this->checkElectorStatus($task_id);
+                    }
+    
+                    //END CHECK ON LIST ELECTOR
+    
+                    
+                    $extrait = "";
+                    $observation = "";
+                    $agent_recences = "";
+                    if(array_key_exists(9, $arrCont)) $extrait = $arrCont[9]=="Y"?"Oui":"Non";
+                    $observation = "N/A"; //if(array_key_exists(14, $arrCont)) 
+                    if(array_key_exists(11, $arrCont)) $agent_recences = $arrCont[11];
+    
+                    if($result_elector_exist){
+                        //ADD PARRIN INFO IN ELECTOR LIST 2023
+                        $curr_index = ElectorParrain::count() + 1;
+                        // $lvget = LieuVote::where("code", "=", "$arrCont[9]")->first();
+                        ElectorParrain::create([
+                            'subid' => "E23_$curr_index",
+                            'nom_prenoms' => strtoupper($arrCont[2])." ".ucwords($arrCont[3]),
+                            'phone' => "$parrainPhone",
+                            'date_naiss' => "$dateNaiss",
+                            'lieu_naiss' => "N/A",
+                            'profession' => "$arrCont[6]",
+                            'genre' => "N/A",
+                            'adress_physiq' => "N/A",
+                            'adress_postal' => "N/A",
+                            'carte_elect' => "$result_cardelector",
+                            'nom_lv' => $lvname!=null?($lvname):"AUTRE CIRCONSCRIPTION",
+                            'commune_id' => $agCommune?->id??null,
+                            'agent_res_nompren' => "$agTerrain->nom $agTerrain->prenom",
+                            'agent_res_phone' => "$agTerrainPhone",
+                            'recenser' => "$agent_recences",
+                            'elect_date' => "2023",
+                            // 'created_at' => $created_it,
+                            // 'updated_at' => $created_it,
+                        ]);
+                    }
+    
+    
+                    $parrainCr = [
+                        'nom_pren_par' => "$agTerrain->nom $agTerrain->prenom",
+                        'telephone_par' => "$agTerrainPhone",
                         'recenser' => "$agent_recences",
-                        'elect_date' => "2023",
+                        'nom' => "$arrCont[2]",
+                        'prenom' => "$arrCont[3]",
+                        'list_elect' => $arrCont[7]=="Y"?"Oui":"Non",
+                        'cni_dispo' => $arrCont[8]=="Y"?"Oui":"Non",
+                        'is_milit' => $arrCont[10]=="M"?"Militant":"Sympathisant",
+                        'extrait' => "$extrait",
+                        'telephone' => "$parrainPhone",
+                        'date_naiss' => "$dateNaiss",
+                        // 'code_lv' => optional($arrCont[9])?"$arrCont[9]":"AUTRE CIRCONSCRIPTION",
+                        'commune_id' => $agCommune?->id??null,
+                        'residence' => "N/A",
+                        'profession' => "$arrCont[6]",
+                        'observation' => "$observation",
+                        'status' => $result_elector_exist?"Ok":"Non traité",
                         // 'created_at' => $created_it,
                         // 'updated_at' => $created_it,
-                    ]);
-                }
-
-
-                $parrainCr = [
-                    'nom_pren_par' => "$agTerrain->nom $agTerrain->prenom",
-                    'telephone_par' => "$agTerrainPhone",
-                    'recenser' => "$agent_recences",
-                    'nom' => "$arrCont[2]",
-                    'prenom' => "$arrCont[3]",
-                    'list_elect' => $arrCont[7]=="Y"?"Oui":"Non",
-                    'cni_dispo' => $arrCont[8]=="Y"?"Oui":"Non",
-                    'is_milit' => $arrCont[10]=="M"?"Militant":"Sympathisant",
-                    'extrait' => "$extrait",
-                    'telephone' => "$parrainPhone",
-                    'date_naiss' => "$dateNaiss",
-                    // 'code_lv' => optional($arrCont[9])?"$arrCont[9]":"AUTRE CIRCONSCRIPTION",
-                    'commune_id' => $agCommune?->id??null,
-                    'residence' => "N/A",
-                    'profession' => "$arrCont[6]",
-                    'observation' => "$observation",
-                    'status' => $result_elector_exist?"Ok":"Non traité",
-                    // 'created_at' => $created_it,
-                    // 'updated_at' => $created_it,
-                ];
-                //dd($parrainCr);
-                $parrain = Parrain::create(
-                    $parrainCr
-                );
-
-                $result = "No sms error message";
-                if($parrain){
-                    if($result_elector_exist){
-                        $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[2])." ".ucwords($arrCont[3]).",\nTu figures sur la liste electorale de 2023.\nGardes un contact permanent avec ton Parrain ($agTerrainPhone).\n\nPDCI Digital");
-                    }else{
-                        $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[2])." ".ucwords($arrCont[3]).",\nTu ne figures pas sur la liste electorale de 2023.\nPour un accompagnement administratif, rapproches toi de ton Parrain ($agTerrainPhone).\n\nPDCI Digital");
-                    }
-                
-                
-                    if( !empty($result) ){
-                        if(preg_match("/OK\:/i", $result)){
-                            $data->success = true;
-                            $data->message = "Recensement éffectué avec succès et message transmis";
-                            $data->error = "";
-                            $code = 200;
+                    ];
+                    //dd($parrainCr);
+                    $parrain = Parrain::create(
+                        $parrainCr
+                    );
+    
+                    $result = "No sms error message";
+                    if($parrain){
+                        if($result_elector_exist){
+                            $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[2])." ".ucwords($arrCont[3]).",\nTu figures sur la liste electorale de 2023.\nGardes un contact permanent avec ton Parrain ($agTerrainPhone).\n\nPDCI Digital");
+                        }else{
+                            $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[2])." ".ucwords($arrCont[3]).",\nTu ne figures pas sur la liste electorale de 2023.\nPour un accompagnement administratif, rapproches toi de ton Parrain ($agTerrainPhone).\n\nPDCI Digital");
+                        }
+                    
+                    
+                        if( !empty($result) ){
+                            if(preg_match("/OK\:/i", $result)){
+                                $data->success = true;
+                                $data->message = "Recensement éffectué avec succès et message transmis";
+                                $data->error = "";
+                                $code = 200;
+                            }else{
+                                $data->success = false;
+                                $data->error = $result;
+                                $data->message = "Recensement éffectué avec succès et message non transmis";
+                                $code = 202;
+                            }
                         }else{
                             $data->success = false;
                             $data->error = $result;
@@ -232,39 +239,34 @@ class ProcessParrainSms implements ShouldQueue
                             $code = 202;
                         }
                     }else{
-                        $data->success = false;
-                        $data->error = $result;
-                        $data->message = "Recensement éffectué avec succès et message non transmis";
-                        $code = 202;
-                    }
-                }else{
-                    if( !empty($result) ){
-                        if(preg_match("/OK\:/i", $result)){
-                            $data->success = true;
-                            $data->message = "Echec recensement et message transmis";
-                            $data->error = "";
-                            $code = 202;
+                        if( !empty($result) ){
+                            if(preg_match("/OK\:/i", $result)){
+                                $data->success = true;
+                                $data->message = "Echec recensement et message transmis";
+                                $data->error = "";
+                                $code = 202;
+                            }else{
+                                $data->success = false;
+                                $data->error = $result;
+                                $data->message = "Echec recensement et message non transmis";
+                                $code = 202;
+                            }
                         }else{
                             $data->success = false;
                             $data->error = $result;
                             $data->message = "Echec recensement et message non transmis";
                             $code = 202;
                         }
-                    }else{
-                        $data->success = false;
-                        $data->error = $result;
-                        $data->message = "Echec recensement et message non transmis";
-                        $code = 202;
                     }
+                }else{
+                    $data->success = true;
+                    $data->message = "Rien à enrégistrer!";
+                    $data->error = "";
+                    $code = 202;
                 }
-            }else{
-                $data->success = true;
-                $data->message = "Rien à enrégistrer!";
-                $data->error = "";
-                $code = 202;
+    
+            
             }
-
-        
         }
 
         $data->code = $code;
