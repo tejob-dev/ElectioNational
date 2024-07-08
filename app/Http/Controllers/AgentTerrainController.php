@@ -50,15 +50,15 @@ class AgentTerrainController extends Controller
         
         if ($request->ajax()) {
             
-            $agents = AgentTerrain::userlimit()->with('section', 'sousSection')->latest()->get();
+            $agents = AgentTerrain::userlimit()->with('commune')->latest()->get();
     
             return DataTables::of($agents)
-                ->addColumn('section', function ($agent) {
-                    return optional($agent->section)->libel ?? '-';
+                ->addColumn('commune', function ($agent) {
+                    return optional($agent->commune)->libel ?? '-';
                 })
-                ->addColumn('soussection', function ($agent) {
-                    return optional($agent->sousSection)->libel ?? '-';
-                })
+                // ->addColumn('soussection', function ($agent) {
+                //     return optional($agent->sousSection)->libel ?? '-';
+                // })
                 ->addColumn('action', function($row) use($del, $del2, $single, $agents, $usercr){
                     $data = $agents;
                     $itemId = print_r($row[0]);
@@ -75,7 +75,7 @@ class AgentTerrainController extends Controller
                     }else $actionBtn = "";
                     return $actionBtn;
                 })
-                ->rawColumns(['section', 'soussection', 'action'])
+                ->rawColumns(['commune', 'action'])
                 ->make(true);
         }
     }

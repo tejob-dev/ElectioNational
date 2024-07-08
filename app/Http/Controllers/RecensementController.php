@@ -79,7 +79,7 @@ class RecensementController extends Controller
             // $parrains = Parrain::all();
             return DataTables::of($items)
                 ->addColumn('districts', function ($item) {
-                    
+                    $this->fghijlist = [];
                     return optional($item)->departement?->region?->district?->libel ?? '-';
                 })
                 ->addColumn('regions', function ($item) {
@@ -95,7 +95,7 @@ class RecensementController extends Controller
                     return optional($item)->libel ?? '-';
                 })
                 ->addColumn('rgph', function ($item) {
-                    $counter = Commune::where('id', $item->id)->selectRaw('SUM(rgph_population) AS rgph_population_sum')
+                    $counter = Commune::where('id', "=", $item->id)->selectRaw('SUM(rgph_population) AS rgph_population_sum')
                     ->value('rgph_population_sum');
 
                     $this->rgphval = $counter;
@@ -130,12 +130,12 @@ class RecensementController extends Controller
                 })
                 ->addColumn('recensescni', function ($item) {
                     $count  = Parrain::whereIn('commune_id', function ($query) use($item) {
-                        $query->select('communes.id')
+                        $query->select('id')
                             ->from('communes')
                             // ->join('departements', 'communes.departement_id', '=', 'departements.id')
                             // ->join('regions', 'departements.region_id', '=', 'regions.id')
                             // ->join('districts', 'regions.district_id', '=', 'districts.id')
-                            ->where('communes.id', $item->id);
+                            ->where('id', $item->id);
                     })
                     ->where("cni_dispo", "=", "Oui")
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
@@ -276,7 +276,7 @@ class RecensementController extends Controller
             // $parrains = Parrain::all();
             return DataTables::of($items)
                 ->addColumn('districts', function ($item) {
-                    
+                    $this->fghijlist = [];
                     return optional($item)->region?->district?->libel ?? '-';
                 })
                 ->addColumn('regions', function ($item) {
@@ -473,7 +473,7 @@ class RecensementController extends Controller
             // $parrains = Parrain::all();
             return DataTables::of($items)
                 ->addColumn('districts', function ($item) {
-                    
+                    $this->fghijlist = [];
                     return optional($item)->district?->libel ?? '-';
                 })
                 ->addColumn('regions', function ($item) {
@@ -675,7 +675,7 @@ class RecensementController extends Controller
             // $parrains = Parrain::all();
             return DataTables::of($items)
                 ->addColumn('districts', function ($item) {
-                    
+                    $this->fghijlist = [];
                     return optional($item)->libel ?? '-';
                 })
                 ->addColumn('rgph', function ($item) {
@@ -1064,6 +1064,16 @@ class RecensementController extends Controller
             }
     
             return DataTables::of($parrains)
+                ->addColumn('district', function ($parrain) {
+                    // dd($parrain->agentterrain);
+                    return (optional($parrain->commune)->departement?->region?->district?->libel ?? "N/A");
+                })
+                ->addColumn('region', function ($parrain) {
+                    return (optional($parrain->commune)->departement?->region?->libel ?? "N/A");
+                })
+                ->addColumn('departement', function ($parrain) {
+                    return (optional($parrain->commune)->departement?->libel ?? "N/A");
+                })
                 ->addColumn('commune', function ($parrain) {
                     return (optional($parrain->commune)->libel ?? "N/A");
                 })

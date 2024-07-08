@@ -74,10 +74,13 @@
                                     Prénoms
                                 </th>
                                 <th class="px-4 py-3 text-center">
+                                    Profile
+                                </th>
+                                <th class="px-4 py-3 text-center">
                                     Téléphone
                                 </th>
                                 <th class="px-4 py-3 text-center">
-                                    Section
+                                    Commune
                                 </th>
                                 <!-- <th class="px-4 py-3 text-right">
                                     Sous Section
@@ -186,8 +189,9 @@
                         {data: 'id', name: 'id'},
                         {data: 'nom', name: 'nom'},
                         {data: 'prenom', name: 'prenom'},
+                        {data: 'profil', name: 'profil'},
                         {data: 'telephone', name: 'telephone'},
-                        {data: 'section', name: 'section'},
+                        {data: 'commune', name: 'commune'},
                         // {data: 'soussection', name: 'soussection'},
                         {data: 'action', name: 'action'},
                     ],
