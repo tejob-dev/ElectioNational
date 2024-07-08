@@ -4,19 +4,21 @@ namespace App\Http\Controllers;
 
 use DataTables;
 use Carbon\Carbon;
+use App\Models\Region;
 use App\Models\Commune;
 use App\Models\Parrain;
 use App\Models\Section;
+use App\Models\District;
 use App\Models\LieuVote;
 use App\Models\Quartier;
+use App\Models\RCommune;
+
+use App\Models\Departement;
 use App\Models\SousSection;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-
 use App\Models\AgentDeSection;
-use App\Models\District;
 use App\Models\ElectorParrain;
-use App\Models\RCommune;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -30,6 +32,598 @@ class RecensementController extends Controller
     protected $allcount = 0;
     protected $fghijlist = [];
  
+    public function getCommuneList(Request $request, $single){
+        if ($request->ajax()) {
+            // dd($lieus);
+            $searchidx = get_item_of_datatables($request->all());
+                
+            if(sizeof($searchidx) > 0){
+                // dd($searchidx);
+                if( sizeof($searchidx) == 1 && (array_key_exists("communes", $searchidx) || array_key_exists("name", $searchidx)) ){ 
+                    $searVal = array_key_exists("communes", $searchidx)?($searchidx["communes"]):$searchidx["name"];
+                    if(array_key_exists("name", $searchidx))
+                    $items = Commune::where('libel', '=', ''.str_replace(['(', ')'], "",  $searVal).'' )->get();
+                    else $items = Commune::where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
+                }else if(array_key_exists("districts", $searchidx) 
+                    || array_key_exists("regions", $searchidx)
+                    || array_key_exists("departements", $searchidx)
+                    // || array_key_exists("departm", $searchidx)
+                    // || array_key_exists("communem", $searchidx)
+                    // || array_key_exists("sectionm", $searchidx)
+                ){
+                    /// QUERY MODIFIER BASED ON RELATIONSHIP
+                    $queryB = Commune::
+                        leftJoin('departements', 'communes.departement_id', '=', 'departements.id')
+                        ->leftJoin('regions', 'departements.region_id', '=', 'regions.id')
+                        ->leftJoin('districts', 'regions.district_id', '=', 'districts.id')
+                        ->select('communes.*')
+                        ->groupBy('communes.id');
+
+                    // if( array_key_exists("parrainm", $searchidx) ) $queryB = $queryB->having('total_parrains', '=', str_replace(['(', ')'], "",  $searchidx["parrainm"]));
+
+                    if(array_key_exists("districts", $searchidx)) $queryB = $queryB->where('districts.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["districts"]).'%' );
+                    if(array_key_exists("regions", $searchidx)) $queryB = $queryB->where('regions.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["regions"]).'%' );
+                    if(array_key_exists("departements", $searchidx)) $queryB = $queryB->where('departements.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["departements"]).'%' );
+                    if(array_key_exists("communes", $searchidx)) $queryB = $queryB->where('communes.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["communes"]).'%' );
+                    
+                    // dd($searchidx["sectionm"], $queryB->get());
+                    $items = $queryB->get();  //CHANGE
+                }else{
+                    $items = new Commune; 
+                    $items = $items->newQuery();  //CHANGE
+                }
+            }else{
+                $items = new Commune; 
+                $items = $items->newQuery();
+            }
+            // $parrains = Parrain::all();
+            return DataTables::of($items)
+                ->addColumn('districts', function ($item) {
+                    
+                    return optional($item)->departement?->region?->district?->libel ?? '-';
+                })
+                ->addColumn('regions', function ($item) {
+                    
+                    return optional($item)->departement?->region?->libel ?? '-';
+                })
+                ->addColumn('departements', function ($item) {
+                    
+                    return optional($item)->departement?->libel ?? '-';
+                })
+                ->addColumn('communes', function ($item) {
+                    
+                    return optional($item)->libel ?? '-';
+                })
+                ->addColumn('rgph', function ($item) {
+                    $counter = Commune::where('id', $item->id)->selectRaw('SUM(rgph_population) AS rgph_population_sum')
+                    ->value('rgph_population_sum');
+
+                    $this->rgphval = $counter;
+                    return $counter ?? '-';
+                })
+                ->addColumn('rgphattente', function ($item) {
+                    $this->rgphattente = round($this->rgphval*0.45);
+                    return $this->rgphattente;
+                })
+                ->addColumn('inscritcei', function ($item) {
+                    return $item?->nbrinscrit;
+                })
+                ->addColumn('objectif', function ($item) {
+                    $this->objectif = $this->rgphattente - ($item?->nbrinscrit);
+                    return $this->objectif;
+                })
+                ->addColumn('electorat', function ($item) {
+                    $count  = ElectorParrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            // ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            // ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('communes.id', $item->id);
+                    })
+                    ->where("elect_date", "=", "2023")
+                    ->selectRaw('COUNT(elector_parrains.id) AS elector_parrains_count')
+                    ->value('elector_parrains_count');
+
+                    $this->fghijlist[0] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recensescni', function ($item) {
+                    $count  = Parrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            // ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            // ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('communes.id', $item->id);
+                    })
+                    ->where("cni_dispo", "=", "Oui")
+                    ->selectRaw('COUNT(parrains.id) AS parrains_count')
+                    ->value('parrains_count');
+
+                    $this->fghijlist[1] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recensesncni', function ($item) {
+                    $count  = Parrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            // ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            // ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('communes.id', $item->id);
+                    })
+                    ->where("cni_dispo", "=", "Non")
+                    ->selectRaw('COUNT(parrains.id) AS parrains_count')
+                    ->value('parrains_count');
+
+                    $this->fghijlist[2] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recensesextr', function ($item) {
+                    $count  = Parrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            // ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            // ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('communes.id', $item->id);
+                    })
+                    ->where("extrait", "=", "Oui")
+                    ->selectRaw('COUNT(parrains.id) AS parrains_count')
+                    ->value('parrains_count');
+
+                    $this->fghijlist[3] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recensesnextr', function ($item) {
+                    $count  = Parrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            // ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            // ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('communes.id', $item->id);
+                    })
+                    ->where("extrait", "=", "Non")
+                    ->selectRaw('COUNT(parrains.id) AS parrains_count')
+                    ->value('parrains_count');
+
+                    $this->fghijlist[4] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recenses', function ($item) {
+                    $this->allcount = 0;
+                    foreach($this->fghijlist as $itemval){
+                        $this->allcount += $itemval;
+                    }
+                    return $this->allcount??"0";
+                })
+                ->addColumn('restrecenses', function ($item) {
+                    $restrecenses = $this->objectif - $this->allcount;
+                    return $restrecenses??"0";
+                })
+                ->rawColumns([
+                    'districts',
+                    'regions',
+                    'departements',
+                    'communes',
+                    'rgph',
+                    'rgphattente', 
+                    'inscritcei', 
+                    'objectif',
+                    'recenses',
+                    'electorat',
+                    'recensescni',
+                    'recensesncni',
+                    'recensesextr',
+                    'recensesnextr',
+                    'restrecenses',
+                    ])
+                ->toJson();
+
+            
+
+            // dd($dataJson->getContent());
+
+            
+                // ->make(true);
+
+        }
+    }
+
+    public function getDepartementList(Request $request, $single){
+        if ($request->ajax()) {
+            // dd($lieus);
+            $searchidx = get_item_of_datatables($request->all());
+                
+            if(sizeof($searchidx) > 0){
+                // dd($searchidx);
+                if( sizeof($searchidx) == 1 && (array_key_exists("departements", $searchidx) || array_key_exists("name", $searchidx)) ){ 
+                    $searVal = array_key_exists("departements", $searchidx)?($searchidx["departements"]):$searchidx["name"];
+                    if(array_key_exists("name", $searchidx))
+                    $items = Departement::where('libel', '=', ''.str_replace(['(', ')'], "",  $searVal).'' )->get();
+                    else $items = Departement::where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
+                }else if(array_key_exists("districts", $searchidx) 
+                    || array_key_exists("regions", $searchidx)
+                    // || array_key_exists("departm", $searchidx)
+                    // || array_key_exists("communem", $searchidx)
+                    // || array_key_exists("sectionm", $searchidx)
+                ){
+                    /// QUERY MODIFIER BASED ON RELATIONSHIP
+                    $queryB = Departement::
+                        leftJoin('regions', 'departements.region_id', '=', 'regions.id')
+                        ->leftJoin('districts', 'regions.district_id', '=', 'districts.id')
+                        ->select('departements.*')
+                        ->groupBy('departements.id');
+
+                    // if( array_key_exists("parrainm", $searchidx) ) $queryB = $queryB->having('total_parrains', '=', str_replace(['(', ')'], "",  $searchidx["parrainm"]));
+
+                    if(array_key_exists("districts", $searchidx)) $queryB = $queryB->where('districts.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["districts"]).'%' );
+                    if(array_key_exists("regions", $searchidx)) $queryB = $queryB->where('regions.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["regions"]).'%' );
+                    if(array_key_exists("departements", $searchidx)) $queryB = $queryB->where('departements.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["departements"]).'%' );
+                    
+                    // dd($searchidx["sectionm"], $queryB->get());
+                    $items = $queryB->get();  //CHANGE
+                }else{
+                    $items = new Departement; 
+                    $items = $items->newQuery();  //CHANGE
+                }
+            }else{
+                $items = new Departement; 
+                $items = $items->newQuery();
+            }
+            // $parrains = Parrain::all();
+            return DataTables::of($items)
+                ->addColumn('districts', function ($item) {
+                    
+                    return optional($item)->region?->district?->libel ?? '-';
+                })
+                ->addColumn('regions', function ($item) {
+                    
+                    return optional($item)->region?->libel ?? '-';
+                })
+                ->addColumn('departements', function ($item) {
+                    
+                    return optional($item)->libel ?? '-';
+                })
+                ->addColumn('rgph', function ($item) {
+                    $counter = Commune::whereIn('departement_id', function ($query) use($item) {
+                        $query->select('departements.id')
+                            ->from('departements')
+                            // ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('departements.id', $item->id);
+                    })
+                    ->selectRaw('SUM(rgph_population) AS rgph_population_sum')
+                    ->value('rgph_population_sum');
+
+                    $this->rgphval = $counter;
+                    return $counter ?? '-';
+                })
+                ->addColumn('rgphattente', function ($item) {
+                    $this->rgphattente = round($this->rgphval*0.45);
+                    return $this->rgphattente;
+                })
+                ->addColumn('inscritcei', function ($item) {
+                    return $item?->nbrinscrit;
+                })
+                ->addColumn('objectif', function ($item) {
+                    $this->objectif = $this->rgphattente - ($item?->nbrinscrit);
+                    return $this->objectif;
+                })
+                ->addColumn('electorat', function ($item) {
+                    $count  = ElectorParrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            // ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('departements.id', $item->id);
+                    })
+                    ->where("elect_date", "=", "2023")
+                    ->selectRaw('COUNT(elector_parrains.id) AS elector_parrains_count')
+                    ->value('elector_parrains_count');
+
+                    $this->fghijlist[0] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recensescni', function ($item) {
+                    $count  = Parrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            // ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('departements.id', $item->id);
+                    })
+                    ->where("cni_dispo", "=", "Oui")
+                    ->selectRaw('COUNT(parrains.id) AS parrains_count')
+                    ->value('parrains_count');
+
+                    $this->fghijlist[1] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recensesncni', function ($item) {
+                    $count  = Parrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            // ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('departements.id', $item->id);
+                    })
+                    ->where("cni_dispo", "=", "Non")
+                    ->selectRaw('COUNT(parrains.id) AS parrains_count')
+                    ->value('parrains_count');
+
+                    $this->fghijlist[2] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recensesextr', function ($item) {
+                    $count  = Parrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            // ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('departements.id', $item->id);
+                    })
+                    ->where("extrait", "=", "Oui")
+                    ->selectRaw('COUNT(parrains.id) AS parrains_count')
+                    ->value('parrains_count');
+
+                    $this->fghijlist[3] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recensesnextr', function ($item) {
+                    $count  = Parrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            // ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('departements.id', $item->id);
+                    })
+                    ->where("extrait", "=", "Non")
+                    ->selectRaw('COUNT(parrains.id) AS parrains_count')
+                    ->value('parrains_count');
+
+                    $this->fghijlist[4] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recenses', function ($item) {
+                    $this->allcount = 0;
+                    foreach($this->fghijlist as $itemval){
+                        $this->allcount += $itemval;
+                    }
+                    return $this->allcount??"0";
+                })
+                ->addColumn('restrecenses', function ($item) {
+                    $restrecenses = $this->objectif - $this->allcount;
+                    return $restrecenses??"0";
+                })
+                ->rawColumns([
+                    'districts',
+                    'regions',
+                    'departements',
+                    'rgph',
+                    'rgphattente', 
+                    'inscritcei', 
+                    'objectif',
+                    'recenses',
+                    'electorat',
+                    'recensescni',
+                    'recensesncni',
+                    'recensesextr',
+                    'recensesnextr',
+                    'restrecenses',
+                    ])
+                ->toJson();
+
+            
+
+            // dd($dataJson->getContent());
+
+            
+                // ->make(true);
+
+        }
+    }
+
+    public function getRegionList(Request $request, $single){
+
+        if ($request->ajax()) {
+            // dd($lieus);
+            $searchidx = get_item_of_datatables($request->all());
+                
+            if(sizeof($searchidx) > 0){
+                // dd($searchidx);
+                if( sizeof($searchidx) == 1 && (array_key_exists("regions", $searchidx) || array_key_exists("name", $searchidx)) ){ 
+                    $searVal = array_key_exists("regions", $searchidx)?($searchidx["regions"]):$searchidx["name"];
+                    if(array_key_exists("name", $searchidx))
+                    $items = Region::where('libel', '=', ''.str_replace(['(', ')'], "",  $searVal).'' )->get();
+                    else $items = Region::where('libel', 'like', '%'.str_replace(['(', ')'], "",  $searVal).'%' ); //CHANGE
+                }else if(array_key_exists("districts", $searchidx) 
+                    // || array_key_exists("regionm", $searchidx)
+                    // || array_key_exists("departm", $searchidx)
+                    // || array_key_exists("communem", $searchidx)
+                    // || array_key_exists("sectionm", $searchidx)
+                ){
+                    /// QUERY MODIFIER BASED ON RELATIONSHIP
+                    $queryB = Region::leftJoin('districts', 'regions.district_id', '=', 'districts.id')
+                        ->select('regions.*')
+                        ->groupBy('regions.id');
+
+                    // if( array_key_exists("parrainm", $searchidx) ) $queryB = $queryB->having('total_parrains', '=', str_replace(['(', ')'], "",  $searchidx["parrainm"]));
+
+                    if(array_key_exists("districts", $searchidx)) $queryB = $queryB->where('districts.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["districts"]).'%' );
+                    if(array_key_exists("regions", $searchidx)) $queryB = $queryB->where('regions.libel', 'like', '%'.str_replace(['(', ')'], "",  $searchidx["regions"]).'%' );
+                    
+                    // dd($searchidx["sectionm"], $queryB->get());
+                    $items = $queryB->get();  //CHANGE
+                }else{
+                    $items = new Region; 
+                    $items = $items->newQuery();  //CHANGE
+                }
+            }else{
+                $items = new Region; 
+                $items = $items->newQuery();
+            }
+            // $parrains = Parrain::all();
+            return DataTables::of($items)
+                ->addColumn('districts', function ($item) {
+                    
+                    return optional($item)->district?->libel ?? '-';
+                })
+                ->addColumn('regions', function ($item) {
+                    
+                    return optional($item)->libel ?? '-';
+                })
+                ->addColumn('rgph', function ($item) {
+                    $counter = Commune::whereIn('departement_id', function ($query) use($item) {
+                        $query->select('departements.id')
+                            ->from('departements')
+                            ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('regions.id', $item->id);
+                    })
+                    ->selectRaw('SUM(rgph_population) AS rgph_population_sum')
+                    ->value('rgph_population_sum');
+
+                    $this->rgphval = $counter;
+                    return $counter ?? '-';
+                })
+                ->addColumn('rgphattente', function ($item) {
+                    $this->rgphattente = round($this->rgphval*0.45);
+                    return $this->rgphattente;
+                })
+                ->addColumn('inscritcei', function ($item) {
+                    return $item?->nbrinscrit;
+                })
+                ->addColumn('objectif', function ($item) {
+                    $this->objectif = $this->rgphattente - ($item?->nbrinscrit);
+                    return $this->objectif;
+                })
+                ->addColumn('electorat', function ($item) {
+                    $count  = ElectorParrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('regions.id', $item->id);
+                    })
+                    ->where("elect_date", "=", "2023")
+                    ->selectRaw('COUNT(elector_parrains.id) AS elector_parrains_count')
+                    ->value('elector_parrains_count');
+
+                    $this->fghijlist[0] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recensescni', function ($item) {
+                    $count  = Parrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('regions.id', $item->id);
+                    })
+                    ->where("cni_dispo", "=", "Oui")
+                    ->selectRaw('COUNT(parrains.id) AS parrains_count')
+                    ->value('parrains_count');
+
+                    $this->fghijlist[1] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recensesncni', function ($item) {
+                    $count  = Parrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('regions.id', $item->id);
+                    })
+                    ->where("cni_dispo", "=", "Non")
+                    ->selectRaw('COUNT(parrains.id) AS parrains_count')
+                    ->value('parrains_count');
+
+                    $this->fghijlist[2] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recensesextr', function ($item) {
+                    $count  = Parrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('regions.id', $item->id);
+                    })
+                    ->where("extrait", "=", "Oui")
+                    ->selectRaw('COUNT(parrains.id) AS parrains_count')
+                    ->value('parrains_count');
+
+                    $this->fghijlist[3] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recensesnextr', function ($item) {
+                    $count  = Parrain::whereIn('commune_id', function ($query) use($item) {
+                        $query->select('communes.id')
+                            ->from('communes')
+                            ->join('departements', 'communes.departement_id', '=', 'departements.id')
+                            ->join('regions', 'departements.region_id', '=', 'regions.id')
+                            // ->join('districts', 'regions.district_id', '=', 'districts.id')
+                            ->where('regions.id', $item->id);
+                    })
+                    ->where("extrait", "=", "Non")
+                    ->selectRaw('COUNT(parrains.id) AS parrains_count')
+                    ->value('parrains_count');
+
+                    $this->fghijlist[4] = $count;
+                    return $count??"0";
+                })
+                ->addColumn('recenses', function ($item) {
+                    $this->allcount = 0;
+                    foreach($this->fghijlist as $itemval){
+                        $this->allcount += $itemval;
+                    }
+                    return $this->allcount??"0";
+                })
+                ->addColumn('restrecenses', function ($item) {
+                    $restrecenses = $this->objectif - $this->allcount;
+                    return $restrecenses??"0";
+                })
+                ->rawColumns([
+                    'districts',
+                    'regions',
+                    'rgph',
+                    'rgphattente', 
+                    'inscritcei', 
+                    'objectif',
+                    'recenses',
+                    'electorat',
+                    'recensescni',
+                    'recensesncni',
+                    'recensesextr',
+                    'recensesnextr',
+                    'restrecenses',
+                    ])
+                ->toJson();
+
+            
+
+            // dd($dataJson->getContent());
+
+            
+                // ->make(true);
+
+        }
+
+    }
+
     public function getDistrictList(Request $request, $single){
         if ($request->ajax()) {
             // dd($lieus);
@@ -470,8 +1064,14 @@ class RecensementController extends Controller
             }
     
             return DataTables::of($parrains)
+                ->addColumn('commune', function ($parrain) {
+                    return (optional($parrain->commune)->libel ?? "N/A");
+                })
                 ->addColumn('agent', function ($parrain) {
                     return (optional($parrain->agentterrain)->nom ?? $parrain->nom_pren_par)." ".(optional($parrain->agentterrain)->prenom ?? '');
+                })
+                ->addColumn('profil', function ($parrain) {
+                    return (optional($parrain->agentterrain)->profil ?? "-");
                 })
                 ->addColumn('telephoneag', function ($parrain) {
                     return (optional($parrain->agentterrain)->telephone ?? $parrain->telephone_par);
@@ -502,7 +1102,11 @@ class RecensementController extends Controller
                     // }
                     return $listofpv;
                 })
-                ->rawColumns(['agent', 'codelv', 'telephoneag', 'section', 'createdat', 'pphoto'])
+                ->rawColumns(['agent', 
+                'codelv', 
+                'commune', 
+                'profil', 
+                'telephoneag', 'section', 'createdat', 'pphoto'])
                 ->toJson();
         }
     }
@@ -571,11 +1175,129 @@ class RecensementController extends Controller
     }
    
     public function listRegion(Request $request){
+        $curr_user = Auth::user();
+        $agent_Section = null;
+        $isOperateur = false;
+        $sectionModel = new Region();
+        $query = $sectionModel->newQuery();
 
+        if($request->search){
+            $sear = $request->search;
+            if($request->items == 0){
+                $query //->with("commune")
+                ->where("libel", "like", "%".$request->search."%");
+                // ->orWhereHas("commune", function($q) use($sear){
+                //     $q->where("libel", "like", "%".$sear."%");
+                // });
+            }
+            // if($request->items == 1){
+            //     $query->where("libel", "like", "%".$request->search."%");
+            // }
+            
+            // if($request->items == 2){
+            //     $query->orWhereHas("quartiers", function($q) use($sear){
+            //         $q->where("libel", "like", "%".$sear."%");
+            //     })
+            //     ->with(['quartiers' => function ($query) use ($sear) {
+            //         $query->where('libel', "like", "%".$sear."%");
+            //     }]);
+            // }
+            
+            // if($request->items == 3){
+            //     $query->orWhereHas("quartiers.lieuvotes", function($q) use($sear){
+            //         $q->where("libel", "like", "%".$sear."%");;
+            //     })
+            //     ->with(['quartiers.lieuvotes' => function ($query) use ($sear) {
+            //         $query->where('libel', "like", "%".$sear."%");
+            //     }]);
+            // }
+            
+        }
+
+        if($curr_user->hasRole("super-admin") || $curr_user->hasRole("Admin") || $curr_user->hasRole("Invité") || $curr_user->hasPermissionTo("can-open-all")){
+            $sections = $query->latest()->paginate(4)
+            ->withQueryString();
+        }
+
+        if($curr_user->hasPermissionTo("can-open-section-only")){
+            $isOperateur = true;
+            $name = $curr_user->name;
+            $prenom = $curr_user->prenom;
+            $agent_Section = AgentDeSection::where([
+                ["nom","like", $name],
+                ["prenom","like", $prenom],
+            ])->with("section.commune")->first();
+            $sectionId = $agent_Section->section->id;
+            
+            $sections = $query->where("id", $sectionId)->paginate(4)
+            ->withQueryString();
+        }
+        
+
+        return view("app.recens.index-region", compact("sections", "isOperateur"));
     }
     
     public function listDepartement(Request $request){
+        $curr_user = Auth::user();
+        $agent_Section = null;
+        $isOperateur = false;
+        $sectionModel = new Departement();
+        $query = $sectionModel->newQuery();
 
+        if($request->search){
+            $sear = $request->search;
+            if($request->items == 0){
+                $query //->with("commune")
+                ->where("libel", "like", "%".$request->search."%");
+                // ->orWhereHas("commune", function($q) use($sear){
+                //     $q->where("libel", "like", "%".$sear."%");
+                // });
+            }
+            // if($request->items == 1){
+            //     $query->where("libel", "like", "%".$request->search."%");
+            // }
+            
+            // if($request->items == 2){
+            //     $query->orWhereHas("quartiers", function($q) use($sear){
+            //         $q->where("libel", "like", "%".$sear."%");
+            //     })
+            //     ->with(['quartiers' => function ($query) use ($sear) {
+            //         $query->where('libel', "like", "%".$sear."%");
+            //     }]);
+            // }
+            
+            // if($request->items == 3){
+            //     $query->orWhereHas("quartiers.lieuvotes", function($q) use($sear){
+            //         $q->where("libel", "like", "%".$sear."%");;
+            //     })
+            //     ->with(['quartiers.lieuvotes' => function ($query) use ($sear) {
+            //         $query->where('libel', "like", "%".$sear."%");
+            //     }]);
+            // }
+            
+        }
+
+        if($curr_user->hasRole("super-admin") || $curr_user->hasRole("Admin") || $curr_user->hasRole("Invité") || $curr_user->hasPermissionTo("can-open-all")){
+            $sections = $query->latest()->paginate(4)
+            ->withQueryString();
+        }
+
+        if($curr_user->hasPermissionTo("can-open-section-only")){
+            $isOperateur = true;
+            $name = $curr_user->name;
+            $prenom = $curr_user->prenom;
+            $agent_Section = AgentDeSection::where([
+                ["nom","like", $name],
+                ["prenom","like", $prenom],
+            ])->with("section.commune")->first();
+            $sectionId = $agent_Section->section->id;
+            
+            $sections = $query->where("id", $sectionId)->paginate(4)
+            ->withQueryString();
+        }
+        
+
+        return view("app.recens.index-departement", compact("sections", "isOperateur"));
     }
 
     public function listCommune(Request $request){

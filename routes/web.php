@@ -59,6 +59,9 @@ Route::get("/recens/parrains/{single}/data", [RecensementController::class, "get
 Route::get("/recens/quartiers/{single}/data", [RecensementController::class, "getQuartierList"])->name("recens.quartiers.list");
 Route::get("/recens/lvotes/{single}/data", [RecensementController::class, "getLVList"])->name("recens.lvotes.list");
 Route::get("/recens/districts/{single}/data", [RecensementController::class, "getDistrictList"])->name("recens.districts.list");
+Route::get("/recens/communes/{single}/data", [RecensementController::class, "getCommuneList"])->name("recens.communes.list");
+Route::get("/recens/regions/{single}/data", [RecensementController::class, "getRegionList"])->name("recens.regions.list");
+Route::get("/recens/departements/{single}/data", [RecensementController::class, "getDepartementList"])->name("recens.departements.list");
 
 Route::get("/agentterrains/{single}/data", [AgentTerrainController::class, "getAgentList"])->name("agentterrains.list");
 

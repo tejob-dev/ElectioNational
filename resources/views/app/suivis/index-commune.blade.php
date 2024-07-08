@@ -112,7 +112,8 @@
                 
                 var table = $('#table1').DataTable({
                     dom: 'lfrtip',
-                    info: true,
+                    info: false,
+                    debug: false,
                     // orderCellsTop: true,
                     // fixedHeader: true,
                     // pageLength: 5,

@@ -32,8 +32,7 @@
 
             #table1 > thead > tr:nth-child(2) > th:nth-child(1), 
             #table1 > thead > tr:nth-child(2) > th:nth-child(2), 
-            #table1 > thead > tr:nth-child(2) > th:nth-child(3), 
-            #table1 > thead > tr:nth-child(2) > th:nth-child(4)  {
+            #table1 > thead > tr:nth-child(2) > th:nth-child(3) {
                 border-top: none;
             }
 
@@ -46,12 +45,12 @@
                 background-color: #D8BFD8!important;
                 color: #000;
             }
-            #table1 > tbody > tr > td:nth-child(8) {
+            #table1 > tbody > tr > td:nth-child(7) {
                 background-color: #D8BFD8;
                 color: #000;
             }
 
-            #table1 > tbody > tr > td:nth-child(4), #table1 > tbody > tr > td:nth-child(5) {
+            #table1 > tbody > tr > td:nth-child(3), #table1 > tbody > tr > td:nth-child(4) {
                 background-color: #98FB98;
             }
             
@@ -59,7 +58,7 @@
                 background-color: #98FB98!important;
             }
             
-            #table1 > tbody > tr > td:nth-child(5), #table1 > tbody > tr > td:nth-child(7) {
+            #table1 > tbody > tr > td:nth-child(4), #table1 > tbody > tr > td:nth-child(6) {
                 background-color: #98FB98;
             }
 
@@ -67,7 +66,7 @@
                 background-color: #FFDAB9!important;
             }
             
-            #table1 > tbody > tr > td:nth-child(6) {
+            #table1 > tbody > tr > td:nth-child(5) {
                 background-color: #FFDAB9;
             }
 
@@ -83,8 +82,7 @@
             #table1 > tbody > tr > td:nth-child(1),
              #table1 > tbody > tr > td:nth-child(2),
              #table1 > tbody > tr > td:nth-child(3),
-             #table1 > tbody > tr > td:nth-child(4),
-              #table1 > tbody > tr > td:nth-child(10)  {
+              #table1 > tbody > tr > td:nth-child(9)  {
                 background-color: #228B22;
                 color: #fff;
             }
@@ -94,7 +92,7 @@
                 color: #000;
             }
             
-            #table1 > tbody > tr > td:nth-child(9) {
+            #table1 > tbody > tr > td:nth-child(8) {
                 background-color: #ADD8E6;
                 color: #000;
             }
@@ -112,7 +110,7 @@
                 background-color: #FFFF00!important;
             }
             
-            #table1 > tbody > tr > td:nth-child(12), #table1 > tbody > tr > td:nth-child(11) {
+            #table1 > tbody > tr > td:nth-child(11), #table1 > tbody > tr > td:nth-child(10) {
                 background-color: #FFFF00;
             }
 
@@ -120,7 +118,7 @@
                 background-color: #D3D3D3!important;
             }
             
-            #table1 > tbody > tr > td:nth-child(13), #table1 > tbody > tr > td:nth-child(14) {
+            #table1 > tbody > tr > td:nth-child(12), #table1 > tbody > tr > td:nth-child(13) {
                 background-color: #D3D3D3;
             }
 
@@ -128,7 +126,7 @@
                 background-color: #FFB6C1!important;
             }
             
-            #table1 > tbody > tr > td:nth-child(15) {
+            #table1 > tbody > tr > td:nth-child(14) {
                 background-color: #FFB6C1;
             }
 
@@ -142,7 +140,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Recensement - Communes
+            Recensement - Départements
         </h2>
     </x-slot>
 
@@ -166,7 +164,6 @@
                                 <th class="main-header" rowspan="1"></th>
                                 <th class="main-header" rowspan="1"></th>
                                 <th class="main-header" rowspan="1"></th>
-                                <th class="main-header" rowspan="1"></th>
                                 <th class="header-main" colspan="4">OBJECTIFS DE RECENSEMENT</th>
                                 <th class="header-secondary" colspan="8">DONNÉES DE RECENSEMENT</th>
                             </tr>
@@ -174,7 +171,6 @@
                                 <th class="main-header" rowspan="1">DISTRICTS</th>
                                 <th class="main-header" rowspan="1">REGIONS</th>
                                 <th class="main-header" rowspan="1">DEPARTEMENTS</th>
-                                <th class="main-header" rowspan="1">COMMUNES</th>
                                 <th class="sub-header">RGPH 2021</th>
                                 <th class="sub-header-orange">ATTENTE 45% RGPH</th>
                                 <th class="sub-header">INSCRITS LISTE CEI 2023</th>
@@ -248,7 +244,7 @@
                                     $(api.column(colIdx).header()).index()
                                 );
                                 var title = $(cell).text();
-                                if([0, 1, 2, 3].includes(colIdx)){
+                                if([0, 1, 2].includes(colIdx)){
                                     $(cell).html('<input id="input'+colIdx+'" type="text" placeholder="…" style="min-width: 40px;width: 100%;border: 1px solid #c1bdbd;border-radius: 7px; min-width: 80px;" />');
                                 }else{
                                     $(cell).html('');
@@ -319,21 +315,20 @@
                             //var columnNameValue = this.column('column_name').data()[0];
                             //console.log('Value of column "column_name" for this row:', columnNameValue);
                         });
-                        $('<tr><td class="sorting_1">TOTAL GENERALE</td><td></td><td></td><td></td><td>'+listOfSum[0]+'</td><td>'+listOfSum[1]+'</td><td>'+listOfSum[2]+'</td><td>'+listOfSum[3]+'</td><td>'+listOfSum[4]+'</td><td>'+listOfSum[5]+'</td><td>'+listOfSum[6]+'</td><td>'+listOfSum[7]+'</td><td>'+listOfSum[8]+'</td><td>'+listOfSum[9]+'</td><td>'+listOfSum[10]+'</td></tr>')
+                        $('<tr><td class="sorting_1">TOTAL GENERALE</td><td></td><td></td><td>'+listOfSum[0]+'</td><td>'+listOfSum[1]+'</td><td>'+listOfSum[2]+'</td><td>'+listOfSum[3]+'</td><td>'+listOfSum[4]+'</td><td>'+listOfSum[5]+'</td><td>'+listOfSum[6]+'</td><td>'+listOfSum[7]+'</td><td>'+listOfSum[8]+'</td><td>'+listOfSum[9]+'</td><td>'+listOfSum[10]+'</td></tr>')
                         .insertAfter($('table > tbody tr:last-child()'));
                         //console.log(listOfSum);
                         console.log("list of sum");
                     },
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('recens.communes.list', ['single'=>0]) }}",
+                    ajax: "{{ route('recens.departements.list', ['single'=>0]) }}",
                     "pagingType": 'full_numbers',
                     "deferRender": true,
                     columns: [
                         {data: 'districts', name: 'districts'},
                         {data: 'regions', name: 'regions'},
                         {data: 'departements', name: 'departements'},
-                        {data: 'communes', name: 'communes'},
                         {data: 'rgph', name: 'rgph'},
                         {data: 'rgphattente', name: 'rgphattente'},
                         {data: 'inscritcei', name: 'inscritcei'},
