@@ -25,7 +25,7 @@
 
             th,
             td {
-                border: 1px solid #000;
+                border: 1px solid #fff;
                 text-align: center;
                 padding: 10px;
             }
@@ -77,7 +77,8 @@
                 color: #fff;
             }
             
-            #table1 > tbody > tr > td:nth-child(1), #table1 > tbody > tr > td:nth-child(7)  {
+            /*#table1 > tbody > tr > td:nth-child(1), */
+            #table1 > tbody > tr > td:nth-child(7)  {
                 background-color: #228B22;
                 color: #fff;
             }
@@ -152,12 +153,12 @@
                     <table id="table1" class="table table-borderless table-hover">
                         <thead class="text-gray-700">
                             <tr>
-                                <th class="main-header" rowspan="1"></th>
+                                <th class="" rowspan="1"></th>
                                 <th class="header-main" colspan="4">OBJECTIFS DE RECENSEMENT</th>
                                 <th class="header-secondary" colspan="8">DONNÉES DE RECENSEMENT</th>
                             </tr>
                             <tr>
-                                <th class="main-header" rowspan="1">DISTRICTS</th>
+                                <th class="" rowspan="1">DISTRICTS</th>
                                 <th class="sub-header">RGPH 2021</th>
                                 <th class="sub-header-orange">ATTENTE 45% RGPH</th>
                                 <th class="sub-header">INSCRITS LISTE CEI 2023</th>

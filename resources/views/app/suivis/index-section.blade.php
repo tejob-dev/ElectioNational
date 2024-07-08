@@ -133,7 +133,7 @@
                             .columns()
                             .eq(0)
                             .each(function (colIdx) {
-                                // Set the header cell to contain the input element
+                                // Set the header cells to contain the input element
                                 var cell = $('.filters th').eq(
                                     $(api.column(colIdx).header()).index()
                                 );
