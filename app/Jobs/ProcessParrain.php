@@ -102,7 +102,7 @@ class ProcessParrain implements ShouldQueue
 
         $agTerrainPhone = $this->cleanPhone($arrCont[3]);
         $parrainPhone = $this->cleanPhone($arrCont[7]);
-        $agTerrain = AgentTerrain::with("lieuVote")->where("telephone", $agTerrainPhone)->first();
+        $agTerrain = AgentTerrain::with("commune")->where("telephone", $agTerrainPhone)->first();
 
         if(!$agTerrain) {
 
