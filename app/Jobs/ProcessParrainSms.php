@@ -60,6 +60,7 @@ class ProcessParrainSms implements ShouldQueue
     public function lauchProcForParrain($cont){
         $data = new \stdClass();
         $code = 404;
+        $cont = str_replace("#", "", $cont);
         $arrCont = explode("*", $cont);
 
         if(sizeof($arrCont) <= 6){
