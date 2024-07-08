@@ -6,11 +6,12 @@ use Carbon\Carbon;
 use App\Models\Parrain;
 use App\Models\LieuVote;
 use Illuminate\Support\Str;
+use App\Jobs\ProcessParrain;
 use App\Models\AgentTerrain;
 use Illuminate\Http\Request;
+use App\Jobs\ProcessParrainSms;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Jobs\ProcessParrain;
 use Illuminate\Support\Facades\Storage;
 
 class CommonItemController extends Controller
@@ -137,7 +138,7 @@ class CommonItemController extends Controller
                 if(!empty($arrCont[6])){
                     if($this->is_validContact($arrCont[3]) && $this->is_validContact($arrCont[7])){
                         //dd("Valide num ".$arrCont[2]." ".$arrCont[8]);
-                        $data->success = false;
+                        $data->success = true;
                         $data->message = "Processus en cours de traitement !";
                         $code = 201;
                         // $data2 = $this->lauchProcForParrain($cfinal);
@@ -172,7 +173,7 @@ class CommonItemController extends Controller
                 }else{
                     if(sizeof($arrCont) <= 6){
                         //dd("Valide num ".$arrCont[2]." ".$arrCont[8]);
-                        $data->success = false;
+                        $data->success = true;
                         $data->message = "Processus en cours de traitement !";
                         $code = 201;
                         // $data2 = $this->lauchProcForParrain($cfinal);
@@ -202,6 +203,82 @@ class CommonItemController extends Controller
                         //     'status' => false ,
                         //     'id_sms' => -1,
                         //     'message' => 'Processus introuvable!',
+                        // ], 202);
+                    }
+                }
+            }
+        }
+
+        //dd($data);
+        //Log::debug($data);
+
+        return response()->json($data, $code);
+    }
+
+    public function checkernmd(Request $request){
+        // $allItem = $request->all();
+        // $collect2 = $request->collect();
+        // $content2 = $request->getContent();
+        $content = $request->text;
+        // dd($content, $request);
+        // $this->dataR = $this->treatgettext($request);
+        // $content = $this->dataR[2];
+        // $body = $request->all();
+        // $body2 = $request->input();
+        // $this->writelog($body);
+        // $this->writelog($body2);
+        $this->writelog($content);
+        // $this->writelog($collect2);
+        // $this->writelog($request->body);
+        //dd("ok");
+        $data = new \stdClass();
+
+        // dd($request->text);
+        if(empty($content)) return response()->json($data, 202);
+        $cfinal = "";
+        $code = 200;
+        if($this->is_base64Str($content)){
+            $cfinal = base64_decode($content, true);
+        }else{
+            $cfinal = $content;
+        }
+
+        if(preg_match("/PDCI/i", $cfinal)){
+            $arrCont = explode("*", $cfinal);
+            if( strlen($arrCont[0]) <= 4 && $arrCont[0] == "PDCI" ){
+                if(!empty($arrCont[6])){
+                    if($this->is_validContact($arrCont[1]) && $this->is_validContact($arrCont[5])){
+                        //dd("Valide num ".$arrCont[2]." ".$arrCont[8]);
+                        $data->success = true;
+                        $data->message = "Processus en cours de traitement !";
+                        $code = 201;
+                        // $data2 = $this->lauchProcForParrain($cfinal);
+                        ProcessParrainSms::dispatch($cfinal);
+                        return response()->json($data, $code);
+                        // exit();
+                        // if($data2->code == 200){
+                        //     return response()->json([
+                        //         'status' => true ,
+                        //         'id_sms' => $this->dataR[1],
+                        //         'message' => 'message successfull record',
+                        //     ], 200);
+                        // }
+                        
+                        // return response()->json([
+                        //     'status' => false ,
+                        //     'id_sms' => -1,
+                        //     'message' => 'Vérifier les numéros de téléphone!',
+                        // ], 202);
+                    }else{
+                        $data->success = false;
+                        $data->error = "Vérifier les numéros de téléphone!";
+                        $code = 202;
+                        return response()->json($data, $code);
+                        // exit();
+                        // return response()->json([
+                        //     'status' => false ,
+                        //     'id_sms' => -1,
+                        //     'message' => 'Vérifier les numéros de téléphone!',
                         // ], 202);
                     }
                 }

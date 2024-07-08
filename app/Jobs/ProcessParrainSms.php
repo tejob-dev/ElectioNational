@@ -17,7 +17,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 
-class ProcessParrain implements ShouldQueue
+class ProcessParrainSms implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -66,43 +66,44 @@ class ProcessParrain implements ShouldQueue
 
             // $timestampCr = strtotime($arrCont[1]);
             // $created_it = date("Y-m-d H:i:s", $timestampCr);
-            $created_it = Carbon::createFromFormat("d/m/Y H:i:s", str_replace("-", "/", $arrCont[1]))->toDateTimeString();
-            //dd($created_it);
-            $parrain = Parrain::where("created_at", $created_it)->first();
+            // $created_it = Carbon::createFromFormat("d/m/Y H:i:s", str_replace("-", "/", $arrCont[1]))->toDateTimeString();
+            // //dd($created_it);
+            // $parrain = Parrain::where("created_at", $created_it)->first();
             
-            if($parrain){
-                $data->success = true;
-                $data->message = "Enrégistrement trouvé, mise à jour!";
-                $data->error = "";
-                $code = 200;
+            // if($parrain){
+            //     $data->success = true;
+            //     $data->message = "Enrégistrement trouvé, mise à jour!";
+            //     $data->error = "";
+            //     $code = 200;
 
-                $parrain->extrait = $arrCont[3];
-                $parrain->observation = $arrCont[4];
-                $parrain->recenser = $arrCont[5];
-                $parrain->save();
-            }else{
-                $data->success = true;
-                $data->message = "Enrégistrement introuvale, non mise à jour!";
-                $data->error = "";
-                $code = 202;
-            }
+            //     $parrain->extrait = $arrCont[3];
+            //     $parrain->observation = $arrCont[4];
+            //     $parrain->recenser = $arrCont[5];
+            //     $parrain->save();
+            // }else{
+            //     $data->success = true;
+            //     $data->message = "Enrégistrement introuvale, non mise à jour!";
+            //     $data->error = "";
+            //     $code = 202;
+            // }
 
-            $electorat = ElectorParrain::where("created_at", $created_it)->first();
+            // $electorat = ElectorParrain::where("created_at", $created_it)->first();
 
-            if($electorat){
-                $electorat->recenser = $arrCont[5];
-                $electorat->save();
-            }
+            // if($electorat){
+            //     $electorat->recenser = $arrCont[5];
+            //     $electorat->save();
+            // }
 
-            $data->code = $code;
+            // $data->code = $code;
 
-            $this->writelog(json_encode($data));
+            // $this->writelog(json_encode($data));
             return null;
         }
 
-        $agTerrainPhone = $this->cleanPhone($arrCont[3]);
-        $parrainPhone = $this->cleanPhone($arrCont[7]);
+        $agTerrainPhone = $this->cleanPhone($arrCont[1]);
+        $parrainPhone = $this->cleanPhone($arrCont[5]);
         $agTerrain = AgentTerrain::with("lieuVote")->where("telephone", $agTerrainPhone)->first();
+        $agCommune = $agTerrain->commune;
 
         if(!$agTerrain) {
 
@@ -118,22 +119,22 @@ class ProcessParrain implements ShouldQueue
                 // $timestampCr = strtotime();
                 // $timestampDateNaissCr = strtotime($arrCont[6]);
                 // $dateNaiss = date("Y-m-d H:i:s", $timestampDateNaissCr);
-                $date_obj = Carbon::createFromFormat('d/m/Y', str_replace("-", "/", $arrCont[6]));
+                $date_obj = Carbon::createFromFormat('d/m/Y', str_replace("-", "/", $arrCont[4]));
                 // $lieuvote = LieuVote::where("libel", "like", "%".$arrCont[9]."%")->first();
                 $dateNaiss = $date_obj->format('Y-m-d H:i:s');
                 $dateNaissElect = $date_obj->format('d/m/Y');
-                $created_it = Carbon::createFromFormat("d/m/Y H:i:s", str_replace("-", "/", $arrCont[1]))->toDateTimeString();
+                // $created_it = Carbon::createFromFormat("d/m/Y H:i:s", str_replace("-", "/", $arrCont[1]))->toDateTimeString();
                 //dd("Valide num ".$agTerrainPhone." ".$dateNaiss);
                 Log::info(json_encode([
-                    'nom' => removeAccentsAndUpperCase($arrCont[4]),
-                    'prenom' => removeAccentsAndUpperCase($arrCont[5]),
+                    'nom' => removeAccentsAndUpperCase($arrCont[2]),
+                    'prenom' => removeAccentsAndUpperCase($arrCont[3]),
                     'date_naiss' => str_replace("\\", "", $dateNaissElect),
                 ]));
                 //CHECK ON LIST ELECTOR
                 $csvUrl = env('CSV_URL')??"http://127.0.0.1:5585";
                 $response = Http::post("$csvUrl/check_elector", [
-                    'nom' => removeAccentsAndUpperCase($arrCont[4]),
-                    'prenom' => removeAccentsAndUpperCase($arrCont[5]),
+                    'nom' => removeAccentsAndUpperCase($arrCont[2]),
+                    'prenom' => removeAccentsAndUpperCase($arrCont[3]),
                     'date_naiss' => str_replace("\\", "", $dateNaissElect),
                 ]);
                 
@@ -152,9 +153,9 @@ class ProcessParrain implements ShouldQueue
                 $extrait = "";
                 $observation = "";
                 $agent_recences = "";
-                if(array_key_exists(13, $arrCont)) $extrait = $arrCont[13];
-                if(array_key_exists(14, $arrCont)) $observation = $arrCont[14];
-                if(array_key_exists(15, $arrCont)) $agent_recences = $arrCont[15];
+                if(array_key_exists(9, $arrCont)) $extrait = $arrCont[9]=="Y"?"Oui":"Non";
+                $observation = "N/A"; //if(array_key_exists(14, $arrCont)) 
+                if(array_key_exists(11, $arrCont)) $agent_recences = $arrCont[11];
 
                 if($result_elector_exist){
                     //ADD PARRIN INFO IN ELECTOR LIST 2023
@@ -162,23 +163,23 @@ class ProcessParrain implements ShouldQueue
                     // $lvget = LieuVote::where("code", "=", "$arrCont[9]")->first();
                     ElectorParrain::create([
                         'subid' => "E23_$curr_index",
-                        'nom_prenoms' => strtoupper($arrCont[4])." ".ucwords($arrCont[5]),
+                        'nom_prenoms' => strtoupper($arrCont[2])." ".ucwords($arrCont[3]),
                         'phone' => "$parrainPhone",
                         'date_naiss' => "$dateNaiss",
                         'lieu_naiss' => "N/A",
-                        'profession' => "$arrCont[8]",
+                        'profession' => "$arrCont[6]",
                         'genre' => "N/A",
                         'adress_physiq' => "N/A",
                         'adress_postal' => "N/A",
                         'carte_elect' => "$result_cardelector",
                         'nom_lv' => $lvname!=null?($lvname):"AUTRE CIRCONSCRIPTION",
-                        'commune_id' => Commune::where("code", $arrCont[9])->first()?->id??null,
+                        'commune_id' => $agCommune?->id??null,
                         'agent_res_nompren' => "$agTerrain->nom $agTerrain->prenom",
                         'agent_res_phone' => "$agTerrainPhone",
                         'recenser' => "$agent_recences",
                         'elect_date' => "2023",
-                        'created_at' => $created_it,
-                        'updated_at' => $created_it,
+                        // 'created_at' => $created_it,
+                        // 'updated_at' => $created_it,
                     ]);
                 }
 
@@ -187,22 +188,22 @@ class ProcessParrain implements ShouldQueue
                     'nom_pren_par' => "$agTerrain->nom $agTerrain->prenom",
                     'telephone_par' => "$agTerrainPhone",
                     'recenser' => "$agent_recences",
-                    'nom' => "$arrCont[4]",
-                    'prenom' => "$arrCont[5]",
-                    'list_elect' => "$arrCont[10]",
-                    'cni_dispo' => "$arrCont[11]",
-                    'is_milit' => ($arrCont[12] == "1")?"Sympathisant":"Militant",
+                    'nom' => "$arrCont[2]",
+                    'prenom' => "$arrCont[3]",
+                    'list_elect' => $arrCont[7]=="Y"?"Oui":"Non",
+                    'cni_dispo' => $arrCont[8]=="Y"?"Oui":"Non",
+                    'is_milit' => $arrCont[10]=="M"?"Militant":"Sympathisant",
                     'extrait' => "$extrait",
                     'telephone' => "$parrainPhone",
                     'date_naiss' => "$dateNaiss",
                     // 'code_lv' => optional($arrCont[9])?"$arrCont[9]":"AUTRE CIRCONSCRIPTION",
-                    'commune_id' => Commune::where("code", $arrCont[9])->first()?->id??null,
+                    'commune_id' => $agCommune?->id??null,
                     'residence' => "N/A",
-                    'profession' => "$arrCont[8]",
+                    'profession' => "$arrCont[6]",
                     'observation' => "$observation",
                     'status' => $result_elector_exist?"Ok":"Non traité",
-                    'created_at' => $created_it,
-                    'updated_at' => $created_it,
+                    // 'created_at' => $created_it,
+                    // 'updated_at' => $created_it,
                 ];
                 //dd($parrainCr);
                 $parrain = Parrain::create(
@@ -212,9 +213,9 @@ class ProcessParrain implements ShouldQueue
                 $result = "No sms error message";
                 if($parrain){
                     if($result_elector_exist){
-                        $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[4])." ".ucwords($arrCont[5]).",\nTu figures sur la liste electorale de 2023.\nGardes un contact permanent avec ton Parrain ($agTerrainPhone).\n\nPDCI Digital");
+                        $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[2])." ".ucwords($arrCont[3]).",\nTu figures sur la liste electorale de 2023.\nGardes un contact permanent avec ton Parrain ($agTerrainPhone).\n\nPDCI Digital");
                     }else{
-                        $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[4])." ".ucwords($arrCont[5]).",\nTu ne figures pas sur la liste electorale de 2023.\nPour un accompagnement administratif, rapproches toi de ton Parrain ($agTerrainPhone).\n\nPDCI Digital");
+                        $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[2])." ".ucwords($arrCont[3]).",\nTu ne figures pas sur la liste electorale de 2023.\nPour un accompagnement administratif, rapproches toi de ton Parrain ($agTerrainPhone).\n\nPDCI Digital");
                     }
                 
                 

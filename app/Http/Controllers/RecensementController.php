@@ -1102,7 +1102,7 @@ class RecensementController extends Controller
                     // }
                     return $listofpv;
                 })
-                ->rawColumns(['agent', 
+                ->rawColumns(['agent',
                 'codelv', 
                 'commune', 
                 'profil', 
