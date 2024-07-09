@@ -125,7 +125,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(elector_parrains.id) AS elector_parrains_count')
                     ->value('elector_parrains_count');
 
-                    $this->fghijlist[0] = $count;
+                    // $this->fghijlist[0] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensescni', function ($item) {
@@ -141,7 +141,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[1] = $count;
+                    $this->fghijlist[] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensesncni', function ($item) {
@@ -157,7 +157,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[2] = $count;
+                    $this->fghijlist[] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensesextr', function ($item) {
@@ -173,7 +173,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[3] = $count;
+                    // $this->fghijlist[3] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensesnextr', function ($item) {
@@ -189,7 +189,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[4] = $count;
+                    // $this->fghijlist[4] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recenses', function ($item) {
@@ -325,7 +325,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(elector_parrains.id) AS elector_parrains_count')
                     ->value('elector_parrains_count');
 
-                    $this->fghijlist[0] = $count;
+                    // $this->fghijlist[0] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensescni', function ($item) {
@@ -341,7 +341,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[1] = $count;
+                    $this->fghijlist[] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensesncni', function ($item) {
@@ -357,7 +357,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[2] = $count;
+                    $this->fghijlist[] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensesextr', function ($item) {
@@ -373,7 +373,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[3] = $count;
+                    // $this->fghijlist[3] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensesnextr', function ($item) {
@@ -389,7 +389,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[4] = $count;
+                    // $this->fghijlist[4] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recenses', function ($item) {
@@ -518,7 +518,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(elector_parrains.id) AS elector_parrains_count')
                     ->value('elector_parrains_count');
 
-                    $this->fghijlist[0] = $count;
+                    // $this->fghijlist[0] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensescni', function ($item) {
@@ -534,7 +534,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[1] = $count;
+                    $this->fghijlist[] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensesncni', function ($item) {
@@ -550,7 +550,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[2] = $count;
+                    $this->fghijlist[] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensesextr', function ($item) {
@@ -566,7 +566,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[3] = $count;
+                    // $this->fghijlist[3] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensesnextr', function ($item) {
@@ -582,7 +582,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[4] = $count;
+                    // $this->fghijlist[4] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recenses', function ($item) {
@@ -716,7 +716,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(elector_parrains.id) AS elector_parrains_count')
                     ->value('elector_parrains_count');
 
-                    $this->fghijlist[0] = $count;
+                    // $this->fghijlist[0] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensescni', function ($item) {
@@ -732,7 +732,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[1] = $count;
+                    $this->fghijlist[] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensesncni', function ($item) {
@@ -748,7 +748,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[2] = $count;
+                    $this->fghijlist[] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensesextr', function ($item) {
@@ -764,7 +764,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[3] = $count;
+                    // $this->fghijlist[3] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recensesnextr', function ($item) {
@@ -780,7 +780,7 @@ class RecensementController extends Controller
                     ->selectRaw('COUNT(parrains.id) AS parrains_count')
                     ->value('parrains_count');
 
-                    $this->fghijlist[4] = $count;
+                    // $this->fghijlist[4] = $count;
                     return $count??"0";
                 })
                 ->addColumn('recenses', function ($item) {
