@@ -243,7 +243,7 @@ class CommonItemController extends Controller
             $cfinal = $content;
         }
 
-        if(preg_match("/PDCI/i", $cfinal)){
+        if(preg_match("/PDCI/i", strtoupper($cfinal))){
             $arrCont = explode("*", $cfinal);
             if( strlen($arrCont[0]) <= 4 && $arrCont[0] == "PDCI" ){
                 if(!empty($arrCont[6])){

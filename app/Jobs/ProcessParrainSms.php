@@ -155,7 +155,7 @@ class ProcessParrainSms implements ShouldQueue
                     $extrait = "";
                     $observation = "";
                     $agent_recences = "";
-                    if(array_key_exists(9, $arrCont)) $extrait = $arrCont[9]=="Y"?"Oui":"Non";
+                    if(array_key_exists(9, $arrCont)) $extrait = strtoupper($arrCont[9])=="Y"?"Oui":"Non";
                     $observation = "N/A"; //if(array_key_exists(14, $arrCont)) 
                     if(array_key_exists(11, $arrCont)) $agent_recences = $arrCont[11];
     
@@ -192,9 +192,9 @@ class ProcessParrainSms implements ShouldQueue
                         'recenser' => "$agent_recences",
                         'nom' => "$arrCont[2]",
                         'prenom' => "$arrCont[3]",
-                        'list_elect' => $arrCont[7]=="Y"?"Oui":"Non",
-                        'cni_dispo' => $arrCont[8]=="Y"?"Oui":"Non",
-                        'is_milit' => $arrCont[10]=="M"?"Militant":"Sympathisant",
+                        'list_elect' => strtoupper($arrCont[7])=="Y"?"Oui":"Non",
+                        'cni_dispo' => strtoupper($arrCont[8])=="Y"?"Oui":"Non",
+                        'is_milit' => strtoupper($arrCont[10])=="M"?"Militant":"Sympathisant",
                         'extrait' => "$extrait",
                         'telephone' => "$parrainPhone",
                         'date_naiss' => "$dateNaiss",
