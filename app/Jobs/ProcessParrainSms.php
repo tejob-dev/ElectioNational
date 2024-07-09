@@ -215,9 +215,9 @@ class ProcessParrainSms implements ShouldQueue
                     $result = "No sms error message";
                     if($parrain){
                         if($result_elector_exist){
-                            $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[2])." ".ucwords($arrCont[3]).",\nTu figures sur la liste electorale de 2023.\nGardes un contact permanent avec ton Parrain ($agTerrainPhone).\n\nPDCI Digital");
+                            $result = $this->sendMessage(array("225".$parrainPhone), 'PDCI-RDA', "Cher(e) ".strtoupper($arrCont[2])." ".ucwords($arrCont[3]).",\nTu figures sur la liste electorale de 2023.\nGardes un contact permanent avec ton Parrain ($agTerrainPhone).\n\nPDCI Digital");
                         }else{
-                            $result = $this->sendMessage(array("225".$parrainPhone), 'ELECTIO', "Cher(e) ".strtoupper($arrCont[2])." ".ucwords($arrCont[3]).",\nTu ne figures pas sur la liste electorale de 2023.\nPour un accompagnement administratif, rapproches toi de ton Parrain ($agTerrainPhone).\n\nPDCI Digital");
+                            $result = $this->sendMessage(array("225".$parrainPhone), 'PDCI-RDA', "Cher(e) ".strtoupper($arrCont[2])." ".ucwords($arrCont[3]).",\nTu ne figures pas sur la liste electorale de 2023.\nPour un accompagnement administratif, rapproches toi de ton Parrain ($agTerrainPhone).\n\nPDCI Digital");
                         }
                     
                     
